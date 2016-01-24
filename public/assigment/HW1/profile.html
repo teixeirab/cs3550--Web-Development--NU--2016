@@ -32,12 +32,10 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Project name</a>
+            <a class="navbar-brand">Form Maker</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="register.html">Register</a></li>
-                <li><a href="login.html">Login</a></li>
                 <li><a href="#">Username</a></li>
                 <li><a href="#">Logout</a></li>
             </ul>
@@ -49,18 +47,41 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-                <li><a href="home.html">Home</a></li>
+                <li class="active"><a href="home.html">Home <span class="sr-only">(current)</span></a></li>
                 <li><a href="profile.html">Profile</a></li>
                 <li><a href="adim.html">Admin</a></li>
                 <li><a href="forms.html">Forms</a></li>
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-
+            <form>
+                <div class="form-group">
+                    <label for="exampleInputUsername">Username</label>
+                    <input type="text" class="form-control" id="exampleInputUsername" placeholder="Username">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputFirstName">First Name</label>
+                    <input type="password" class="form-control" id="exampleInputFirstName" placeholder="eg. Bob">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputLastName">Last Name</label>
+                    <input type="password" class="form-control" id="exampleInputLastName" placeholder="eg. Burner">
+                </div>
+                <br>
+                <button type="submit" class="btn btn-default">Update</button>
+            </form>
         </div>
     </div>
 </div>
+
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
