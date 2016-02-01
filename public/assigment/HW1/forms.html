@@ -64,80 +64,235 @@
                 <li role="presentation"><a href="form-fields.html">Fields</a></li>
             </ul>
 
-            <form>
-                <div class="form-group">
-                    <label for="firstName">First Name:</label>
-                    <div class="form-inline">
-                        <input type="text" class="form-control" id="firstName" placeholder="First Name">
-                        <a href="#" class="btn btn-danger">
-                            <scan class="glyphicon glyphicon-remove"></scan>
-                        </a>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="lastName">Last Name:</label>
-                    <div class="form-inline">
-                        <input type="text" class="form-control" id="lastName" placeholder="Last Name">
-                        <a href="#" class="btn btn-danger">
-                            <scan class="glyphicon glyphicon-remove"></scan>
-                        </a>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="dob"> Date of Birth:</label>
-                    <div class="form-inline">
-                        <input type="date" class="form-control" id="dob" placeholder="Select Date">
-                        <a href="#" class="btn btn-danger">
-                            <scan class="glyphicon glyphicon-remove"></scan>
-                        </a>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="browsers"> Gender:</label>
-                    <form>
-                        <div class="form-inline">
-                            <input list="browsers"  class="form-control" placeholder="Select Gender">
-                            <datalist id="browsers">
-                                <option value="Male">
-                                <option value="Female">
-                            </datalist>
-                            <a href="#" class="btn btn-danger">
-                                <scan class="glyphicon glyphicon-remove"></scan>
-                            </a>
-                        </div>
-                    </form>
-                </div>
-                <div class="form-group">
-                    <label for="role"> Roles:</label>
-                    <form method="post">
-                            <fieldset>
-                                <input id="role" type="checkbox" name="animal" value="Admin" />Admin <br />
-                                <input type="checkbox" name="animal" value="Student" />Student<br />
-                                <input type="checkbox" name="animal" value="User" />User<br />
-                            </fieldset>
-                    </form>
-                </div>
-                <div class="form-group">
-                    <label for="license"> License Agreement:</label>
-                    <form method="post">
-                        <fieldset>
-                            <input id="license" type="checkbox" name="license" value="Yes" />Yes <br />
-                            <input type="checkbox" name="license" value="Yes" />No <br />
+            <table class="table">
+                <thead>
+                </thead>
+                <tr>
+                    <th>
+                        <div class="form-group">
+                            <label for="firstName">First Name:</label>
+                            <div class="form">
+                                <input type="text" class="form-control" id="firstName" placeholder="First Name">
 
-                        </fieldset>
-                    </form>
-                </div>
-                <div class="form-group">
-                    <label for="fields"> Add New Field:</label>
-                    <form>
-                        <input list="fields"  class="form-control" placeholder="Single Line Text">
-                        <datalist id="fields">
-                            <option value="Single Line Text">
-                            <option value="Long Line Text">
-                        </datalist>
-                    </form>
-                </div>
-            </form>
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <a href="#" class="btn btn-danger">
+                            <scan class="glyphicon glyphicon-remove"></scan>
+                        </a>
+                        <a href="#" class="btn btn-success">
+                            <scan class="glyphicon glyphicon-ok"></scan>
+                        </a>
+                        <a href="#" class="btn btn-primary">
+                            <scan class="glyphicon glyphicon-plus"></scan>
+                        </a>
+                        <a href="#" class="btn btn-info">
+                            <scan class="glyphicon glyphicon-list"></scan>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="#" class="btn btn-warning">
+                            Single Line Text Field
+                        </a>
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        <div class="form-group">
+                            <label for="lastName">First Name:</label>
+                            <div class="form">
+                                <input type="text" class="form-control" id="lastName" placeholder="Last Name">
+
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <a href="#" class="btn btn-danger">
+                            <scan class="glyphicon glyphicon-remove"></scan>
+                        </a>
+                        <a href="#" class="btn btn-success">
+                            <scan class="glyphicon glyphicon-ok"></scan>
+                        </a>
+                        <a href="#" class="btn btn-primary">
+                            <scan class="glyphicon glyphicon-plus"></scan>
+                        </a>
+                        <a href="#" class="btn btn-info">
+                            <scan class="glyphicon glyphicon-list"></scan>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="#" class="btn btn-warning">
+                            Single Line Text Field
+                        </a>
+                    </th>
+                </tr>
+
+                <tr>
+                    <th>
+                        <div class="form-group">
+                            <label for="dob">First Name:</label>
+                            <div class="form">
+                                <input type="date" class="form-control" id="dob" placeholder="Select Date">
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <a href="#" class="btn btn-danger">
+                            <scan class="glyphicon glyphicon-remove"></scan>
+                        </a>
+                        <a href="#" class="btn btn-success">
+                            <scan class="glyphicon glyphicon-ok"></scan>
+                        </a>
+                        <a href="#" class="btn btn-primary">
+                            <scan class="glyphicon glyphicon-plus"></scan>
+                        </a>
+                        <a href="#" class="btn btn-info">
+                            <scan class="glyphicon glyphicon-list"></scan>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="#" class="btn btn-warning">
+                            Date Field
+                        </a>
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        <div class="form-group">
+                            <label for="browsers">First Name:</label>
+                            <div class="form">
+                                <input list="browsers"  class="form-control" placeholder="Select Gender">
+                                <datalist id="browsers">
+                                    <option value="Male">
+                                    <option value="Female">
+                                </datalist>
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <a href="#" class="btn btn-danger">
+                            <scan class="glyphicon glyphicon-remove"></scan>
+                        </a>
+                        <a href="#" class="btn btn-success">
+                            <scan class="glyphicon glyphicon-ok"></scan>
+                        </a>
+                        <a href="#" class="btn btn-primary">
+                            <scan class="glyphicon glyphicon-plus"></scan>
+                        </a>
+                        <a href="#" class="btn btn-info">
+                            <scan class="glyphicon glyphicon-list"></scan>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="#" class="btn btn-warning">
+                            Drodpdown Field
+                        </a>
+                    </th>
+                </tr>
+
+                <tr>
+                    <th>
+                        <div class="form-group">
+                            <label for="role"> Roles:</label>
+                            <form method="post">
+                                <fieldset>
+                                    <input id="role" type="checkbox" name="animal" value="Admin" />Admin <br />
+                                    <input type="checkbox" name="animal" value="Student" />Student<br />
+                                    <input type="checkbox" name="animal" value="User" />User<br />
+                                </fieldset>
+                            </form>
+                        </div>
+                    </th>
+                    <th>
+                        <a href="#" class="btn btn-danger">
+                            <scan class="glyphicon glyphicon-remove"></scan>
+                        </a>
+                        <a href="#" class="btn btn-success">
+                            <scan class="glyphicon glyphicon-ok"></scan>
+                        </a>
+                        <a href="#" class="btn btn-primary">
+                            <scan class="glyphicon glyphicon-plus"></scan>
+                        </a>
+                        <a href="#" class="btn btn-info">
+                            <scan class="glyphicon glyphicon-list"></scan>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="#" class="btn btn-warning">
+                            Checkboxes Field
+                        </a>
+                    </th>
+                </tr>
+
+                <tr>
+                    <th>
+                        <div class="form-group">
+                            <label for="license"> License Agreement:</label>
+                            <form method="post">
+                                <fieldset>
+                                    <input id="license" type="checkbox" name="license" value="Yes" />Yes <br />
+                                    <input type="checkbox" name="license" value="Yes" />No <br />
+
+                                </fieldset>
+                            </form>
+                        </div>
+                    </th>
+                    <th>
+                        <a href="#" class="btn btn-danger">
+                            <scan class="glyphicon glyphicon-remove"></scan>
+                        </a>
+                        <a href="#" class="btn btn-success">
+                            <scan class="glyphicon glyphicon-ok"></scan>
+                        </a>
+                        <a href="#" class="btn btn-primary">
+                            <scan class="glyphicon glyphicon-plus"></scan>
+                        </a>
+                        <a href="#" class="btn btn-info">
+                            <scan class="glyphicon glyphicon-list"></scan>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="#" class="btn btn-warning">
+                            Radio Buttons Field
+                        </a>
+                    </th>
+                </tr>
+
+                <tr>
+                    <th>
+                        <div class="form-group">
+                            <label for="fields"> Add New Field:</label>
+                            <form>
+                                <input list="fields"  class="form-control" placeholder="Single Line Text">
+                                <datalist id="fields">
+                                    <option value="Single Line Text">
+                                    <option value="Long Line Text">
+                                </datalist>
+                            </form>
+                        </div>
+                    </th>
+                    <th>
+                        <a href="#" class="btn btn-danger">
+                            <scan class="glyphicon glyphicon-remove"></scan>
+                        </a>
+                        <a href="#" class="btn btn-success">
+                            <scan class="glyphicon glyphicon-ok"></scan>
+                        </a>
+                        <a href="#" class="btn btn-primary">
+                            <scan class="glyphicon glyphicon-plus"></scan>
+                        </a>
+                        <a href="#" class="btn btn-info">
+                            <scan class="glyphicon glyphicon-list"></scan>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="#" class="btn btn-warning">
+                            Add New Field UI
+                        </a>
+                    </th>
+                </tr>
+            </table>
         </div>
     </div>
 </div>
