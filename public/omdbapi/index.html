@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js">
+    <link href="style.css" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+    <script src="app.js"></script>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="container">
+        <h1> Search Movies</h1>
+
+        <div class="row">
+            <div class="col-xs-6">
+                <input id="movieTitle" class="form-control" placeholder="i.e. Batman">
+                <button id="searchBtn" class="btn btn-primary btn-block">Search Movie</button>
+                <h2>
+                    Search Results
+                </h2>
+                Page: <span id="currentPage">1</span>
+                <button class="btn btn-default" id ="previousPage">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </button>
+                <button class="btn btn-default" id ="nextPage">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </button>
+                Results: <span id="totalResults"></span>
+
+
+                <table class ="table table-striped" id="searchResults">
+                    <thead>
+                    <tr>
+                        <th>Poster</th>
+                        <th>Title</th>
+                        <th>Year</th>
+                        <th>IMDB ID</th>
+                    </tr>
+                    </thead>
+                    <tbody id="container">
+                    <tr id="template">
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-xs-6">
+                <h2>Details</h2>
+                <h3 id="detailsTitle"></h3>
+                <h4>Director: <span id="detailsDirector"> </span></h4>
+                <img id="detailsPoster" >
+                <p id="detailsPlot"></p>
+                <h4>Actors:</h4>
+                <ul id ="detailsActor"></ul>
+
+            </div>
+
+        </div>
+
+    </div>
+</body>
+</html>
+
+

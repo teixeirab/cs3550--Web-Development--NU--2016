@@ -95,29 +95,18 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Profile</a>
+                    <ul class="nav navbar-nav">
+                        <li role="presentation" class="active"><a href="">Summary</a></li>
+                        <li role="presentation"><a href="">RWC</a></li>
+                        <li role="presentation"><a href="">SMT</a></li>
+                        <li role="presentation"><a href="">Valuations</a></li>
+                        <li role="presentation"><a href="">Risk</a></li>
+                        <li role="presentation"><a href="">Momentum</a></li>
+                        <li role="presentation"><a href="">Reports</a></li>
+                    </ul>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-left">
-                        <li>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-dashboard"></i>
-                            </a>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-globe"></i>
-                                <b class="caret"></b>
-                                <span class="notification">5</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Notification 1</a></li>
-                                <li><a href="#">Notification 2</a></li>
-                                <li><a href="#">Notification 3</a></li>
-                                <li><a href="#">Notification 4</a></li>
-                                <li><a href="#">Another notification</a></li>
-                            </ul>
-                        </li>
                         <li>
                             <a href="">
                                 <i class="fa fa-search"></i>
@@ -130,21 +119,6 @@
                             <a href="">
                                 Account
                             </a>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                Dropdown
-                                <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                            </ul>
                         </li>
                         <li>
                             <a href="#">
@@ -159,16 +133,6 @@
 
         <div class="content">
             <div class="container-fluid">
-                <ul class="nav nav-tabs">
-                    <li role="presentation" class="active"><a href="">Summary</a></li>
-                    <li role="presentation"><a href="">RWC</a></li>
-                    <li role="presentation"><a href="">SMT</a></li>
-                    <li role="presentation"><a href="">Valuations</a></li>
-                    <li role="presentation"><a href="">Risk</a></li>
-                    <li role="presentation"><a href="">Momentum</a></li>
-                    <li role="presentation"><a href="">Reports</a></li>
-
-                </ul>
                 <div class="row">
                     <div class="col-md-3">
                         <div class="card">
@@ -177,24 +141,29 @@
                                 <p class="category">APPLE INC AAPL</p>
                             </div>
                             <div class="content">
-                                <div class="table-full-width">
+                                <div class="table-full-responsive">
                                     <table class="table">
                                         <tbody>
                                         <tr>
-                                            <td>Price: 96.43 (Feb 1, 2016)</td>
+                                            <td>Price:</td>
+                                            <td>96.43 (Feb 1, 2016)</td>
+
                                         </tr>
                                         <tr>
-                                            <td>Warranted Price: 209.23</td>
+                                            <td>Warranted Price:</td>
+                                            <td>209.23</td>
                                         </tr>
                                         <tr>
-                                            <td>Market Cap (bil): 537.959
-                                            </td>
+                                            <td>Market Cap (bil):</td>
+                                            <td>537.959</td>
                                         </tr>
                                         <tr>
                                             <td>Technology Hardware, Storage & Peripherals</td>
+                                            <td></td>
                                         </tr>
                                         <tr>
                                             <td>United States</td>
+                                            <td></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -208,56 +177,17 @@
                             <div class="header">
                                 <h4 class="title">Relative Wealth Chart:</h4>
                             </div>
-
-                            </div>
                         </div>
                     </div>
-                </div>
 
-
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title">Risk</h4>
-                            </div>
-                            <div class="content">
-                                <div class="table-full-width">
-                                    <table class="table">
-                                        <tbody>
-                                        <tr>
-                                            <td>Probability of Default</td>
-                                            <td>0%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Accounting Quality:</td>
-                                            <td>Good</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Governance:</td>
-                                            <td>Good</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Credit Quality:</td>
-                                            <td>AA+</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-3 col-lg-3">
                         <div class="card">
                             <div class="header">
                                 <h4 class="title">Valuation</h4>
                             </div>
                             <div class="content">
                                 <div class="table-full-width">
-                                    <table class="table">
+                                    <table class="table table-responsive">
                                         <tbody>
                                         <tr>
                                             <th></th>
@@ -291,7 +221,47 @@
                     </div>
                 </div>
 
+
+
                 <div class="row">
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Risk</h4>
+                            </div>
+                            <div class="content">
+                                <div class="table-full-width">
+                                    <table class="table table-responsive">
+                                        <tbody>
+                                        <tr>
+                                            <td>Probability of Default</td>
+                                            <td>0%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Accounting Quality:</td>
+                                            <td>Good</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Governance:</td>
+                                            <td>Good</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Credit Quality:</td>
+                                            <td>AA+</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card">
+
+                        </div>
+                    </div>
+
                     <div class="col-md-3">
                         <div class="card ">
                             <div class="header">
@@ -299,7 +269,7 @@
                             </div>
                             <div class="content">
                                 <div class="table-full-width">
-                                    <table class="table">
+                                    <table class="table table-responsive">
                                         <tbody>
                                         <tr>
                                             <th></th>
@@ -326,7 +296,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
 
