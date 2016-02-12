@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="MovieAdminApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Admin Page</title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <script src="js/app.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div class ='container'>
+        <h1>Movie List</h1>
+        <table ng-controller="MovieListController" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Director</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th><input ng-model= "movie.id" class="form-control"></th>
+                    <th><input ng-model= "movie.title" class="form-control"></th>
+                    <th><input ng-model= "movie.director" class="form-control"></th>
+                    <th>
+                        <button ng-click="addMovie()" class="btn btn-success">
+                            Add
+                        </button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="movie in movies">
+                    <td>{{movie.id}}</td>
+                    <td>{{movie.title}}</td>
+                    <td>{{movie.director}}</td>
+                    <td>
+                        <button ng-click="deleteMovie()" class="btn btn-danger">
+                            Delete
+                        </button>
+
+                        <button ng-click="selectMovie()" class="btn btn-info">
+                            Select
+                        </button>
+
+                        <button ng-click="updateMovie()" class="btn btn-default">
+                            Update
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+</body>
+</html>
