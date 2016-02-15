@@ -11,32 +11,31 @@
             {id: 125, title: "Lol", director: "Abrams"}
         ];
 
-        $scope.addMovie = function(){
+        $scope.addMovie = addMovie;
+        $scope.deleteMovie = deleteMovie;
+        $scope.selectMovie = selectMovie;
+        $scope.updateMovie = updateMovie;
+
+        function addMovie(movie){
             var newMovie = {
-                id : $scope.movie.id,
-                title: $scope.movie.title,
-                director: $scope.movie.director
+                id : movie.id,
+                title: movie.title,
+                director: movie.director
             };
             $scope.movies.push(newMovie);
         }
 
-        $scope.deleteMovie = function(movie){
-            var index = $scope.movies.indexOf(movie);
-
-            $scope.movies.splice(index, 1);
+        function deleteMovie (index){
+            $scope.movie.splice(index, 1);
         }
 
-        $scope.selectMovie = function(movie){
+        function selectMovie (movie){
             console.log(movie);
-            $scope.movie = {
-                id : movie.id,
-                title: movie.title,
-                director: movie.director
-            }
+
         }
 
-        $scope.updateMovie = function(movie){
-            
+         function updateMovie(movie){
+
         }
     }
 

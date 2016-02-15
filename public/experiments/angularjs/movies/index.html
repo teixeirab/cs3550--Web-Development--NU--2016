@@ -8,8 +8,11 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
     <script src="js/app.js"></script>
-    <style>
 
+    <style>
+        .nowrap{
+            white-space: nowrap;
+        }
     </style>
 </head>
 <body>
@@ -31,6 +34,9 @@
                         <button ng-click="addMovie()" class="btn btn-success">
                             Add
                         </button>
+                        <button ng-click="updateMovie()" class="btn btn-default">
+                            Update
+                        </button>
                     </th>
                 </tr>
             </thead>
@@ -39,7 +45,7 @@
                     <td>{{movie.id}}</td>
                     <td>{{movie.title}}</td>
                     <td>{{movie.director}}</td>
-                    <td>
+                    <td class="nowrap">
                         <button ng-click="deleteMovie()" class="btn btn-danger">
                             Delete
                         </button>
@@ -48,9 +54,7 @@
                             Select
                         </button>
 
-                        <button ng-click="updateMovie()" class="btn btn-default">
-                            Update
-                        </button>
+
                     </td>
                 </tr>
             </tbody>
