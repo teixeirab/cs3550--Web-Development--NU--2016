@@ -65,6 +65,7 @@
         $searchResults.empty();
         var totalResults = response.totalResults;
         var movies = response.Search;
+        console.log(response);
         console.log(totalResults);
         $totalResults.html(totalResults);
 
