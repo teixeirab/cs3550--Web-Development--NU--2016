@@ -34,6 +34,7 @@
         var data = response.dataset.data;
         var adjusted_data = [];
         var dates = [];
+        var lineChartData;
 
         for (var m=0; m < 40; m++){
             var row = data[m];
@@ -45,8 +46,9 @@
         }
 
 
-        var lineChartData = {
-            labels : dates,
+
+        lineChartData = {
+            labels : dates.reverse(),
             datasets : [
                 {
                     label: "Close Price",
@@ -56,7 +58,7 @@
                     pointStrokeColor : "#fff",
                     pointHighlightFill : "#fff",
                     pointHighlightStroke : "rgba(220,220,220,1)",
-                    data : adjusted_data
+                    data : adjusted_data.reverse()
                 }
             ]
 
