@@ -9,7 +9,7 @@
             ng-class="{'active' : $location.url().indexOf('admin') != -1}">
             <a href="#/admin">Admin</a></li>
         <li ng-show="currentUser"
-            ng-class="{'active' : $location.url() == '/forms'" >
+            ng-class="{'active' : $location.url() == '/forms' || $location.url() == '/fields'" >
             <a href="#/forms">Forms</a></li>
     </ul>
 </div>

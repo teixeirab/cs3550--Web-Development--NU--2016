@@ -7,7 +7,7 @@
         $scope.login = login;
 
         function login (user) {
-            var user = UserService.findUserByCredentials({username: user.username, password: user.password});
+            var user = UserService.findUserByCredentials(user.username, user.password);
             if (user) {
                 $rootScope.currentUser = user;
                 UserService.setCurrentUser(user);

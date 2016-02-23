@@ -39,7 +39,7 @@
             return $rootScope.currentUser;
         }
 
-        function createUser (user) {
+        function createUser (user, callback) {
             var user = {
                 username: user.username,
                 email: user.email,
@@ -60,24 +60,24 @@
             return null;
         }
 
-        function findUserByCredentials(credentials) {
+        function findUserByCredentials(username, password, callback) {
             for (var u in model.users) {
-                if (model.users[u].username === credentials.username &&
-                    model.users[u].password === credentials.password) {
+                if (model.users[u].username === username &&
+                    model.users[u].password === password) {
                     return model.users[u];
                 }
             }
             return null;
         }
 
-        function updateUser (currentUser) {
-            var user = model.findUserByUsername (currentUser.username);
+        function updateUser (userName, callback) {
+            var user = model.findUserByUsername (userName);
             if (user != null) {
-                user.firstName = currentUser.firstName;
-                user.lastName = currentUser.lastName;
-                user.lastName = currentUser.lastName;
-                user.password = currentUser.password;
-                user.email = currentUser.email;
+                user.firstName = user.firstName;
+                user.lastName = user.lastName;
+                user.lastName = user.lastName;
+                user.password = user.password;
+                user.email = user.email;
                 return user;
             } else {
                 return null;
@@ -86,11 +86,12 @@
 
 
         function deleteUserById(userId, callback){
-
+            var user = model.findUserByUsername (userName);
+            user.empty();
         }
 
         function findAllUsers(callback){
-
+            return model.users;
         }
     }
 })();
