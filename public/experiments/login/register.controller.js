@@ -1,6 +1,9 @@
+/**
+ * Created by becogontijo on 2/23/2016.
+ */
 (function(){
     angular
-        .module("FormBuilderApp")
+        .module("LoginExample")
         .controller("RegisterController", registerController);
 
     function registerController($location, $scope, UserService, $rootScope) {

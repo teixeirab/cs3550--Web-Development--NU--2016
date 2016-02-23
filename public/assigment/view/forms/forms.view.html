@@ -19,54 +19,28 @@
     <tr>
         <td>
             <form action="fields.view.html">
-                <input placeholder="name" type="text" class="form-control">
+                <input ng-model="form.name" placeholder="name" type="text" class="form-control">
             </form>
         </td>
         <td nowrap="">
             <form action="fields.view.html">
-                <a href="#" class="btn btn-success">
+                <a ng-click="updateForm(form)" href="#" class="btn btn-success">
                     <scan class="glyphicon glyphicon-ok"></scan>
                 </a>
-                <a href="#" class="btn btn-primary">
+                <a ng-click="addForm(form)" href="#" class="btn btn-primary">
                     <scan class="glyphicon glyphicon-plus"></scan>
                 </a>
             </form>
         </td>
     </tr>
-    <tr>
-        <td>Registration Form</td>
+    <tr ng-repeat="form in something">
+        <td>{{form.name}}</td>
         <td>
             <form action="fields.view.html">
-                <a href="#" class="btn btn-danger">
+                <a ng-click="deleteForm($index)" href="#" class="btn btn-danger">
                     <scan class="glyphicon glyphicon-remove"></scan>
                 </a>
-                <a href="#" class="btn btn-warning">
-                    <scan class="glyphicon glyphicon-pencil"></scan>
-                </a>
-            </form>
-        </td>
-    </tr>
-    <tr>
-        <td>Contact List</td>
-        <td>
-            <form action="fields.view.html">
-                <a href="#" class="btn btn-danger">
-                    <scan class="glyphicon glyphicon-remove"></scan>
-                </a>
-                <a href="#" class="btn btn-warning">
-                    <scan class="glyphicon glyphicon-pencil"></scan>
-                </a>
-            </form>
-        </td>
-    </tr>
-    <tr>
-        <td>To do List</td>
-        <td>
-            <form action="fields.view.html">
-                <a href="#" class="btn btn-danger">
-                    <scan class="glyphicon glyphicon-remove"></scan>
-                </a>
-                <a href="#" class="btn btn-warning">
+                <a ng-click="selectForm($index)" href="#" class="btn btn-warning">
                     <scan class="glyphicon glyphicon-pencil"></scan>
                 </a>
             </form>

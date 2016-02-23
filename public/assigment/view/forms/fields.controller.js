@@ -1,3 +1,9 @@
-/**
- * Created by becogontijo on 2/15/2016.
- */
+(function(){
+    angular
+        .module("FormBuilderApp")
+        .controller("FieldsController", FieldsController);
+
+    function FieldsController($scope, $location) {
+        $scope.$location = $location;
+    }
+})();
