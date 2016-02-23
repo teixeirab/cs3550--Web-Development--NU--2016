@@ -27,10 +27,19 @@
             deleteUserById : deleteUserById,
             updateUser : updateUser,
             setCurrentUser: setCurrentUser,
-            getCurrentUser: getCurrentUser
+            getCurrentUser: getCurrentUser,
+            findUserByUsername : findUserByUsername
         };
         return model;
 
+        function findUserByUsername(username) {
+            for (var u in model.users) {
+                if (model.users[u].username === username) {
+                    return model.users[u];
+                }
+            }
+            return null;
+        }
         function setCurrentUser (user) {
             $rootScope.currentUser = user;
         }
@@ -51,14 +60,7 @@
             return user;
         }
 
-        function findUserByUsername (username) {
-            for (var u in model.users) {
-                if (model.users[u].username === username) {
-                    return model.users[u];
-                }
-            }
-            return null;
-        }
+
 
         function findUserByCredentials(username, password, callback) {
             for (var u in model.users) {
