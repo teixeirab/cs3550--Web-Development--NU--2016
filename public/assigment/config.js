@@ -6,25 +6,32 @@
     function Configure($routeProvider) {
         $routeProvider
             .when("/home",{
-                templateUrl: "view/home/home.view.html"
+                templateUrl: "view/home/home.view.html",
+                controller: "HomeController"
             })
             .when("/admin",{
-                templateUrl: "view/admin/admin.view.html"
+                templateUrl: "view/admin/admin.view.html",
+                controller: "AdminController"
             })
             .when("/forms",{
-                templateUrl: "view/forms/forms.view.html"
+                templateUrl: "view/forms/forms.view.html",
+                controller: "FormsController"
             })
             .when("/fields",{
-                templateUrl: "view/forms/fields.view.html"
+                templateUrl: "view/forms/fields.view.html",
+                controller: "FieldsController"
             })
             .when("/login",{
-                templateUrl: "view/users/login.view.html"
+                templateUrl: "view/users/login.view.html",
+                controller: "LoginController"
             })
             .when("/profile",{
-                templateUrl: "view/users/profile.view.html"
+                templateUrl: "view/users/profile.view.html",
+                controller: "ProfileController"
             })
             .when("/register",{
-                templateUrl: "view/users/register.view.html"
+                templateUrl: "view/users/register.view.html",
+                controller: "RegisterController"
             })
             .otherwise({
                 redirectTo: "/home"

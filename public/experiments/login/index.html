@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="LoginExample">
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.min.js"></script>
+    <script src="app.js"></script>
+    <script src="config.js"></script>
+    <script src="user.service.client.js"></script>
+    <script src="header.controller.js"></script>
+    <script src="register.controller.js"></script>
+    <script src="profile.controller.js"></script>
+    <script src="login.controller.js"></script>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        a {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <br/>
+
+    <ng-include src="'header.view.html'"></ng-include>
+
+    <div ng-view></div>
+
+</div>
+</body>
+</html>
