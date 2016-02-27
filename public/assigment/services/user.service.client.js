@@ -32,13 +32,13 @@
         };
         return model;
 
-        function findUserByUsername(username) {
+        function findUserByUsername(username, callback) {
             for (var u in model.users) {
                 if (model.users[u].username === username) {
-                    return model.users[u];
+                    callback(model.users[u]);
                 }
             }
-            return null;
+            callback (null);
         }
         function setCurrentUser (user) {
             $rootScope.currentUser = user;
@@ -57,32 +57,40 @@
                 password: user.password
             };
             model.users.push(user);
-            return user;
+            callback(user);
         }
-
 
 
         function findUserByCredentials(username, password, callback) {
             for (var u in model.users) {
                 if (model.users[u].username === username &&
                     model.users[u].password === password) {
-                    return model.users[u];
+                    callback (model.users[u]);
                 }
             }
-            return null;
+            callback(null);
         }
 
-        function updateUser (userName, callback) {
-            var user = model.findUserByUsername (userName);
+        function findUserId (userId){
+            for (var u in model.users) {
+                if (model.users[u].id === userId) {
+                    return (model.users[u]);
+                }
+            }
+            return (null);
+        }
+
+        function updateUser (userId, user, callback) {
+            var userOld = model.findUserId (userId);
             if (user != null) {
-                user.firstName = user.firstName;
-                user.lastName = user.lastName;
-                user.lastName = user.lastName;
-                user.password = user.password;
-                user.email = user.email;
-                return user;
+                userOld.firstName = user.firstName;
+                userOld.lastName = user.lastName;
+                userOld.lastName = user.lastName;
+                userOld.password = user.password;
+                userOld.email = user.email;
+                callback(user);
             } else {
-                return null;
+                callback(null);
             }
         }
 
@@ -93,7 +101,7 @@
         }
 
         function findAllUsers(callback){
-            return model.users;
+            callback(model.users);
         }
     }
 })();

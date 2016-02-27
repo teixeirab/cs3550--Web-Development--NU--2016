@@ -9,7 +9,6 @@
 
         function register(user) {
             $scope.message = null;
-            var dup = UserService.findUserByUsername(user.username);
 
             if (user == null) {
                 $scope.message = "Please fill in the required fields";
@@ -28,13 +27,20 @@
                 return;
             }
 
-            if (dup != null) {
-                $scope.message = "User already exists";
-                return;
-            }
+            var checkExistence = function(response) {
+                if (response != null) {
+                    $scope.message = "User already exists";
+                }
+            };
 
-            var newUser = UserService.createUser($scope.user);
-            UserService.setCurrentUser(newUser);
+            UserService.findUserByUsername(user.username, checkExistence);
+
+            var setUser = function(response){
+                UserService.setCurrentUser(response);
+            };
+
+            UserService.createUser($scope.user, setUser);
+
             $location.url("/profile");
         }
     }

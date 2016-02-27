@@ -1,5 +1,5 @@
 <div class="table-responsive">
-    <table class="table table-striped">
+    <table class="table table-striped" ng-controller="AdminController">
         <thead>
         <tr>
             <th>
@@ -53,40 +53,10 @@
                 </form>
             </td>
         </tr>
-        <tr>
-            <td>alicebabe</td>
-            <td>ertyuio</td>
-            <td>student</td>
-            <td>
-                <form action="../forms/fields.view.html">
-                    <a href="#" class="btn btn-danger">
-                        <scan class="glyphicon glyphicon-remove"></scan>
-                    </a>
-                    <a href="#" class="btn btn-warning">
-                        <scan class="glyphicon glyphicon-pencil"></scan>
-                    </a>
-                </form>
-            </td>
-        </tr>
-        <tr>
-            <td>bob</td>
-            <td>123456789</td>
-            <td>faculty</td>
-            <td>
-                <form action="../forms/fields.view.html">
-                    <a href="#" class="btn btn-danger">
-                        <scan class="glyphicon glyphicon-remove"></scan>
-                    </a>
-                    <a href="#" class="btn btn-warning">
-                        <scan class="glyphicon glyphicon-pencil"></scan>
-                    </a>
-                </form>
-            </td>
-        </tr>
-        <tr>
-            <td>charlie</td>
-            <td>123456789</td>
-            <td>admin</td>
+        <tr ng-repeat="user in users">
+            <td>{{user.username}}</td>
+            <td>{{user.password}}</td>
+            <td>{{user.roles[0]}}</td>
             <td>
                 <form action="../forms/fields.view.html">
                     <a href="#" class="btn btn-danger">

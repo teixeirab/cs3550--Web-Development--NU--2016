@@ -3,7 +3,7 @@
     <li role="presentation"><a href="#/fields">Fields</a></li>
     <li role="presentation" class="active"><a href="#/forms">Forms</a></li>
 </ul>
-<table class="table table-striped">
+<table class="table table-striped" ng-controller="FormsController">
     <thead>
     <tr>
         <th>
@@ -18,31 +18,31 @@
     <tbody>
     <tr>
         <td>
-            <form action="fields.view.html">
-                <input ng-model="form.name" placeholder="name" type="text" class="form-control">
+            <form>
+                <input ng-model="form.title" placeholder="name" type="text" class="form-control">
             </form>
         </td>
         <td nowrap="">
-            <form action="fields.view.html">
-                <a ng-click="updateForm(form)" href="#" class="btn btn-success">
+            <form>
+                <button ng-click="updateForm(form)" class="btn btn-success">
                     <scan class="glyphicon glyphicon-ok"></scan>
-                </a>
-                <a ng-click="addForm(form)" href="#" class="btn btn-primary">
+                </button>
+                <button ng-click="addForm(form)" class="btn btn-primary">
                     <scan class="glyphicon glyphicon-plus"></scan>
-                </a>
+                </button>
             </form>
         </td>
     </tr>
-    <tr ng-repeat="form in something">
-        <td>{{form.name}}</td>
+    <tr ng-repeat="form in form">
+        <td>{{form.title}}</td>
         <td>
-            <form action="fields.view.html">
-                <a ng-click="deleteForm($index)" href="#" class="btn btn-danger">
+            <form>
+                <button ng-click="deleteForm(form)" class="btn btn-danger">
                     <scan class="glyphicon glyphicon-remove"></scan>
-                </a>
-                <a ng-click="selectForm($index)" href="#" class="btn btn-warning">
+                </button>
+                <button ng-click="selectForm(form.$index)" class="btn btn-warning">
                     <scan class="glyphicon glyphicon-pencil"></scan>
-                </a>
+                </button>
             </form>
         </td>
     </tr>

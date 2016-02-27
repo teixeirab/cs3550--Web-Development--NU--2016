@@ -1,9 +1,9 @@
 (function(){
     angular
         .module("FormBuilderApp")
-        .controller("AdminController", AdminController);
+        .controller("AdminController", adminController);
 
-    function AdminController($scope, $location) {
-        $scope.$location = $location;
+    function adminController($scope, UserService, $location, $rootScope) {
+        $scope.users = UserService.users;
     }
 })();
