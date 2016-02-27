@@ -14,18 +14,23 @@
             $scope.form = response;
         }
 
-        FormService.findAllFormsForUser(currentUser._id, renderForms);
+        function renderUserForm(){
+            FormService.findAllFormsForUser(currentUser._id, renderForms);
+        }
+
+        renderUserForm();
 
         function addForm(form){
-            FormService.createFormForUser(currentUser._id, form, renderForms)
+            FormService.createFormForUser(currentUser._id, form, renderUserForm)
         }
 
         function updateForm(form){
-            FormService.updateFormById(formId, newForm, renderForms)
+            FormService.updateFormById(formId, newForm, renderUserForm)
         }
 
         function deleteForm(form){
-            FormService.deleteFormById(form, renderForms);
+            console.log(form._id);
+            FormService.deleteFormById(form._id, renderUserForm);
         }
 
         function selectForm(form){
