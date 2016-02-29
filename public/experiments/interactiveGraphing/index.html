@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wells Fargo: Acquisition Story</title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js">
+    <link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700' rel='stylesheet' type='text/css'>
+    <link href="http://medliveplus.com/css/rubick_pres.css" rel="stylesheet"/>
+
+    <link href="style.css" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+    <script src="app.js"></script>
+    <script src="Chart.js-master/Chart.js"></script>
+
+</head>
+<body>
+
+<div class="container">
+    <h1>Wells Fargo: Acquisition Story </h1>
+    <div class="separator-container">
+        <div class="separator line-separator">∎</div>
+    </div>
+    <div>
+        <h4> Amidst <b>increasing market volatility and the specter of rising rates </b>, now may be a good time for banks
+            to invest
+            in long-term growth and profitability via strategic acquisitions. However, such an approach can be ineffectual
+            if the acquirer doesn’t have a solid balance sheet and a stable risk profile. By making acquisitions while the
+            market is at a low, acquirers improve their chances of outperforming in the years following the deal.
+            Acquisitions made during market highs often lead to post-acquisition underperformance,
+            simply due to the timing of the market cycle and its subsequent effect on synergies.
+        </h4>
+        <h4>Banks have been <b>priced abnormally</b> cheaply tracing back to `08 crisis levels</h4>
+        <div style="width:100%">
+            <div>
+                <label for="canvas1">Banks Aggregated Economic Yield:</label>
+                <canvas id="canvas1" height="180" width="600"></canvas>
+                <p style="font-size: small">Source: Produced by the author. Economic Yield = Forecasted Earnings / Market Capitalization.
+                    Industry-wide economic yield was market cap aggregated of all global banks. </p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="separator-container">
+        <div class="separator line-separator">∎</div>
+    </div>
+
+    <h4>
+        <b> Acquisitions May be the Best Solution to Improve Fundamentals: </b>
+        Two foreboding problems are facing banks right now: Credit exposures and interest rate limbo.
+        Specifically, banks need to decrease their exposures by diversifying their loan portfolios while still
+        ensuring that their core loans remain intact in order to maintain steady net interest income when rates rise.
+        These problems can be addressed by making acquisitions of entire enterprises or select loan portfolios
+    </h4>
+
+    <h4>To emphasize the value that Wachovia delivered to WFC relative to other deals in its cohort,
+        we can look at the following ROE graphs:</h4>
+
+    <div class="row">
+        <div class="col-xs-6">
+            <label for="canvas4">Wells Fargo Post Acquisition ROE:</label>
+            <canvas id="canvas4" height="300" width="400"></canvas>
+            <p style="font-size: small">Source: Produced by the author</p>
+        </div>
+        <div class="col-xs-6">
+            <label for="canvas5">Bank of America Post Acquisition ROE:</label>
+            <canvas id="canvas5" height="300" width="400"></canvas>
+        </div>
+    </div>
+
+    <div class="separator-container">
+        <div class="separator line-separator">∎</div>
+    </div>
+
+    <h4><b>Wells Fargo is one of the few large banks in the US to deliver post acquisition alpha </b> over the past 20
+        years in a consistent basis. WFC acquisition philosophy, as communicated in its Vision and Values statement:
+        Every acquisition it makes is expected to increase EPS within three years and deliver at least 15% IRR</h4>
+    <h4>Other banks like <b> BAC, C, or JPM have not been as successful</b> in its acquisition as WFC</h4>
+
+    <div style="width:100%">
+        <div>
+            <label for="acquisitionMetrics">Acquisition Strategy Comparison:</label>
+            <table class ="table table-striped" id="acquisitionMetrics">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Wells Fargo</th>
+                    <th>Bank of America</th>
+                    <th>Citigroup</th>
+                    <th>JP Morgan</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Sample Size</td>
+                        <td>46</td>
+                        <td>31</td>
+                        <td>63</td>
+                        <td>61</td>
+                    </tr>
+                    <tr>
+                        <td>Transaction on ROE Spread (%)</td>
+                        <td>8.94</td>
+                        <td>9.71</td>
+                        <td>9.34</td>
+                        <td>6.7</td>
+                    </tr>
+                    <tr>
+                        <td>3yr asset growth post acquisitions (%)</td>
+                        <td>10.25</td>
+                        <td>14.94</td>
+                        <td>11.23</td>
+                        <td>22.71</td>
+                    </tr>
+                    <tr>
+                        <td>3yr Change in ROE (%)</td>
+                        <td>-0.24</td>
+                        <td>-1.85</td>
+                        <td>-6.23</td>
+                        <td>-0.65</td>
+                    </tr>
+                    <tr>
+                        <td>3yr post announcement relative return (%)</td>
+                        <td>36.6</td>
+                        <td>-15.6</td>
+                        <td>-19.0</td>
+                        <td>10.3</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p style="font-size: small">Source: Produced by the author, all metrics with the exception of post
+                announcement relative return are median aggregations.</p>
+        </div>
+    </div>
+
+    <div class="separator-container">
+        <div class="separator line-separator">∎</div>
+    </div>
+    <h4>Wells Fargo is also quite capable of growing its in-house loan portfolio as well, recording 8% y/y growth as of
+        Q4’15. This is above competitors Bank of America and Citigroup, which had loan growth of sub-7% and -4%,
+        respectively
+    </h4>
+    <h4>
+        For greater context, take a look at the comps tables below, which show historical loan loss provision and net
+        charge-off data for Wells Fargo, Bank of America, and Citigroup:
+    </h4>
+    <div style="width:100%">
+        <div class="row">
+            <div class="col-xs-6">
+                <label for="otherMetrics">Loan Losses Provisions:</label>
+                <table class ="table table-striped" id="otherMetrics">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>2011</th>
+                        <th>2012</th>
+                        <th>2013</th>
+                        <th>2014</th>
+                        <th>2015</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>BAC</td>
+                        <td>20,833</td>
+                        <td>14,908</td>
+                        <td>3,556</td>
+                        <td>2,275</td>
+                        <td>3,161</td>
+                    </tr>
+                    <tr>
+                        <td>as a % of total loans</td>
+                        <td>2.25%</td>
+                        <td>1.64%</td>
+                        <td>0.38%</td>
+                        <td>0.26%</td>
+                        <td>0.36%</td>
+                    </tr>
+                    <tr>
+                        <td>C</td>
+                        <td>12,359</td>
+                        <td>11,329</td>
+                        <td>8,514 </td>
+                        <td>7,467</td>
+                        <td>7,913</td>
+                    </tr>
+                    <tr>
+                        <td>as a % of total loans</td>
+                        <td>2.00%</td>
+                        <td>1.80%</td>
+                        <td>1.32%</td>
+                        <td>1.19%</td>
+                        <td>1.38%</td>
+                    </tr>
+                    <tr>
+                        <td>WFC</td>
+                        <td>7,899</td>
+                        <td>7,217</td>
+                        <td>2,309</td>
+                        <td>1,395</td>
+                        <td>2,442</td>
+                    </tr>
+                    <tr>
+                        <td>as a % of total loans</td>
+                        <td>1.00%</td>
+                        <td>0.90%</td>
+                        <td>0.28%</td>
+                        <td>0.16%</td>
+                        <td>0.27%</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p style="font-size: small">Source: Produced by the author</p>
+            </div>
+
+            <div class="col-xs-6">
+                <label for="otherMetrics2">Net Charge Offs:</label>
+                <table class ="table table-striped" id="otherMetrics2">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>2011</th>
+                        <th>2012</th>
+                        <th>2013</th>
+                        <th>2014</th>
+                        <th>2015</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>BAC</td>
+                        <td>20,833</td>
+                        <td>14,908</td>
+                        <td>3,556</td>
+                        <td>2,275</td>
+                        <td>3,161</td>
+                    </tr>
+                    <tr>
+                        <td>as a % of total loans</td>
+                        <td>2.25%</td>
+                        <td>1.64%</td>
+                        <td>0.38%</td>
+                        <td>0.26%</td>
+                        <td>0.36%</td>
+                    </tr>
+                    <tr>
+                        <td>C</td>
+                        <td>12,359</td>
+                        <td>11,329</td>
+                        <td>8,514 </td>
+                        <td>7,467</td>
+                        <td>7,913</td>
+                    </tr>
+                    <tr>
+                        <td>as a % of total loans</td>
+                        <td>2.00%</td>
+                        <td>1.80%</td>
+                        <td>1.32%</td>
+                        <td>1.19%</td>
+                        <td>1.38%</td>
+                    </tr>
+                    <tr>
+                        <td>WFC</td>
+                        <td>7,899</td>
+                        <td>7,217</td>
+                        <td>2,309</td>
+                        <td>1,395</td>
+                        <td>2,442</td>
+                    </tr>
+                    <tr>
+                        <td>as a % of total loans</td>
+                        <td>1.00%</td>
+                        <td>0.90%</td>
+                        <td>0.28%</td>
+                        <td>0.16%</td>
+                        <td>0.27%</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="separator-container">
+        <div class="separator line-separator">∎</div>
+    </div>
+
+    <h3><b>Conclusion:</b></h3>
+    <h4>Overall, with a track record of making solid acquisitions for growth while at the same time
+        maintaining superior credit quality relative to its peers, WFC is uniquely poised to weather the current
+        macro environment. Its purchase of a $32 billion loan portfolio from GE Capital late last year shows that
+        it continues to make acquisitions with expansion in mind, and we believe this is key to its future growth</h4>
+
+</div>
+
