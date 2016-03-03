@@ -33,14 +33,14 @@
             </form>
         </td>
     </tr>
-    <tr ng-repeat="form in form">
+    <tr ng-repeat="form in forms">
         <td>{{form.title}}</td>
         <td>
             <form>
                 <button ng-click="deleteForm(form)" class="btn btn-danger">
                     <scan class="glyphicon glyphicon-remove"></scan>
                 </button>
-                <button ng-click="selectForm(form.$index)" class="btn btn-warning">
+                <button ng-click="selectForm($index)" class="btn btn-warning">
                     <scan class="glyphicon glyphicon-pencil"></scan>
                 </button>
             </form>

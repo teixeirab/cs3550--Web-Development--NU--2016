@@ -54,7 +54,7 @@ lbd = {
         image_src = $sidebar.data('image');
         
         if(image_src !== undefined){
-            sidebar_container = '<div class="sidebar-background" style="background-image: url(' + image_src + ') "/>'
+            sidebar_container = '<div class="sidebar-background" css="background-image: url(' + image_src + ') "/>'
             $sidebar.append(sidebar_container);
         }  
     },

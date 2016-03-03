@@ -98,7 +98,7 @@
 			// Number - Scale label font size in pixels
 			scaleFontSize: 12,
 
-			// String - Scale label font weight style
+			// String - Scale label font weight css
 			scaleFontStyle: "normal",
 
 			// String - Scale label font colour
@@ -128,7 +128,7 @@
 			// Number - Tooltip label font size in pixels
 			tooltipFontSize: 14,
 
-			// String - Tooltip font weight style
+			// String - Tooltip font weight css
 			tooltipFontStyle: "normal",
 
 			// String - Tooltip label font colour
@@ -140,7 +140,7 @@
 			// Number - Tooltip title font size in pixels
 			tooltipTitleFontSize: 14,
 
-			// String - Tooltip title font weight style
+			// String - Tooltip title font weight css
 			tooltipTitleFontStyle: "bold",
 
 			// String - Tooltip title font colour

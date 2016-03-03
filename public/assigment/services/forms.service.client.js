@@ -53,15 +53,14 @@
             }
         }
 
-        function updateFormById(formId, newForm, callback){
-
-            for (var f in model.forms) {
-                if (model.forms[f]._id === formId) {
-                    model.forms[f] = newForm;
+        function updateFormById (formId, newForm, callback) {
+            var forms = model.forms;
+            for (var f in forms) {
+                if (forms[f]._id === formId) {
+                    forms[f] = newForm;
+                    callback(model.forms);
                 }
-                callback();
             }
-
         }
     }
 })();

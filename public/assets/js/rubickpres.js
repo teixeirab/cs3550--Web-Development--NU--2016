@@ -249,7 +249,7 @@ rubik = {
                 src = $image.attr('src');
             }
 
-            div = '<div class="responsive-background" style="background-image:url(' + src + ')"/>';
+            div = '<div class="responsive-background" css="background-image:url(' + src + ')"/>';
             $image.after(div);
             $image.addClass('hidden-xs');
         });
