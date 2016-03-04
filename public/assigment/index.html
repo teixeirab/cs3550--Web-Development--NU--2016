@@ -12,12 +12,15 @@
 
         <!--  CDNs -->
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js">
+        <script>window.jQuery || document.write('<script src="https://code.jquery.com/jquery-1.12.0.min.js"><\/script>')</script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.min.js"></script>
 
+
         <!-- Custom styles for this template -->
         <link href="css/style.css" rel="stylesheet">
+
 
         <!-- JS Files -->
         <script src="app.js"></script>
@@ -53,12 +56,9 @@
         <div class="row">
             <div ng-include="'view/sidebar/sidebar.view.html'"></div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-view>
-
-
             </div>
         </div>
     </div>
-
     </body>
 </html>
 
