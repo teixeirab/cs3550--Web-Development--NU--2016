@@ -1,7 +1,5 @@
-/**
- * Created by becogontijo on 2/22/2016.
- */
 (function(){
+    "use strict";
     angular
         .module("FormBuilderApp")
         .factory("UserService", UserService);
@@ -20,7 +18,6 @@
                      {"_id":567, "firstName":"Edward", "lastName":"Norton", "username":"ed", "password":"ed",
                          "roles": ["student"], "email": "e@gmail.com"}
                  ],
-
             findUserByCredentials : findUserByCredentials,
             findAllUsers: findAllUsers,
             createUser : createUser,

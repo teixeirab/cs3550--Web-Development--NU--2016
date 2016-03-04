@@ -1,4 +1,5 @@
 (function(){
+    "use strict";
     angular
         .module("FormBuilderApp")
         .factory("FormService", FormService);
@@ -14,9 +15,8 @@
                 {"_id": "020", "title": "CDs",      "userId": 234},
                 {"_id": "021", "title": "CDs1",      "userId": 234},
                 {"_id": "022", "title": "CDs2",      "userId": 234},
-                {"_id": "023", "title": "CDs3",      "userId": 234},
+                {"_id": "023", "title": "CDs3",      "userId": 234}
             ],
-
             createFormForUser : createFormForUser,
             findAllFormsForUser : findAllFormsForUser,
             deleteFormById : deleteFormById,
