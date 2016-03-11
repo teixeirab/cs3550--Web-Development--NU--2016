@@ -37,6 +37,7 @@
             }
             callback (null);
         }
+
         function setCurrentUser (user) {
             $rootScope.currentUser = user;
         }

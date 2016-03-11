@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en" ng-app="DZtipsApp">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+
+    <title>DZ Tips </title>
+
+    <meta name="keywords" content="coming soon page, under construction page, bootstrap page, free bootstrap page, creative tim, not ready page, demo page">
+    <meta name="description" content="Free one page item based on Bootstrap 3. Use Coming Sssoon Page to create a following group users before actually starting your project! ">
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@creativetim">
+    <meta name="twitter:title" content="Coming Sssoon Page by Creative Tim">
+    <meta name="twitter:description" content="Free one page item based on Bootstrap 3. Use Coming Sssoon Page to create a following group users before actually starting your project! ">
+    <meta name="twitter:creator" content="@creativetim">
+    <meta name="twitter:image" content="http://s3.amazonaws.com/creativetim_bucket/products/20/coming_sssoon_thumbnail.png">
+
+    <!-- Open Graph data -->
+    <meta property="og:title" content="Coming Sssoon Page by Creative Tim" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="http://demos.creative-tim.com/coming-sssoon-demo-image-background" />
+    <meta property="og:image" content="http://s3.amazonaws.com/creativetim_bucket/products/20/coming_sssoon_thumbnail.png" />
+    <meta property="og:description" content="Free one page item based on Bootstrap 3. Use Coming Sssoon Page to create a following group users before actually starting your project! " />
+    <meta property="og:site_name" content="Creative Tim" />
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+
+    <!--     Fonts     -->
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Grand+Hotel' rel='stylesheet' type='text/css'>
+
+    <script>window.jQuery || document.write('<script src="https://code.jquery.com/jquery-1.12.0.min.js"><\/script>')</script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.min.js"></script>
+
+
+    <script src="app.js"></script>
+    <script src="config.js"></script>
+    <script src="view/main/main.controller.js"></script>
+    <script src="view/header/header.controller.js"></script>
+    <script src="view/footer/footer.controller.js"></script>
+    <script src="view/home/home.controller.js"></script>
+
+
+
+</head>
+
+<body ng-controller="MainController">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div ng-include="'view/header/header.view.html'"></div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-include="'view/header/header.view.html'">
+
+    </div>
+
+
+</body>
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-46172202-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+</html>
