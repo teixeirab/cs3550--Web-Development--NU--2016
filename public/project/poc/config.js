@@ -42,6 +42,26 @@
                 templateUrl: "view/investing/trading.view.html",
                 controller: "TradingController"
             })
+            .when("/summary",{
+                templateUrl: "view/analysis/company.view.html",
+                controller: "CompanyController"
+            })
+            .when("/momentum",{
+                templateUrl: "view/analysis/momentum.view.html",
+                controller: "MomentumController"
+            })
+            .when("/smt",{
+                templateUrl: "view/analysis/smt.view.html",
+                controller: "SmtController"
+            })
+            .when("/reports",{
+                templateUrl: "view/analysis/reports.view.html",
+                controller: "ReportsController"
+            })
+            .when("/valuation",{
+                templateUrl: "view/analysis/valuation.view.html",
+                controller: "ValuationController"
+            })
             .otherwise({
                 redirectTo: "/home"
             });
