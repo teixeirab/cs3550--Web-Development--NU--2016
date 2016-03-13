@@ -38,23 +38,13 @@
                     </a>
                 </li>
                 <li>
-                    <a href="" data-scroll="true" data-id="#photos">
-                        Photos
-                    </a>
-                </li>
-                <li>
                     <a href="" data-scroll="true" data-id="#workflow">
                         Assignments
                     </a>
                 </li>
                 <li>
                     <a href="" data-scroll="true" data-id="#workflow2">
-                        Projects
-                    </a>
-                </li>
-                <li>
-                    <a href="" data-scroll="true" data-id="#workflow2">
-                        Experiments
+                        Project
                     </a>
                 </li>
             </ul>
@@ -89,6 +79,7 @@
                             institutional clients.
                         </p>
                         </br>
+                        </br>
                     </div>
                 </div>
             </div>
@@ -96,67 +87,67 @@
     </div>
 
     <div class="section section-we-are-1" id="photos">
-        <div class="text-area">
-            <div class="container">
-                <div class="row">
-                    <h2>Photos:</h2>
-                </div>
+        <div class="row">
+
+            <div class="col-lg-4">
+
+            </div>
+            <div class="col-lg-4">
+                <h2>Photos:</h2>
+                <div id="carousel">
+
+                    <!--
+                            IMPORTANT - This carousel can have a special class for a smooth transition "gsdk-transition". Since javascript cannot be overwritten, if you want to use it, you can use the bootstrap.js or bootstrap.min.js from the GSDKit or you can open your bootstrap.js file, search for "emulateTransitionEnd(600)" and change it with "emulateTransitionEnd(1200)"
+
+                    -->
+                    <div id="carousel-example-generic" class="carousel slide gsdk-transition" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                        </ol>
+
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <img src="images/Bu.gif" alt="Awesome Image">
+                            </div>
+                            <div class="item">
+                                <img src="images/Kite.gif" alt="Awesome Image">
+                            </div>
+                            <div class="item">
+                                <img src="images/family.png" alt="Awesome Image">
+                            </div>
+                            <div class="item">
+                                <img src="images/kite2.png" alt="Awesome Image">
+                            </div>
+                            <div class="item">
+                                <img src="images/snowkite.png" alt="Awesome Image">
+                            </div>
+                            <div class="item">
+                                <img src="images/elephants.png" alt="Awesome Image">
+                            </div>
+                            <div class="item">
+                                <img src="images/sailing.png" alt="Awesome Image">
+                            </div>
+                            <div class="item">
+                                <img src="images/shanghai.png" alt="Awesome Image">
+                            </div>
+                        </div>
+
+                        <!-- Controls -->
+                        <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                            <span class="fa fa-angle-left"></span>
+                        </a>
+                        <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                            <span class="fa fa-angle-right"></span>
+                        </a>
+                    </div>
+                </div> <!-- end carousel -->
             </div>
         </div>
     </div>
-
-    <div id="carousel">
-
-        <!--
-                IMPORTANT - This carousel can have a special class for a smooth transition "gsdk-transition". Since javascript cannot be overwritten, if you want to use it, you can use the bootstrap.js or bootstrap.min.js from the GSDKit or you can open your bootstrap.js file, search for "emulateTransitionEnd(600)" and change it with "emulateTransitionEnd(1200)"
-
-        -->
-        <div id="carousel-example-generic" class="carousel slide gsdk-transition" data-ride="carousel">
-            <!-- Indicators -->
-            <ol class="carousel-indicators">
-                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-            </ol>
-
-            <!-- Wrapper for slides -->
-            <div class="carousel-inner">
-                <div class="item active">
-                    <img src="images/Bu.gif" alt="Awesome Image">
-                </div>
-                <div class="item">
-                    <img src="images/Kite.gif" alt="Awesome Image">
-                </div>
-                <div class="item">
-                    <img src="images/family.png" alt="Awesome Image">
-                </div>
-                <div class="item">
-                    <img src="images/kite2.png" alt="Awesome Image">
-                </div>
-                <div class="item">
-                    <img src="images/snowkite.png" alt="Awesome Image">
-                </div>
-                <div class="item">
-                    <img src="images/elephants.png" alt="Awesome Image">
-                </div>
-                <div class="item">
-                    <img src="images/sailing.png" alt="Awesome Image">
-                </div>
-                <div class="item">
-                    <img src="images/shanghai.png" alt="Awesome Image">
-                </div>
-            </div>
-
-            <!-- Controls -->
-            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                <span class="fa fa-angle-left"></span>
-            </a>
-            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                <span class="fa fa-angle-right"></span>
-            </a>
-        </div>
-    </div> <!-- end carousel -->
-
 
     <div class="section section-we-do-2" id="workflow">
         <div class="container">
@@ -164,9 +155,6 @@
             <div class="row">
                 <div class="title add-animation">
                     <h2>My Assignments</h2>
-                    <div class="separator-container">
-                        <div class="separator line-separator">∎</div>
-                    </div>
                 </div>
             </div>
             <div class="row">
@@ -183,37 +171,10 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card add-animation animation-2">
-                        <div class="icon">
-                            <i class="pe-7s-gift"></i>
-                        </div>
-                        <h3>
-                            Homework #2
-                        </h3>
-                        <p>
-                            The second assignment involved creating the front-end of a form submission website. In this
-                            assignment we learned how to use HTML5 and CSS3 to create the front end of a website by
-                            leveraging Bootstrap.
-                        </p>
+                <div class="col-md-8">
+                    <div class="card add-animation animation-1">
+                        <img src="assets/img/Assignment.png" height="100%" width="100%">
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card add-animation animation-3">
-                        <div class="icon">
-                            <i class="pe-7s-rocket"></i>
-                        </div>
-                        <h3 href="">
-                            Homework #3
-                        </h3>
-                        <p>The third assignment involved creating the back-end of a form submission website. In this
-                            assignment we learned how to use Javascript and Jquery to create the front end of a website by
-                            leveraging Angular.
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-md-offset-4">
-
                 </div>
             </div>
         </div>
@@ -225,9 +186,6 @@
             <div class="row">
                 <div class="title add-animation">
                     <h2>My Project</h2>
-                    <div class="separator-container">
-                        <div class="separator line-separator">∎</div>
-                    </div>
                 </div>
             </div>
             <div class="row">
@@ -242,9 +200,6 @@
             <div class="row">
                 <div class="title add-animation">
                     <h2>Project UML Chart</h2>
-                    <div class="separator-container">
-                        <div class="separator line-separator">∎</div>
-                    </div>
                     <div align="center" style="width: 100%; height: 300px; position: relative;">
                         <iframe allowfullscreen frameborder="0" style="width:100%; height:300px"
                                 src="https://www.lucidchart.com/documents/embeddedchart/2ec35518-c0ac-4e25-89ef-96368c4b28ee" id="4_bUgdkSnpB3"></iframe>
@@ -254,9 +209,6 @@
             <div class="row">
                 <div class="title add-animation">
                     <h2>Project Architecture Chart</h2>
-                    <div class="separator-container">
-                        <div class="separator line-separator">∎</div>
-                    </div>
                     <div align="center" style="width: 100%; height: 300px; position: relative;">
                         <iframe allowfullscreen frameborder="0" style="width:100%; height:300px"
                                 src="https://www.lucidchart.com/documents/embeddedchart/9127d7b2-d87d-45d2-88db-d090a7c2e586" id="KlcUtfRFfb32"></iframe>
@@ -266,9 +218,6 @@
             <div class="row">
                 <div class="title add-animation">
                     <h2>Project Moqcups</h2>
-                    <div class="separator-container">
-                        <div class="separator line-separator">∎</div>
-                    </div>
                     <div align="center" style="width: 100%; height: 500px; position: relative;">
                         <iframe allowfullscreen="" frameborder="0" align="center" style="width: 100%; height:500px"
                                 src="https://moqups.com/teixeira.b/Gq0mhs2s"></iframe>
@@ -288,6 +237,7 @@
 	<script src="assets/js/gsdk-radio.js"></script>
 	<script src="assets/js/gsdk-bootstrapswitch.js"></script>
 	<script src="assets/js/get-shit-done.js"></script>
+    <script src="assets/js/rubickpres.js"></script>
 
     <script src="assets/js/custom.js"></script>
 </html>

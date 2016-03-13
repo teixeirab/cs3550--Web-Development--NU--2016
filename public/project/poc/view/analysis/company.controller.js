@@ -15,7 +15,7 @@
                 datasets : [
                     {
                         label: "WFC ROE:",
-                        fillColor : "rgba(220,220,220,0.2)",
+                        fillColor : "blue",
                         strokeColor : "rgba(220,220,220,1)",
                         pointColor : "rgba(220,220,220,1)",
                         pointStrokeColor : "#fff",
