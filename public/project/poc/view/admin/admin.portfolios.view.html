@@ -47,27 +47,27 @@
     <tr>
         <td>
             <form action="">
-                <input placeholder="game title" type="text" class="form-control">
+                <input placeholder="game title" ng-model="portfolio._id" type="text" class="form-control">
             </form>
         </td>
         <td>
             <form action="">
-                <input placeholder="owner id" type="text" class="form-control">
+                <input placeholder="owner id" ng-model="portfolio.userId" type="text" class="form-control">
             </form>
         </td>
         <td>
             <form action="">
-                <input placeholder="companies" type="text" class="form-control">
+                <input placeholder="companies" ng-model="portfolio.companies" type="text" class="form-control">
             </form>
         </td>
         <td>
             <form action="">
-                <input placeholder="shares" type="text" class="form-control">
+                <input placeholder="shares" ng-model="portfolio.shares" type="text" class="form-control">
             </form>
         </td>
         <td>
             <form action="">
-                <input placeholder="cash balance" type="text" class="form-control">
+                <input placeholder="cash balance" ng-model="portfolio.cash_remaining"  type="text" class="form-control">
             </form>
         </td>
         <td nowrap="">
@@ -86,7 +86,7 @@
         <td>
             <form nowrap="">
                 <button ng-click="deletePortfolio(portfolio)" class="btn btn-danger glyphicon glyphicon-remove"></button>
-                <button ng-click="selectPortfolio(index)" class="btn btn-warning glyphicon glyphicon-pencil"></button>
+                <button ng-click="selectPortfolio($index)" class="btn btn-warning glyphicon glyphicon-pencil"></button>
             </form>
         </td>
     </tr>

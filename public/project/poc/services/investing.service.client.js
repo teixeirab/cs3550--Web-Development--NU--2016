@@ -4,7 +4,7 @@
         .module("SimulyApp")
         .factory("InvestingService", InvestingService);
 
-    function InvestingService($rootScope, UserService, GameService) {
+    function InvestingService() {
         var model = {
             portfolios: [
                 {"_id": "000", "game_id": "game1", "userId": 134, "companies": [1, 2, 3], "shares": [10, 5, 2], "cash_remaining": 500},
@@ -19,61 +19,112 @@
                 {"_id": 5, "name": "ZP", "price": 11, "market_cap": 124100000},
                 {"_id": 6, "name": "AP", "price": 12, "market_cap": 14500000}
             ],
-            createCompanyForUser : createGameForUser,
-            findAllGamesForUser : findAllGamesForUser,
-            deleteGameById : deleteGameById,
-            updateGameById : updateGameById
+            createCompany : createCompany,
+            deleteCompanyById : deleteCompanyById,
+            findCompanyById : findCompanyById,
+            updateCompanyById: updateCompanyById,
+            createPortfolio : createPortfolio,
+            deletePortfolioById : deletePortfolioById,
+            findPortfolioById : findPortfolioById,
+            updatePortfolioById: updatePortfolioById,
+            findAllCompanies : findAllCompanies,
+            findAllPortfolios : findAllPortfolios
         };
         return model;
 
-        function createGameForUser(userId, game){
-            var player1 = UserService.findUserByName(game.player1);
-            var player2 = UserService.findUserByName(game.player2);
-            var player3 = UserService.findUserByName(game.player3);
+        function findAllCompanies(callback){
+            callback(model.companies);
+        }
 
-            var newGame = {
+        function findAllPortfolios(callback){
+            callback(model.portfolios);
+        }
+
+        function createPortfolio(portfolio, callback){
+            var newPortfolio = {
                 _id: (new Date).getTime(),
-                title: game.title,
-                userId: userId,
-                players: [player1._id, player2._id, player3._id],
-                duration : 10,
-                universe: 20
+                game_id: portfolio.game_id,
+                userId: portfolio.userId,
+                companies: portfolio.companies,
+                shares: portfolio.shares,
+                cash_remaining: portfolio.cash_remaining
             };
-            model.games.push(newGame);
+            model.portfolios.push(newPortfolio);
+            callback(newPortfolio);
         }
 
-        function findAllGamesForUser(userId, callback){
-            var userForms = [];
-            for (var f in model.games) {
-                if (model.games[f].userId === userId) {
-                    userForms.push(model.games[f]);
+        function deletePortfolioById (portfolioId, callback){
+            var portfolios = model.portfolios;
+            for (var u in portfolios) {
+                if (portfolios[u]._id === portfolioId) {
+                    portfolios.splice(u, 1);
+                    callback(model.portfolios);
                 }
-                callback(userForms);
             }
         }
 
-        function deleteGameById(gameId, callback){
-            for (var f in model.games) {
-                if (model.games[f]._id === gameId) {
-                    model.games.splice(f, 1);
+        function findPortfolioById(portfolioId){
+            for (var u in model.portfolios) {
+                if (model.portfolios[u]._id === portfolioId) {
+                    return model.portfolios[u];
                 }
-                callback(model.games);
+            }
+            return null;
+        }
+
+        function updatePortfolioById (portfolioId, portfolio, callback) {
+            var portfolioOld = findPortfolioById(portfolioId);
+            if (portfolio != null) {
+                portfolioOld.game_id = portfolio.game_id;
+                portfolioOld.userId = portfolio.userId;
+                portfolioOld.companies = portfolio.companies;
+                portfolioOld.shares = portfolio.shares;
+                portfolioOld.cash_remaining = portfolio.cash_remaining;
+                callback(portfolio);
+            } else {
+                callback(null);
             }
         }
 
-        function deleteUserById(userId, callback){
-            var user = model.findUserById (userId);
-            user.empty();
+        function createCompany(company, callback){
+            var newCompany = {
+                _id: (new Date).getTime(),
+                name: company.name,
+                price: company.price,
+                market_cap: company.market_cap
+            };
+            model.companies.push(newCompany);
+            callback(newCompany);
         }
 
-
-        function updateGameById (gameId, newGame, callback) {
-            var forms = model.games;
-            for (var f in forms) {
-                if (forms[f]._id === gameId) {
-                    forms[f] = newGame;
-                    callback(model.games);
+        function deleteCompanyById (companyId, callback){
+            var companies = model.companies;
+            for (var u in companies) {
+                if (companies[u]._id === companyId) {
+                    companies.splice(u, 1);
+                    callback(model.companies);
                 }
+            }
+        }
+
+        function findCompanyById(companyId){
+            for (var u in model.companies) {
+                if (model.companies[u]._id === companyId) {
+                    return model.companies[u];
+                }
+            }
+            return null;
+        }
+
+        function updateCompanyById (companyId, company, callback) {
+            var companyOld = findCompanyById(companyId);
+            if (company != null) {
+                companyOld.name = company.name;
+                companyOld.price = company.price;
+                companyOld.market_cap = company.market_cap;
+                callback(company);
+            } else {
+                callback(null);
             }
         }
     }

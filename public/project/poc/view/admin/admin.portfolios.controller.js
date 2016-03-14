@@ -11,32 +11,30 @@
         $scope.updatePortfolio = updatePortfolio;
         $scope.selectPortfolio = selectPortfolio;
 
-        function renderPortfolio(){
+        function init(){
             var callback = function (response){
                 $scope.portfolios = response;
             };
+            InvestingService.findAllPortfolios(callback)
         }
 
-        renderPortfolio();
+        init();
 
         function addPortfolio(portfolio){
-            var setPortfolio = function(response){
-                InvestingService.setCurrentUser(response);
-            };
-
-            InvestingService.createGameForUser();
+            InvestingService.createPortfolio(portfolio, init);
         }
 
         function updatePortfolio(portfolio){
-            InvestingService.updateGame();
+            InvestingService.updatePortfolioById(portfolio._id, portfolio, init);
+            $scope.portfolio = null;
         }
 
-        function deletePortfolio(portfolio){
-            GameService.deleteUserById();
+        function deletePortfolio (portfolio, callback){
+            InvestingService.deletePortfolioById(portfolio._id, init);
         }
 
         function selectPortfolio(index){
-            $scope.game = $scope.games[index];
+            $scope.portfolio = $scope.portfolios[index];
         }
 
     }

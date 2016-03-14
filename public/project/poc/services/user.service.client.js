@@ -28,7 +28,8 @@
             findUserByUsername : findUserByUsername,
             findUserByName : findUserByName,
             findUserById : findUserById,
-            deleteUserByUsername: deleteUserByUsername
+            deleteUserByUsername: deleteUserByUsername,
+            findUserId : findUserId
         };
         return model;
 
@@ -98,13 +99,14 @@
         }
 
         function updateUser (userId, user, callback) {
-            var userOld = model.findUserId (userId);
+            var userOld = findUserId (userId);
             if (user != null) {
                 userOld.firstName = user.firstName;
                 userOld.lastName = user.lastName;
                 userOld.lastName = user.lastName;
                 userOld.password = user.password;
                 userOld.email = user.email;
+                userOld.role = user.role;
                 callback(user);
             } else {
                 callback(null);

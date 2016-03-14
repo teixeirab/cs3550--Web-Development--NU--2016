@@ -32,17 +32,17 @@
     <tr>
         <td>
             <form action="">
-                <input placeholder="name" type="text" class="form-control">
+                <input placeholder="name" type="text" class="form-control" ng-model="company.name">
             </form>
         </td>
         <td>
             <form action="">
-                <input placeholder="price" type="text" class="form-control">
+                <input placeholder="price" type="text" class="form-control" ng-model="company.price">
             </form>
         </td>
         <td>
             <form action="">
-                <input placeholder="market cap" type="text" class="form-control">
+                <input placeholder="market cap" type="text" class="form-control" ng-model="company.market_cap">
             </form>
         </td>
         <td nowrap="">
@@ -59,7 +59,7 @@
         <td>
             <form nowrap="">
                 <button ng-click="deleteCompany(company)" class="btn btn-danger glyphicon glyphicon-remove"></button>
-                <button ng-click="selectCompany(index)" class="btn btn-warning glyphicon glyphicon-pencil"></button>
+                <button ng-click="selectCompany($index)" class="btn btn-warning glyphicon glyphicon-pencil"></button>
             </form>
         </td>
     </tr>

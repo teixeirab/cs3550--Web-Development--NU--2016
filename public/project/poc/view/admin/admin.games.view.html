@@ -47,27 +47,27 @@
     <tr>
         <td>
             <form action="">
-                <input placeholder="game title" type="text" class="form-control">
+                <input placeholder="game title" ng-model="game.title" type="text" class="form-control">
             </form>
         </td>
         <td>
             <form action="">
-                <input placeholder="owner id" type="text" class="form-control">
+                <input placeholder="owner id" ng-model="game.userId" type="text" class="form-control">
             </form>
         </td>
         <td>
             <form action="">
-                <input placeholder="players" type="text" class="form-control">
+                <input placeholder="players" ng-model="game.players" type="text" class="form-control">
             </form>
         </td>
         <td>
             <form action="">
-                <input placeholder="duration" type="text" class="form-control">
+                <input placeholder="duration" ng-model="game.duration" type="text" class="form-control">
             </form>
         </td>
         <td>
             <form action="">
-                <input placeholder="universe" type="text" class="form-control">
+                <input placeholder="universe" ng-model="game.universe" type="text" class="form-control">
             </form>
         </td>
         <td nowrap="">
@@ -86,7 +86,7 @@
         <td>
             <form nowrap="">
                 <button ng-click="deleteGame(game)" class="btn btn-danger glyphicon glyphicon-remove"></button>
-                <button ng-click="selectGame(game)" class="btn btn-warning glyphicon glyphicon-pencil"></button>
+                <button ng-click="selectGame($index)" class="btn btn-warning glyphicon glyphicon-pencil"></button>
             </form>
         </td>
     </tr>

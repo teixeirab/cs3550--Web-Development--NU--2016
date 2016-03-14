@@ -25,7 +25,7 @@
         }
 
         function updateUser(user) {
-            UserService.updateUser(user._id,user, init);
+            UserService.updateUser(user._id, user, init);
             $scope.user = null;
         }
 
@@ -34,7 +34,6 @@
         }
 
         function deleteUser(user){
-            console.log(user.username);
             UserService.deleteUserByUsername(user.username, init);
         }
     }

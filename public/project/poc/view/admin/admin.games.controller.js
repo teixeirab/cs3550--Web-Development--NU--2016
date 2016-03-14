@@ -9,29 +9,28 @@
         $scope.addGame = addGame;
         $scope.deleteGame = deleteGame;
         $scope.updateGame = updateGame;
+        $scope.selectGame = selectGame;
 
-        function renderGame(){
+        function init(){
             var callback = function (response){
                 $scope.games = response;
             };
+            GameService.findAllGames(callback)
         }
 
-        renderGame();
+        init();
 
-        function addGame(user){
-            var setGame = function(response){
-                GameService.setCurrentUser(response);
-            };
-
-            GameService.createGameForUser();
+        function addGame(game){
+            GameService.createGame(game, init);
         }
 
         function updateGame(game){
-            GameService.updateGame();
+            GameService.updateGameById(game._id, game, init);
+            $scope.game = null;
         }
 
-        function deleteGame(game){
-            GameService.deleteUserById();
+        function deleteGame (game){
+            GameService.deleteGameById(game._id, init);
         }
 
         function selectGame(index){

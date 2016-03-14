@@ -11,12 +11,18 @@
                 {"_id": "001", "title": "game2", "userId": 234, "players": [123, 345] , "duration": 30, "universe": 10},
                 {"_id": "002", "title": "game3", "userId": 234, "players": [123] , "duration": 30, "universe": 10}
             ],
+            findAllGames : findAllGames,
             createGameForUser : createGameForUser,
+            createGame : createGame,
             findAllGamesForUser : findAllGamesForUser,
             deleteGameById : deleteGameById,
             updateGameById : updateGameById
         };
         return model;
+
+        function findAllGames(callback){
+            callback(model.games);
+        }
 
         function createGameForUser(userId, game){
             var player1 = UserService.findUserByName(game.player1);
@@ -32,6 +38,23 @@
                 universe: 20
             };
             model.games.push(newGame);
+        }
+
+        function createGame (game, callback){
+            var now = new Date().getTime();
+            var id = "id-"+now;
+
+            var newGame = {
+                _id: id,
+                title: game.title,
+                userId: game.userId,
+                players: game.players,
+                duration: game.duration,
+                universe: game.universe
+            };
+
+            model.games.push(newGame);
+            callback(newGame);
         }
 
         function findAllGamesForUser(userId, callback){

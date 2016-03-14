@@ -9,33 +9,32 @@
         $scope.addCompany = addCompany;
         $scope.deleteCompany = deleteCompany;
         $scope.updateCompany = updateCompany;
+        $scope.selectCompany = selectCompany;
 
-        function renderCompany(){
+        function init(){
             var callback = function (response){
                 $scope.companies = response;
             };
+            InvestingService.findAllCompanies(callback)
         }
 
-        renderCompany();
+        init();
 
         function addCompany(company){
-            var setCompany = function(response){
-                GameService.setCurrentUser(response);
-            };
-
-            GameService.createGameForUser();
+            InvestingService.createCompany(company, init);
         }
 
-        function updateCompany(game){
-            GameService.updateGame();
+        function updateCompany(company){
+            InvestingService.updateCompanyById(company._id, company, init);
+            $scope.company = null;
         }
 
-        function deleteCompany(game){
-            GameService.deleteUserById();
+        function deleteCompany (company, callback){
+            InvestingService.deleteCompanyById(company._id, init);
         }
 
         function selectCompany(index){
-            $scope.game = $scope.games[index];
+            $scope.company = $scope.companies[index];
         }
 
     }
