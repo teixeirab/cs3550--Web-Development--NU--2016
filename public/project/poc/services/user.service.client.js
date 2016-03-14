@@ -27,7 +27,8 @@
             getCurrentUser: getCurrentUser,
             findUserByUsername : findUserByUsername,
             findUserByName : findUserByName,
-            findUserById : findUserById
+            findUserById : findUserById,
+            deleteUserByUsername: deleteUserByUsername
         };
         return model;
 
@@ -121,9 +122,25 @@
             return null;
         }
 
-        function deleteUserById(userId, callback){
-            var user = model.findUserById (userId);
-            user.empty();
+        function deleteUserByUsername (username, callback) {
+            var users = model.users;
+            for (var u in users) {
+                if (users[u].username === username) {
+                    users.splice(u, 1);
+                    callback(model.users);
+                }
+            }
+        }
+
+
+        function deleteUserById (userId, callback) {
+            var users = model.users;
+            for (var u in users) {
+                if (users[u]._id === userId) {
+                    users.splice(u, 1);
+                    callback(model.users);
+                }
+            }
         }
 
         function findAllUsers(callback){

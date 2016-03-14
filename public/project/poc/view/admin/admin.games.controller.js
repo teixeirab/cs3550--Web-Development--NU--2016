@@ -6,6 +6,9 @@
 
     function AdminGamesController($scope, GameService, $location, $rootScope) {
         $scope.games = GameService.games;
+        $scope.addGame = addGame;
+        $scope.deleteGame = deleteGame;
+        $scope.updateGame = updateGame;
 
         function renderGame(){
             var callback = function (response){

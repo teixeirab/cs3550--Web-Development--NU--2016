@@ -20,7 +20,7 @@
             })
             .when("/admin/trades",{
                 templateUrl: "view/admin/admin.portfolios.view.html",
-                controller: "AdminTradesController"
+                controller: "AdminPortfoliosController"
             })
             .when("/admin/games",{
                 templateUrl: "view/admin/admin.games.view.html",

@@ -47,27 +47,27 @@
     <tr>
         <td>
             <form action="">
-                <input placeholder="username" type="text" class="form-control">
+                <input ng-model="user.username" placeholder="username" type="text" class="form-control">
             </form>
         </td>
         <td>
             <form action="">
-                <input placeholder="first name" type="text" class="form-control">
+                <input ng-model="user.firstName" placeholder="first name" type="text" class="form-control">
             </form>
         </td>
         <td>
             <form action="">
-                <input placeholder="last name" type="text" class="form-control">
+                <input ng-model="user.lastName" placeholder="last name" type="text" class="form-control">
             </form>
         </td>
         <td>
             <form action="">
-                <input placeholder="password" type="text" class="form-control">
+                <input ng-model="user.password" placeholder="password" type="text" class="form-control">
             </form>
         </td>
         <td>
             <form action="">
-                <input placeholder="role" type="text" class="form-control">
+                <input ng-model="user.role" placeholder="role" type="text" class="form-control">
             </form>
         </td>
         <td nowrap="">
@@ -86,7 +86,7 @@
         <td>
             <form nowrap="">
                 <button ng-click="deleteUser(user)" class="btn btn-danger glyphicon glyphicon-remove"></button>
-                <button ng-click="selectUser(index)" class="btn btn-warning glyphicon glyphicon-pencil"></button>
+                <button ng-click="selectUser($index)" class="btn btn-warning glyphicon glyphicon-pencil"></button>
             </form>
         </td>
     </tr>

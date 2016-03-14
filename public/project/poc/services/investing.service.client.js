@@ -19,7 +19,7 @@
                 {"_id": 5, "name": "ZP", "price": 11, "market_cap": 124100000},
                 {"_id": 6, "name": "AP", "price": 12, "market_cap": 14500000}
             ],
-            createGameForUser : createGameForUser,
+            createCompanyForUser : createGameForUser,
             findAllGamesForUser : findAllGamesForUser,
             deleteGameById : deleteGameById,
             updateGameById : updateGameById
@@ -60,6 +60,12 @@
                 callback(model.games);
             }
         }
+
+        function deleteUserById(userId, callback){
+            var user = model.findUserById (userId);
+            user.empty();
+        }
+
 
         function updateGameById (gameId, newGame, callback) {
             var forms = model.games;

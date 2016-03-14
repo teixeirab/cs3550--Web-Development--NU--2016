@@ -9,34 +9,33 @@
         $scope.addUser = addUser;
         $scope.deleteUser = deleteUser;
         $scope.updateUser = updateUser;
+        $scope.selectUser = selectUser;
 
-        function renderUsers(){
-            var callback = function (response){
+        function init() {
+            var callback = function (response) {
                 $scope.users = response;
             };
+            UserService.findAllUsers(callback)
         }
 
-        renderUsers();
+        init();
 
-        function addUser(user){
-            var setUser = function(response){
-                UserService.setCurrentUser(response);
-            };
-
-            UserService.createUser(user, setUser);
+        function addUser(user) {
+            UserService.createUser(user, init);
         }
 
-        function updateUser(user){
-            UserService.updateUser(UserService.findUserByName(user.username)._id, user, renderUsers());
+        function updateUser(user) {
+            UserService.updateUser(user._id,user, init);
+            $scope.user = null;
+        }
+
+        function selectUser(uIndex) {
+            $scope.user = $scope.users[uIndex];
         }
 
         function deleteUser(user){
-            UserService.deleteUserById(UserService.findUserByName(user.username)._id, renderUsers());
+            console.log(user.username);
+            UserService.deleteUserByUsername(user.username, init);
         }
-
-        function selectUser(index){
-            $scope.user = $scope.users[index];
-        }
-
     }
 })();

@@ -12,65 +12,54 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
                 <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
             </svg>
-            Username
+            Name
         </th>
         <th>
             <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
                 <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
             </svg>
-            Password
+            Price
         </th>
         <th>
             <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
                 <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
             </svg>
-            Role
-        </th>
-        <th>
-            Action
+            Market Cap
         </th>
     </tr>
     </thead>
     <tbody>
     <tr>
         <td>
-            <form action="../forms/fields.view.html">
-                <input placeholder="username" type="text" class="form-control">
+            <form action="">
+                <input placeholder="name" type="text" class="form-control">
             </form>
         </td>
         <td>
-            <form action="../forms/fields.view.html">
-                <input placeholder="password" type="text" class="form-control">
+            <form action="">
+                <input placeholder="price" type="text" class="form-control">
             </form>
         </td>
         <td>
-            <form action="../forms/fields.view.html">
-                <input placeholder="role" type="text" class="form-control">
+            <form action="">
+                <input placeholder="market cap" type="text" class="form-control">
             </form>
         </td>
         <td nowrap="">
-            <form action="../forms/fields.view.html">
-                <a href="#" class="btn btn-success">
-                    <scan class="glyphicon glyphicon-ok"></scan>
-                </a>
-                <a href="#" class="btn btn-primary">
-                    <scan class="glyphicon glyphicon-plus"></scan>
-                </a>
+            <form>
+                <button ng-click="updateCompany(company)" class="btn btn-success glyphicon glyphicon-ok"></button>
+                <button ng-click="addCompany(company)" class="btn btn-primary glyphicon glyphicon-plus"></button>
             </form>
         </td>
     </tr>
-    <tr ng-repeat="user in users">
-        <td>{{user.username}}</td>
-        <td>{{user.password}}</td>
-        <td>{{user.role}}</td>
+    <tr ng-repeat="company in companies">
+        <td>{{company.name}}</td>
+        <td>{{company.price}}</td>
+        <td>{{company.market_cap}}</td>
         <td>
-            <form action="../forms/fields.view.html">
-                <a href="#" class="btn btn-danger">
-                    <scan class="glyphicon glyphicon-remove"></scan>
-                </a>
-                <a href="#" class="btn btn-warning">
-                    <scan class="glyphicon glyphicon-pencil"></scan>
-                </a>
+            <form nowrap="">
+                <button ng-click="deleteCompany(company)" class="btn btn-danger glyphicon glyphicon-remove"></button>
+                <button ng-click="selectCompany(index)" class="btn btn-warning glyphicon glyphicon-pencil"></button>
             </form>
         </td>
     </tr>
