@@ -11,8 +11,6 @@
         function register(user) {
             $scope.message = null;
 
-            console.log(user.type1);
-
             if (user == null) {
                 $scope.message = "Please fill in the required fields";
                 return;
@@ -35,9 +33,17 @@
                 return;
             }
 
-            if (!user.type1 && !user.type2) {
+            if (user.role === null) {
                 $scope.message = "Please choose the role of the user";
                 return;
+            }
+
+            if(user.type1) {
+                $scope.user.role = "admin"
+            }
+
+            if(user.type2) {
+                $scope.user.role = "player"
             }
 
             var checkExistence = function(response) {

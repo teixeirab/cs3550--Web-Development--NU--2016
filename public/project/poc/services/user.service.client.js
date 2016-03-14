@@ -61,9 +61,7 @@
         function createUser (user, callback) {
             var now = new Date().getTime();
             var id = "id-"+now;
-            var role;
-            if (user.type1){role = "admin";}
-            if (user.type2){role = "player"}
+            console.log(user.role);
 
             var user = {
                 _id: id,
@@ -72,7 +70,7 @@
                 firstName: user.firstName,
                 lastName: user.lastName,
                 password: user.password,
-                role : role
+                role : user.role
 
             };
             model.users.push(user);
