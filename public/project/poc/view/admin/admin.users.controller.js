@@ -8,7 +8,7 @@
         $scope.users = UserService.users;
         $scope.addUser = addUser;
         $scope.deleteUser = deleteUser;
-        $scope.updateUser = deleteUser;
+        $scope.updateUser = updateUser;
 
         function renderUsers(){
             var callback = function (response){
@@ -18,21 +18,24 @@
 
         renderUsers();
 
-        function addUser(form){
-            FormService.createFormForUser($rootScope.currentUser._id, form, renderForms)
+        function addUser(user){
+            var setUser = function(response){
+                UserService.setCurrentUser(response);
+            };
+
+            UserService.createUser(user, setUser);
         }
 
-        function updateUser(form){
-            FormService.updateFormById(form._id, form, renderForms);
-            $scope.form = null;
+        function updateUser(user){
+            UserService.updateUser(UserService.findUserByName(user.username)._id, user, renderUsers());
         }
 
-        function deleteUser(form){
-            UserService.deleteUserById(findUserByName(user.username), renderUsers());
+        function deleteUser(user){
+            UserService.deleteUserById(UserService.findUserByName(user.username)._id, renderUsers());
         }
 
         function selectUser(index){
-            $scope.user = $scope.forms[index];
+            $scope.user = $scope.users[index];
         }
 
     }

@@ -26,7 +26,8 @@
             setCurrentUser: setCurrentUser,
             getCurrentUser: getCurrentUser,
             findUserByUsername : findUserByUsername,
-            findUserByName : findUserByName
+            findUserByName : findUserByName,
+            findUserById : findUserById
         };
         return model;
 
@@ -90,7 +91,7 @@
 
         function findUserId (userId){
             for (var u in model.users) {
-                if (model.users[u].id === userId) {
+                if (model.users[u]._id === userId) {
                     return (model.users[u]);
                 }
             }
@@ -111,9 +112,17 @@
             }
         }
 
+        function findUserById(userId){
+            for (var u in model.users) {
+                if (model.users[u].username === userId) {
+                    return model.users[u];
+                }
+            }
+            return null;
+        }
 
         function deleteUserById(userId, callback){
-            var user = model.findUserByUsername (userName);
+            var user = model.findUserById (userId);
             user.empty();
         }
 

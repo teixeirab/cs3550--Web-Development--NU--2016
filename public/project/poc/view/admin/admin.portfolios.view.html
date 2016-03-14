@@ -1,11 +1,11 @@
-<h2>Games</h2>
+<h2>Portfolios</h2>
 <ul class="nav nav-tabs">
     <li role="presentation" ><a href="#/admin/companies">Companies</a></li>
     <li role="presentation" ><a href="#/admin/users">Users</a></li>
-    <li role="presentation" class="active"><a href="#/admin/games">Games</a></li>
-    <li role="presentation" ><a href="#/admin/trades">Portfolios</a></li>
+    <li role="presentation" ><a href="#/admin/games">Games</a></li>
+    <li role="presentation" class="active"><a href="#/admin/trades">Portfolios</a></li>
 </ul>
-<table class="table table-striped table-responsive" ng-controller="AdminGamesController">
+<table class="table table-striped table-responsive" ng-controller="AdminUsersController">
     <thead>
     <tr>
         <th>
@@ -18,25 +18,25 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
                 <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
             </svg>
-            Game Owner ID
+            Owner ID
         </th>
         <th>
             <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
                 <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
             </svg>
-            Players in the Game
+            Companies in Portfolio
         </th>
         <th>
             <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
                 <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
             </svg>
-            Game Duration
+            Shares
         </th>
         <th>
             <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
                 <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
             </svg>
-            Universe Size
+            Cash Balance
         </th>
         <th>
             Action
@@ -57,38 +57,39 @@
         </td>
         <td>
             <form action="">
-                <input placeholder="players" type="text" class="form-control">
+                <input placeholder="companies" type="text" class="form-control">
             </form>
         </td>
         <td>
             <form action="">
-                <input placeholder="duration" type="text" class="form-control">
+                <input placeholder="shares" type="text" class="form-control">
             </form>
         </td>
         <td>
             <form action="">
-                <input placeholder="universe" type="text" class="form-control">
+                <input placeholder="cash balance" type="text" class="form-control">
             </form>
         </td>
         <td nowrap="">
             <form>
-                <button ng-click="updateGame(game)" class="btn btn-success glyphicon glyphicon-ok"></button>
-                <button ng-click="addGame(game)" class="btn btn-primary glyphicon glyphicon-plus"></button>
+                <button ng-click="updatePortfolio(portfolio)" class="btn btn-success glyphicon glyphicon-ok"></button>
+                <button ng-click="addPortfolio(portfolio)" class="btn btn-primary glyphicon glyphicon-plus"></button>
             </form>
         </td>
     </tr>
-    <tr ng-repeat="game in games">
-        <td>{{game.title}}</td>
-        <td>{{game.userId}}</td>
-        <td>{{game.players}}</td>
-        <td>{{game.duration}}</td>
-        <td>{{game.universe}}</td>
+    <tr ng-repeat="portfolio in portfolios">
+        <td>{{portfolio._id}}</td>
+        <td>{{portfolio.userId}}</td>
+        <td>{{portfolio.companies}}</td>
+        <td>{{portfolio.shares}}</td>
+        <td>{{portfolio.cash_remaining}}</td>
         <td>
             <form nowrap="">
-                <button ng-click="deleteGame(game)" class="btn btn-danger glyphicon glyphicon-remove"></button>
-                <button ng-click="selectGame(game)" class="btn btn-warning glyphicon glyphicon-pencil"></button>
+                <button ng-click="deletePortfolio(portfolio)" class="btn btn-danger glyphicon glyphicon-remove"></button>
+                <button ng-click="selectPortfolio(index)" class="btn btn-warning glyphicon glyphicon-pencil"></button>
             </form>
         </td>
     </tr>
     </tbody>
 </table>
+
