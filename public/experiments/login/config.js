@@ -21,7 +21,7 @@
                 controller: "ProfileController"
             })
             .when("/admin", {
-                templateUrl: "admin.view.html"
+                templateUrl: "admin.users.view.html"
             })
             .otherwise({
                 redirectTo: "/home"

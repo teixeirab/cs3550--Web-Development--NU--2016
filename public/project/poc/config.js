@@ -10,9 +10,21 @@
                 templateUrl: "view/home/home.view.html",
                 controller: "HomeController"
             })
-            .when("/admin",{
-                templateUrl: "view/admin/admin.view.html",
-                controller: "AdminController"
+            .when("/admin/users",{
+                templateUrl: "view/admin/admin.users.view.html",
+                controller: "AdminUsersController"
+            })
+            .when("/admin/companies",{
+                templateUrl: "view/admin/admin.companies.view.html",
+                controller: "AdminCompaniesController"
+            })
+            .when("/admin/trades",{
+                templateUrl: "view/admin/admin.trades.view.html",
+                controller: "AdminTradesController"
+            })
+            .when("/admin/games",{
+                templateUrl: "view/admin/admin.games.view.html",
+                controller: "AdminGamesController"
             })
             .when("/login",{
                 templateUrl: "view/users/login.view.html",
