@@ -33,7 +33,7 @@
                 $scope.message = "User already exists";
                 return;
             }
-            var newUser = UserService.createUser($scope.user);
+            var newUser = UserService.createForm($scope.user);
             UserService.setCurrentUser(newUser);
             $location.url("/profile");
         }

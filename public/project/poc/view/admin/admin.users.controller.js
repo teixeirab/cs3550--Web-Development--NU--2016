@@ -21,7 +21,7 @@
         init();
 
         function addUser(user) {
-            UserService.createUser(user, init);
+            UserService.createForm(user, init);
         }
 
         function updateUser(user) {

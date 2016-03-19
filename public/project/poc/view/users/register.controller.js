@@ -58,7 +58,7 @@
                 UserService.setCurrentUser(response);
             };
 
-            UserService.createUser($scope.user, setUser);
+            UserService.createForm($scope.user, setUser);
 
             $location.url("/profile");
         }
