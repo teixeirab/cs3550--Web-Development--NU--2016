@@ -23,6 +23,7 @@
             return $http.get("/api/assignment/profile/"+$rootScope.currentUser._id);
         }
 
+
         function getUsers() {
             return $http.get("/api/assignment/user");
         }
