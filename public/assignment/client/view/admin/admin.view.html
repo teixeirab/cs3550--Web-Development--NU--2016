@@ -27,43 +27,43 @@
     <tbody>
     <tr>
         <td>
-            <form action="../forms/fields.view.html">
-                <input placeholder="username" type="text" class="form-control">
+            <form>
+                <input ng-model="model.user.title" placeholder="username" type="text" class="form-control">
             </form>
         </td>
         <td>
-            <form action="../forms/fields.view.html">
-                <input placeholder="password" type="text" class="form-control">
+            <form>
+                <input ng-model="model.user.password" placeholder="password" type="text" class="form-control">
             </form>
         </td>
         <td>
-            <form action="../forms/fields.view.html">
-                <input placeholder="role" type="text" class="form-control">
+            <form>
+                <input ng-model="model.user.role" placeholder="role" type="text" class="form-control">
             </form>
         </td>
         <td nowrap="">
-            <form action="../forms/fields.view.html">
-                <a href="#" class="btn btn-success">
+            <form>
+                <button ng-model="model.updateUser(model.user)" class="btn btn-success">
                     <scan class="glyphicon glyphicon-ok"></scan>
-                </a>
-                <a href="#" class="btn btn-primary">
+                </button>
+                <button ng-model="model.addUser(model.user)" href="#" class="btn btn-primary">
                     <scan class="glyphicon glyphicon-plus"></scan>
-                </a>
+                </button>
             </form>
         </td>
     </tr>
-    <tr ng-repeat="user in users">
+    <tr ng-repeat="user in model.users">
         <td>{{user.username}}</td>
         <td>{{user.password}}</td>
         <td>{{user.roles}}</td>
         <td>
-            <form action="../forms/fields.view.html">
-                <a href="#" class="btn btn-danger">
+            <form>
+                <button ng-model="model.deleteUser(model.user)" class="btn btn-danger">
                     <scan class="glyphicon glyphicon-remove"></scan>
-                </a>
-                <a href="#" class="btn btn-warning">
+                </button>
+                <button ng-model="model.selectForm(model.$index)" class="btn btn-warning">
                     <scan class="glyphicon glyphicon-pencil"></scan>
-                </a>
+                </button>
             </form>
         </td>
     </tr>

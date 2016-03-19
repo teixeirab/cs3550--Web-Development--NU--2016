@@ -32,7 +32,8 @@ module.exports = function(uuid) {
         var newForm = {
             _id: uuid.v4(),
             title: form.title,
-            userId: parseInt(userId)
+            userId: parseInt(userId),
+            fields: []
         };
         mock.push(newForm);
         return findAllFormsForUser(userId);

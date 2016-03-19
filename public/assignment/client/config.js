@@ -52,7 +52,10 @@
             .when("/forms/:formId/field", {
                 templateUrl: "view/forms/fields.view.html",
                 controller: "FieldsController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve: {
+                    checkLoggedIn : checkLoggedIn
+                }
             })
             .when("/register",{
                 templateUrl: "view/users/register.view.html",

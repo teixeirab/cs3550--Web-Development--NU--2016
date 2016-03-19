@@ -9,8 +9,8 @@
         $scope.formId = formId;
         $scope.showPlaceholder = $scope.selectedField.type === 'TEXT' || $scope.selectedField.type === 'TEXTAREA';
 
-        $scope.showTextarea = $scope.selectedField.type === 'OPTIONS' || $scope.selectedField.type === 'CHECKBOXES' ||
-            $scope.selectedField.type === 'RADIOS';
+        $scope.showTextarea = $scope.selectedField.type === 'OPTIONS' || $scope.selectedField.type === 'CHECKBOXES'
+                                                                      || $scope.selectedField.type === 'RADIOS';
 
         $scope.accept = accept;
         $scope.init = init;
@@ -22,7 +22,7 @@
             if ($scope.showTextarea) {
                 $scope.textArea = [];
                 var options = $scope.selectedField.options;
-                for (var i = 0; i < options.length; i++) {
+                for (var i in options) {
                     $scope.textArea.push(options[i].label + ":" + options[i].value);
                 }
                 $scope.options = $scope.textArea.join("\n");
@@ -40,9 +40,7 @@
                 var formOptions = $scope.options.split("\n");
                 for (var i in formOptions) {
                     var labelValuePair = formOptions[i].split(":");
-                    formOptionsArray.push({
-                        label: labelValuePair[0],
-                        value: labelValuePair[1]
+                    formOptionsArray.push({label: labelValuePair[0], value: labelValuePair[1]
                     });
                 }
             }

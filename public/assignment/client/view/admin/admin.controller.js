@@ -6,7 +6,10 @@
 
     function adminController($scope, UserService, $rootScope) {
         var vm = this;
-        vm.deleteField = deleteField;
+        vm.deleteUser = deleteUser;
+        vm.updateUser = updateUser;
+        vm.selectUser = selectUser;
+        vm.addUser = addUser;
 
         function init() {
             UserService
@@ -20,6 +23,20 @@
         }
         init();
 
+        function deleteUser(){
 
+        }
+
+        function updateUser(){
+
+        }
+
+        function selectUser(){
+
+        }
+
+        function addUser(){
+
+        }
     }
 })();
