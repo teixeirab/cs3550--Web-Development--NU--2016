@@ -16,9 +16,8 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer());
 app.use(session({
-    secret: 'keyboard cat',
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: true
 }));
 app.use(express.static(__dirname+ '/public'));
 
