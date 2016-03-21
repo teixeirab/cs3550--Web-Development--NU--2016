@@ -9,7 +9,6 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local');
 
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
-
 var port = process.env.OPENSHIFT_NODEJS_PORT ||3000;
 
 app.use(bodyParser.json());
@@ -17,8 +16,9 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer());
 app.use(session({
+    secret: 'keyboard cat',
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
 }));
 app.use(express.static(__dirname+ '/public'));
 
