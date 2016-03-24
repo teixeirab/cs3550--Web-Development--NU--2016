@@ -1,0 +1,5 @@
+[
+  {"_id": "000", "game_id": "game1", "userId": "134", "companies": [1, 2, 3], "shares": [10, 5, 2], "cash_remaining": 500, "currentTurn": 1},
+  {"_id": "001", "game_id": "game1", "userId": "345", "companies": [4, 5, 6], "shares": [12, 2, 2], "cash_remaining": 0, "currentTurn": 1},
+  {"_id": "002", "game_id": "game1", "userId": "456", "companies": [1, 5, 4], "shares": [11, 3, 1], "cash_remaining": 100, "currentTurn": 1}
+]

@@ -22,7 +22,8 @@ app.use(session({
 }));
 app.use(express.static(__dirname+ '/public'));
 
-require("./public/assignment/server/app2.js")(app, uuid);
+require("./public/assignment/server/app.js")(app, uuid);
+require("./public/project/prototype/server/app.js")(app, uuid);
 require("./public/experiments/omdb/server/app.js")(app);
 
 app.listen(port, ipaddress);

@@ -1,0 +1,102 @@
+<h2>Companies</h2>
+<ul class="nav nav-tabs">
+    <li role="presentation" class="active"><a href="#/admin/companies">Companies</a></li>
+    <li role="presentation" ><a href="#/admin/users">Users</a></li>
+    <li role="presentation" ><a href="#/admin/games">Games</a></li>
+    <li role="presentation" ><a href="#/admin/portfolios">Portfolios</a></li>
+</ul>
+<table class="table table-striped table-responsive" ng-controller="AdminCompaniesController">
+    <thead>
+    <tr>
+        <th>
+            <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
+                <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
+            </svg>
+            ID
+        </th>
+        <th>
+            <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
+                <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
+            </svg>
+            Turn
+        </th>
+        <th>
+            <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
+                <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
+            </svg>
+            Company Name
+        </th>
+        <th>
+            <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
+                <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
+            </svg>
+            Price
+        </th>
+        <th>
+            <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
+                <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
+            </svg>
+            Market Cap
+        </th>
+        <th>
+            Action
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>
+            <form>
+                <input ng-model="model.company._id" placeholder="id" type="text" class="form-control">
+            </form>
+        </td>
+        <td>
+            <form>
+                <input ng-model="model.company.turn" placeholder="turn" type="text" class="form-control">
+            </form>
+        </td>
+        <td>
+            <form>
+                <input ng-model="model.company.name" placeholder="name" type="text" class="form-control">
+            </form>
+        </td>
+        <td>
+            <form>
+                <input ng-model="model.company.price" placeholder="price" type="text" class="form-control">
+            </form>
+        </td>
+        <td>
+            <form>
+                <input ng-model="model.company.market_cap" placeholder="market cap" type="text" class="form-control">
+            </form>
+        </td>
+        <td nowrap="">
+            <form>
+                <button ng-click="model.updateCompany(model.company)" class="btn btn-success">
+                    <scan class="glyphicon glyphicon-ok"></scan>
+                </button>
+                <button ng-click="model.addCompany(model.company)" href="#" class="btn btn-primary">
+                    <scan class="glyphicon glyphicon-plus"></scan>
+                </button>
+            </form>
+        </td>
+    </tr>
+    <tr ng-repeat="company in model.companies">
+        <td><a ng-href="#/companies/{{company._id}}">{{company._id}}</a></td>
+        <td>{{company.turn}}</td>
+        <td>{{company.name}}</td>
+        <td>{{company.price}}</td>
+        <td>{{company.market_cap}}</td>
+        <td>
+            <form>
+                <button ng-click="model.deleteCompany(company)" class="btn btn-danger">
+                    <scan class="glyphicon glyphicon-remove"></scan>
+                </button>
+                <button ng-click="model.selectCompany($index)" class="btn btn-warning">
+                    <scan class="glyphicon glyphicon-pencil"></scan>
+                </button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>

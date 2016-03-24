@@ -1,0 +1,36 @@
+<h2>Valuation</h2>
+<ul class="nav nav-tabs">
+    <li role="presentation" ><a href="#/summary">Summary</a></li>
+    <li role="presentation" ><a href="#/smt">SMT</a></li>
+    <li role="presentation" class="active"><a href="#/valuation">Valuation</a></li>
+    <li role="presentation" ><a href="#/momentum">Momentum</a></li>
+    <li role="presentation" ><a href="#/reports">Reports</a></li>
+</ul>
+
+<div class="container-fluid" ng-controller="ValuationController">
+    <h2>(Company Name Here)</h2>
+    <br>
+    <div class="row">
+        <div class="col-md-6">
+            <label for="a">P/E Ratio:</label>
+            <canvas id="a" height="40%" width="100%"></canvas>
+        </div>
+        <div class="col-md-6">
+            <label for="c">P/B Ratio:</label>
+            <canvas id="c" height="40%" width="100%"></canvas>
+        </div>
+    </div>
+    <div class="row">
+        <div class="row">
+            <div class="col-md-6">
+                <label for="b">P/S Ratio</label>
+                <canvas id="b" height="40%" width="100%"></canvas>
+            </div>
+            <div class="col-md-6">
+                <label for="d">PEG Ratio</label>
+                <canvas id="d" height="40%" width="100%"></canvas>
+            </div>
+        </div>
+    </div>
+    <button type="submit" ng-click="trade()" class="btn btn-success">Trade this company</button>
+</div>

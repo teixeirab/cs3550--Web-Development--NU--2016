@@ -14,7 +14,7 @@
                 templateUrl: "view/admin/admin.users.view.html",
                 controller: "AdminUsersController"
             })
-            .when("/admin/companies",{
+            .when("/admin/portfolios",{
                 templateUrl: "view/admin/admin.companies.view.html",
                 controller: "AdminCompaniesController"
             })

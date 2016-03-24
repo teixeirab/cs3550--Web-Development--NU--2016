@@ -1,0 +1,147 @@
+<h2>Summary</h2>
+<ul class="nav nav-tabs">
+    <li role="presentation" class="active"><a ng-href="#/companies/{{model.company_data._id}}">Summary</a></li>
+    <li role="presentation" ><a ng-href="#/companies/{{model.company_data._id}}/smt">SMT</a></li>
+    <li role="presentation" ><a ng-href="#/companies/{{model.company_data._id}}/valuation">Valuation</a></li>
+    <li role="presentation" ><a ng-href="#/companies/{{model.company_data._id}}/momentum">Momentum</a></li>
+    <li role="presentation" ><a ng-href="#/companies/{{model.company_data._id}}/reports">Reports</a></li>
+</ul>
+
+<div class="container-fluid" ng-controller="CompanyController">
+    <div class="row">
+        <div class="col-md-2">
+            <h2>{{model.company_data._id}}</h2>
+        </div>
+        <div class="col-md-2">
+            <br>
+            <button type="submit" ng-click="trade()" class="btn btn-success">Trade this company</button>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-2">
+            <label for="summary">Summary:</label>
+            <table id="summary" class="table table-striped table-responsive">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Market Cap</td>
+                    <td>{{model.company_data.market_cap}}</td>
+                </tr>
+                <tr>
+                    <td>Enterprise Value</td>
+                    <td>{{model.company_data.enterprise_value}}</td>
+                </tr>
+                <tr>
+                    <td>Sub-Industry</td>
+                    <td>{{model.company_data.sub_industry}}</td>
+                </tr>
+                <tr>
+                    <td>Current Price</td>
+                    <td>{{model.company_data.current_price}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <label for="canvas4">Return on Invested Capital:</label>
+            <canvas id="canvas4" height="40%" width="100%"></canvas>
+        </div>
+        <div class="col-md-2">
+            <label for="valuation">Valuation Highlights:</label>
+            <table id="valuation" class="table table-striped table-responsive">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>P/E</td>
+                    <td>{{model.company_data.p_e}}x</td>
+                </tr>
+                <tr>
+                    <td>P/B</td>
+                    <td>{{model.company_data.p_b}}X</td>
+                </tr>
+                <tr>
+                    <td>P/S</td>
+                    <td>{{model.company_data.p_s}}</td>
+                </tr>
+                <tr>
+                    <td>PEG</td>
+                    <td>{{model.company_data.peg}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="row">
+            <div class="col-md-2">
+                <label for="valuation2">Risk:</label>
+                <table id="valuation2" class="table table-striped table-responsive">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Probability of Default</td>
+                        <td>{{model.company_data.pod}}</td>
+                    </tr>
+                    <tr>
+                        <td>Credit Rating</td>
+                        <td>{{model.company_data.credit_rating}}</td>
+                    </tr>
+                    <tr>
+                        <td>Accounting Quality</td>
+                        <td>{{model.company_data.accounting_quality}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-md-6">
+                <label for="canvas5">Real Asset Growth Rate:</label>
+                <canvas id="canvas5" height="40%" width="100%"></canvas>
+            </div>
+            <div class="col-md-2">
+                <label for="summary2">Momentum:</label>
+                <table id="summary2" class="table table-striped table-responsive">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>6m</th>
+                        <th>3m</th>
+                        <th>1m</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>CFROI Revisions</td>
+                        <td>{{model.company_data.cfroi_revisions[0]}}</td>
+                        <td>{{model.company_data.cfroi_revisions[1]}}</td>
+                        <td>{{model.company_data.cfroi_revisions[2]}}</td>
+                    </tr>
+                    <tr>
+                        <td>Price Change</td>
+                        <td>{{model.company_data.price_change[0]}}</td>
+                        <td>{{model.company_data.price_change[1]}}</td>
+                        <td>{{model.company_data.price_change[2]}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+    </div>
+    </div>
+</div>

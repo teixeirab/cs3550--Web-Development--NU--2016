@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="SimulyApp">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Simuly by StatQuant</title>
+
+        <!--  CDNs -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+        <script>window.jQuery || document.write('<script src="https://code.jquery.com/jquery-1.12.0.min.js"><\/script>')</script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.min.js"></script>
+        <script src="https://rawgithub.com/angular-ui/ui-sortable/master/src/sortable.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.2.4/ui-bootstrap-tpls.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-tree/2.15.0/angular-ui-tree.min.js"></script>
+
+
+        <!-- Custom styles for this template -->
+        <link href="assets/css/style.css" rel="stylesheet">
+
+        <!-- Charting Package -->
+        <script src="assets/Chart.js-master/Chart.js"></script>
+
+        <!-- JS Files -->
+        <script src="app.js"></script>
+        <script src="config.js"></script>
+        <script src="view/main/main.controller.js"></script>
+        <!-- Services -->
+        <script src="services/user.service.client.js"></script>
+        <script src="services/game.service.client.js"></script>
+        <script src="services/portfolio.service.client.js"></script>
+        <script src="services/company.service.client.js"></script>
+        <!-- Controllers -->
+        <script src="view/header/header.controller.js"></script>
+        <script src="view/header/header.controller.js"></script>
+        <script src="view/home/home.controller.js"></script>
+        <script src="view/sidebar/sidebar.controller.js"></script>
+        <script src="view/users/login.controller.js"></script>
+        <script src="view/users/profile.controller.js"></script>
+        <script src="view/users/register.controller.js"></script>
+        <script src="view/games/create.controller.js"></script>
+        <script src="view/investing/portfolio.controller.js"></script>
+        <script src="view/investing/trading.controller.js"></script>
+        <script src="view/games/manage.controller.js"></script>
+        <script src="view/analysis/company.controller.js"></script>
+        <script src="view/analysis/momentum.controller.js"></script>
+        <script src="view/analysis/reports.controller.js"></script>
+        <script src="view/analysis/smt.controller.js"></script>
+        <script src="view/analysis/valuation.controller.js"></script>
+        <!-- Admin Controllers -->
+        <script src="view/admin/admin.users.controller.js"></script>
+        <script src="view/admin/admin.games.controller.js"></script>
+        <script src="view/admin/admin.portfolios.controller.js"></script>
+        <script src="view/admin/admin.companies.controller.js"></script>
+
+    </head>
+    <body ng-controller="MainController">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div ng-include="'view/header/header.view.html'"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div ng-include="'view/sidebar/sidebar.view.html'"></div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-view>
+            </div>
+        </div>
+    </div>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
