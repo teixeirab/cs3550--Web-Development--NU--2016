@@ -2,9 +2,9 @@
     "use strict";
     angular
         .module("SimulyApp")
-        .controller("HeaderController", headerController);
+        .controller("SearchController", SearchController);
 
-    function headerController($location, $scope, UserService) {
+    function SearchController($location, $scope, UserService) {
         $scope.$location = $location;
         $scope.logout = logout;
         $scope.search = search;

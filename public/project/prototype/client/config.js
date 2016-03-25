@@ -11,6 +11,11 @@
                 controller: "HomeController",
                 controllerAs: "model"
             })
+            .when("/search",{
+                templateUrl: "view/search/search.view.html",
+                controller: "SearchController",
+                controllerAs: "model"
+            })
             .when("/admin/users",{
                 templateUrl: "view/admin/admin.users.view.html",
                 controller: "AdminUsersController",

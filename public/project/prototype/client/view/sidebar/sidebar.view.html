@@ -1,7 +1,9 @@
-<div class="col-sm-3 col-md-2 sidebar" ng-show="currentUser.roles === 'player' || currentUser.roles === 'admin'">
+<div class="col-sm-3 col-md-2 sidebar" ng-controller="SidebarController" ng-hide="$location.url() === '/home'">
     <ul class="nav nav-sidebar">
         <li ng-class="{'active' : $location.url().indexOf('home') != -1}">
             <a href="#/home">Home</a></li>
+        <li ng-class="{'active' : $location.url().indexOf('search') != -1}">
+            <a href="#/search">Search</a></li>
         <li ng-show="currentUser"
             ng-class="{'active' : $location.url().indexOf('profile') != -1}">
             <a href="#/profile">Profile</a></li>
