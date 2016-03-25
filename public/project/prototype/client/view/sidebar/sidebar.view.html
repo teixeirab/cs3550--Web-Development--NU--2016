@@ -1,4 +1,4 @@
-<div class="col-sm-3 col-md-2 sidebar">
+<div class="col-sm-3 col-md-2 sidebar" ng-show="currentUser.roles === 'player' || currentUser.roles === 'admin'">
     <ul class="nav nav-sidebar">
         <li ng-class="{'active' : $location.url().indexOf('home') != -1}">
             <a href="#/home">Home</a></li>

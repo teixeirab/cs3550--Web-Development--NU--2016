@@ -1,114 +1,116 @@
-<h2>Users</h2>
-<ul class="nav nav-tabs">
-    <li role="presentation" ><a href="#/admin/companies">Companies</a></li>
-    <li role="presentation" class="active" ><a href="#/admin/users">Users</a></li>
-    <li role="presentation" ><a href="#/admin/games">Games</a></li>
-    <li role="presentation" ><a href="#/admin/portfolios">Portfolios</a></li>
-</ul>
-<table class="table table-striped table-responsive" ng-controller="AdminUsersController">
-    <thead>
-    <tr>
-        <th>
-            <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
-                <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
-            </svg>
-            ID
-        </th>
-        <th>
-            <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
-                <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
-            </svg>
-            First Name
-        </th>
-        <th>
-            <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
-                <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
-            </svg>
-            Last Name
-        </th>
-        <th>
-            <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
-                <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
-            </svg>
-            Username
-        </th>
-        <th>
-            <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
-                <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
-            </svg>
-            Password
-        </th>
-        <th>
-            <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
-                <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
-            </svg>
-            Role
-        </th>
-        <th>
-            Action
-        </th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>
-            <form>
-                <input ng-model="model.user._id" placeholder="id" type="text" class="form-control">
-            </form>
-        </td>
-        <td>
-            <form>
-                <input ng-model="model.user.firstName" placeholder="first name" type="text" class="form-control">
-            </form>
-        </td>
-        <td>
-            <form>
-                <input ng-model="model.user.lastName" placeholder="last name" type="text" class="form-control">
-            </form>
-        </td>
-        <td>
-            <form>
-                <input ng-model="model.user.username" placeholder="username" type="text" class="form-control">
-            </form>
-        </td>
-        <td>
-            <form>
-                <input ng-model="model.user.password" placeholder="password" type="text" class="form-control">
-            </form>
-        </td>
-        <td>
-            <form>
-                <input ng-model="model.user.roles" placeholder="roles" type="text" class="form-control">
-            </form>
-        </td>
-        <td nowrap="">
-            <form>
-                <button ng-click="model.updateUser(model.user)" class="btn btn-success">
-                    <scan class="glyphicon glyphicon-ok"></scan>
-                </button>
-                <button ng-click="model.addUser(model.user)" href="#" class="btn btn-primary">
-                    <scan class="glyphicon glyphicon-plus"></scan>
-                </button>
-            </form>
-        </td>
-    </tr>
-    <tr ng-repeat="user in model.users">
-        <td>{{user._id}}</td>
-        <td>{{user.firstName}}</td>
-        <td>{{user.lastName}}</td>
-        <td>{{user.username}}</td>
-        <td>{{user.password}}</td>
-        <td>{{user.roles}}</td>
-        <td>
-            <form>
-                <button ng-click="model.deleteUser(user)" class="btn btn-danger">
-                    <scan class="glyphicon glyphicon-remove"></scan>
-                </button>
-                <button ng-click="model.selectUser($index)" class="btn btn-warning">
-                    <scan class="glyphicon glyphicon-pencil"></scan>
-                </button>
-            </form>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h2>Users</h2>
+    <ul class="nav nav-tabs">
+        <li role="presentation" ><a href="#/admin/companies">Companies</a></li>
+        <li role="presentation" class="active" ><a href="#/admin/users">Users</a></li>
+        <li role="presentation" ><a href="#/admin/games">Games</a></li>
+        <li role="presentation" ><a href="#/admin/portfolios">Portfolios</a></li>
+    </ul>
+    <table class="table table-striped table-responsive" ng-controller="AdminUsersController">
+        <thead>
+        <tr>
+            <th>
+                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
+                    <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
+                </svg>
+                ID
+            </th>
+            <th>
+                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
+                    <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
+                </svg>
+                First Name
+            </th>
+            <th>
+                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
+                    <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
+                </svg>
+                Last Name
+            </th>
+            <th>
+                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
+                    <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
+                </svg>
+                Username
+            </th>
+            <th>
+                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
+                    <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
+                </svg>
+                Password
+            </th>
+            <th>
+                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
+                    <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
+                </svg>
+                Role
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <form>
+                    <input ng-model="model.user._id" placeholder="id" type="text" class="form-control">
+                </form>
+            </td>
+            <td>
+                <form>
+                    <input ng-model="model.user.firstName" placeholder="first name" type="text" class="form-control">
+                </form>
+            </td>
+            <td>
+                <form>
+                    <input ng-model="model.user.lastName" placeholder="last name" type="text" class="form-control">
+                </form>
+            </td>
+            <td>
+                <form>
+                    <input ng-model="model.user.username" placeholder="username" type="text" class="form-control">
+                </form>
+            </td>
+            <td>
+                <form>
+                    <input ng-model="model.user.password" placeholder="password" type="text" class="form-control">
+                </form>
+            </td>
+            <td>
+                <form>
+                    <input ng-model="model.user.roles" placeholder="roles" type="text" class="form-control">
+                </form>
+            </td>
+            <td nowrap="">
+                <form>
+                    <button ng-click="model.updateUser(model.user)" class="btn btn-success">
+                        <scan class="glyphicon glyphicon-ok"></scan>
+                    </button>
+                    <button ng-click="model.addUser(model.user)" href="#" class="btn btn-primary">
+                        <scan class="glyphicon glyphicon-plus"></scan>
+                    </button>
+                </form>
+            </td>
+        </tr>
+        <tr ng-repeat="user in model.users">
+            <td>{{user._id}}</td>
+            <td>{{user.firstName}}</td>
+            <td>{{user.lastName}}</td>
+            <td>{{user.username}}</td>
+            <td>{{user.password}}</td>
+            <td>{{user.roles}}</td>
+            <td>
+                <form>
+                    <button ng-click="model.deleteUser(user)" class="btn btn-danger">
+                        <scan class="glyphicon glyphicon-remove"></scan>
+                    </button>
+                    <button ng-click="model.selectUser($index)" class="btn btn-warning">
+                        <scan class="glyphicon glyphicon-pencil"></scan>
+                    </button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

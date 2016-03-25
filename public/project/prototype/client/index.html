@@ -64,7 +64,7 @@
     </head>
     <body ng-controller="MainController">
 
-    <div class="container-fluids">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
                 <div ng-include="'view/header/header.view.html'"></div>
@@ -74,13 +74,8 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div ng-if="not_home" ng-include="'view/sidebar/sidebar.view.html'"></div>
-            <div class="container">
-                <div class="col-sm-9 col-md-10 main">
-                    <div class="col-sm-offset-3 col-md-offset-2" ng-view>
-
-                    </div>
-                </div>
+            <div ng-include="'view/sidebar/sidebar.view.html'"></div>
+            <div ng-view>
             </div>
         </div>
     </div>
