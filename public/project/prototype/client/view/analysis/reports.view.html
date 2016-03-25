@@ -1,8 +1,8 @@
 <h2>Reports</h2>
 <ul class="nav nav-tabs">
-    <li role="presentation" ><a href="#/summary">Summary</a></li>
-    <li role="presentation" ><a href="#/smt">SMT</a></li>
-    <li role="presentation" ><a href="#/valuation">Valuation</a></li>
-    <li role="presentation" ><a href="#/momentum">Momentum</a></li>
-    <li role="presentation" class="active"><a href="#/reports">Reports</a></li>
+    <li role="presentation" ><a ng-href="#/companies/{{model.company_data._id}}">Summary</a></li>
+    <li role="presentation" ><a ng-href="#/companies/{{model.company_data._id}}/smt">SMT</a></li>
+    <li role="presentation" ><a ng-href="#/companies/{{model.company_data._id}}/valuation">Valuation</a></li>
+    <li role="presentation" ><a ng-href="#/companies/{{model.company_data._id}}/momentum">Momentum</a></li>
+    <li role="presentation" class="active"><a ng-href="#/companies/{{model.company_data._id}}/reports">Reports</a></li>
 </ul>

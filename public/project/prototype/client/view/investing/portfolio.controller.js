@@ -4,30 +4,59 @@
         .module("SimulyApp")
         .controller("PortfolioController", PortfolioController);
 
-    function PortfolioController($scope, $location) {
-        $scope.$location = $location;
-        var wfcRoe = [21.96, 20.32, 21.84, 6.98, 15.23, 10.06];
-        var roeLabels = [2005,2006,2007,2008,2009,2010];
+    function PortfolioController($rootScope, GameService, PortfolioService) {
+        var vm = this;
+        vm.currentUser = $rootScope.currentUser;
+        vm.currentPortfolio = [];
+        vm.summaryTable = [];
+        vm.buildTable = buildTable;
 
-        function renderBar(){
-            var barChartData = {
-                labels : roeLabels,
-                datasets : [
+
+        function init() {
+            PortfolioService
+                .findPortfolioForUser()
+                .then(function(response){
+                    vm.currentPortfolio = response.data;
+                    buildTable();
+                    renderBar();
+                });
+        }
+
+        init();
+
+        function buildTable(){
+            for (var i = 0; i < vm.currentPortfolio.companies.length; i++){
+                var company = {
+                    _id: vm.currentPortfolio.companies[i],
+                    shares: vm.currentPortfolio.shares[i],
+                    prices: vm.currentPortfolio.prices[i],
+                    price_paid: vm.currentPortfolio.prices_paid[i],
+                    return: vm.currentPortfolio.return[i],
+                    total_value: vm.currentPortfolio.total_value[i],
+                    weight: vm.currentPortfolio.weight[i]
+                };
+                vm.summaryTable.push(company)
+            }
+        }
+
+        function renderBar() {
+            var returnsChart = {
+                labels: vm.currentPortfolio.labels,
+                datasets: [
                     {
                         label: "WFC ROE:",
-                        fillColor : "rgba(220,220,220,0.2)",
-                        strokeColor : "rgba(220,220,220,1)",
-                        pointColor : "rgba(220,220,220,1)",
-                        pointStrokeColor : "#fff",
-                        pointHighlightFill : "#fff",
-                        pointHighlightStroke : "rgba(220,220,220,1)",
-                        data : wfcRoe
+                        fillColor: "#1A5276",
+                        strokeColor: "#1A5276",
+                        pointColor: "#1A5276",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: "rgba(220,220,220,1)",
+                        data: vm.currentPortfolio.portfolio_return
                     }
                 ]
             };
-            var ctx = document.getElementById("canvas4").getContext("2d");
-            window.myBar = new Chart(ctx).Bar(barChartData, {responsive: true});
+            var ctx = document.getElementById("returnsChart").getContext("2d");
+            window.myBar = new Chart(ctx).Bar(returnsChart, {responsive: true});
         }
-        renderBar();
     }
 })();

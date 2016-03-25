@@ -15,13 +15,12 @@ module.exports = function(uuid) {
     }
 
     function findPortfoliosForUser(userId){
-        var userPortfolios = [];
         for (var f in portfolios) {
-            if (portfolios[f].userId === parseInt(userId)) {
-                userPortfolios.push(portfolios[f]);
+            if (portfolios[f].userId === userId) {
+                return portfolios[f];
             }
         }
-        return userPortfolios;
+        return null;
     }
 
     function createPortfolio (portfolio){

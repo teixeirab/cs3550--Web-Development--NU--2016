@@ -1,0 +1,25 @@
+<div>
+    <div class="modal-header">
+        <h3 class="modal-title">{{selectedField.type}}</h3>
+    </div>
+    <div class="modal-body">
+        <label>
+            Label
+            <input ng-model="label" type="text" class="form-control">
+        </label>
+        <br>
+        <label ng-class="{hide: !showPlaceholder}">
+            Placeholder
+            <input ng-model="placeholder" type="text" class="form-control">
+        </label>
+
+        <label ng-class="{hide: !showTextarea}">
+            Options
+            <textarea ng-model="options" rows="7" cols="90" class="form-control">{{textArea}}</textarea>
+        </label>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" type="button" ng-click="accept()">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</div>

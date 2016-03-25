@@ -56,8 +56,8 @@
                 ]
             };
 
-            var ctx = document.getElementById("canvas4").getContext("2d");
-            var ctx2 = document.getElementById("canvas5").getContext("2d");
+            var ctx = document.getElementById("roicChart").getContext("2d");
+            var ctx2 = document.getElementById("growthChart").getContext("2d");
             window.myBar = new Chart(ctx).Bar(roicChart, {responsive: true});
             window.myBar = new Chart(ctx2).Bar(growthChart, {responsive: true});
         }

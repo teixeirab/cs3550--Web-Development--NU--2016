@@ -10,7 +10,7 @@
             updatePortfolio: updatePortfolio,
             deletePortfolio: deletePortfolio,
             findAllPortfolios: findAllPortfolios,
-            findPortfolioForUser: findPortfolioForUser
+            findPortfolioForUser: findPortfolioForUser,
         };
         return api;
 
@@ -19,7 +19,7 @@
         }
 
         function findPortfolioForUser() {
-            return $http.get("/api/project/game/"+$rootScope.currentUser._id);
+            return $http.get("/api/project/portfolio/"+$rootScope.currentUser._id);
         }
         
         function createPortfolio(portfolio){

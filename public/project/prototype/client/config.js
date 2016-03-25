@@ -80,7 +80,7 @@
             })
             .when("/portfolio",{
                 templateUrl: "view/investing/portfolio.view.html",
-                controller: "RegisterController",
+                controller: "PortfolioController",
                 controllerAs: "model",
                 resolve: {
                     checkLoggedIn : checkLoggedIn

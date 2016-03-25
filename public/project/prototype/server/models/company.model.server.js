@@ -2,7 +2,6 @@ var companies = require("./data/companies.mock.json");
 var companies_summary_data = require("./data/companies_data/summary.companies.mock.json");
 var companies_smt = require("./data/companies_data/smt.companies.mock.json");
 var companies_valuation = require("./data/companies_data/valuation.companies.mock.json");
-var companies_risk = require("./data/companies_data/risk.companies.mock.json");
 var companies_reports = require("./data/companies_data/reports.companies.mock.json");
 var companies_momentum = require("./data/companies_data/momentum.companies.mock.json");
 module.exports = function(uuid) {
@@ -11,13 +10,24 @@ module.exports = function(uuid) {
             createCompany : createCompany,
             deleteCompany : deleteCompany,
             updateCompany : updateCompany,
-            getCompanyData : getCompanyData
+            getCompanyData : getCompanyData,
+            findAllCompaniesByTurn : findAllCompaniesByTurn
         };
 
         return api;
 
         function findAllCompanies(){
             return companies;
+        }
+
+        function findAllCompaniesByTurn(turn){
+            var companies_temp =[];
+            for(var c in companies){
+                if (companies[c].turn === turn){
+                    companies_temp.push(companies[c]);
+                }
+            }
+            return companies_temp;
         }
 
         function getCompanyData(companyId, reportType){

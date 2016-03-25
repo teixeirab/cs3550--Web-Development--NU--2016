@@ -1,13 +1,21 @@
 module.exports = function(app, userModel, gameModel, companyModel, portfolioModel) {
 
+    app.get("/api/project/company/all/:turn", findAllCompaniesByTurn);
     app.get("/api/project/company", findAllCompanies);
     app.post("/api/project/company", createCompany);
     app.delete("/api/project/company/:companyId", deleteCompany);
     app.put("/api/project/company/:companyId", updateCompany);
     app.get("/api/project/company/:companyId/:reportType", getCompanyData);
 
+
     function findAllCompanies(req, res) {
         var companies = companyModel.findAllCompanies();
+        res.json(companies);
+    }
+
+    function findAllCompaniesByTurn(req, res) {
+        var turn = req.params.turn;
+        var companies = companyModel.findAllCompaniesByTurn(turn);
         res.json(companies);
     }
 

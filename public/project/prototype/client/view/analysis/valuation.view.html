@@ -1,36 +1,43 @@
 <h2>Valuation</h2>
 <ul class="nav nav-tabs">
-    <li role="presentation" ><a href="#/summary">Summary</a></li>
-    <li role="presentation" ><a href="#/smt">SMT</a></li>
-    <li role="presentation" class="active"><a href="#/valuation">Valuation</a></li>
-    <li role="presentation" ><a href="#/momentum">Momentum</a></li>
-    <li role="presentation" ><a href="#/reports">Reports</a></li>
+    <li role="presentation" ><a ng-href="#/companies/{{model.company_data._id}}">Summary</a></li>
+    <li role="presentation" ><a ng-href="#/companies/{{model.company_data._id}}/smt">SMT</a></li>
+    <li role="presentation" class="active"><a ng-href="#/companies/{{model.company_data._id}}/valuation">Valuation</a></li>
+    <li role="presentation" ><a ng-href="#/companies/{{model.company_data._id}}/momentum">Momentum</a></li>
+    <li role="presentation" ><a ng-href="#/companies/{{model.company_data._id}}/reports">Reports</a></li>
 </ul>
 
 <div class="container-fluid" ng-controller="ValuationController">
-    <h2>(Company Name Here)</h2>
+    <div class="row">
+        <div class="col-md-2">
+            <h2>{{model.company_data._id}}</h2>
+        </div>
+        <div class="col-md-2">
+            <br>
+            <button type="submit" ng-click="trade()" class="btn btn-success">Trade this company</button>
+        </div>
+    </div>
     <br>
     <div class="row">
         <div class="col-md-6">
-            <label for="a">P/E Ratio:</label>
-            <canvas id="a" height="40%" width="100%"></canvas>
+            <label for="peChart">P/E Ratio:</label>
+            <canvas id="peChart" height="40%" width="100%"></canvas>
         </div>
         <div class="col-md-6">
-            <label for="c">P/B Ratio:</label>
-            <canvas id="c" height="40%" width="100%"></canvas>
+            <label for="pbChart">P/B Ratio:</label>
+            <canvas id="pbChart" height="40%" width="100%"></canvas>
         </div>
     </div>
     <div class="row">
         <div class="row">
             <div class="col-md-6">
-                <label for="b">P/S Ratio</label>
-                <canvas id="b" height="40%" width="100%"></canvas>
+                <label for="psChart">P/S Ratio</label>
+                <canvas id="psChart" height="40%" width="100%"></canvas>
             </div>
             <div class="col-md-6">
-                <label for="d">PEG Ratio</label>
-                <canvas id="d" height="40%" width="100%"></canvas>
+                <label for="ev_ebitda">EV/EBITDA Ratio</label>
+                <canvas id="ev_ebitda" height="40%" width="100%"></canvas>
             </div>
         </div>
     </div>
-    <button type="submit" ng-click="trade()" class="btn btn-success">Trade this company</button>
 </div>

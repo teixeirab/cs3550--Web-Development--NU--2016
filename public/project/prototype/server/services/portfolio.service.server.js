@@ -12,8 +12,8 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
 
     function findPortfolioForUser(req, res) {
         var user = req.params.userId;
-        var portfolios = portfolioModel.findAllPortfolioForUser(user);
-        res.json(portfolios);
+        var portfolio = portfolioModel.findPortfoliosForUser(user);
+        res.json(portfolio);
     }
 
     function createPortfolio(req, res) {
