@@ -25,10 +25,20 @@
                 return;
             }
 
+            var newGame = {
+                _id: game._id,
+                title: game.title,
+                userId: game.userId,
+                players: game.players,
+                duration: game.duration,
+                universe: game.universe,
+                currentTurn: 1
+            };
+
             GameService
                 .createGame(game)
                 .then(function (response) {
-                    $location.url("/profile");
+                    $location.url("/manage");
                 });
         }
 

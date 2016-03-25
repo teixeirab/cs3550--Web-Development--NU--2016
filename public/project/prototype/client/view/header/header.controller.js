@@ -4,7 +4,7 @@
         .module("SimulyApp")
         .controller("HeaderController", headerController);
 
-    function headerController($location, $scope, UserService) {
+    function headerController($location, $scope, UserService, $rootScope) {
         $scope.$location = $location;
         $scope.logout = logout;
         $scope.search = search;
@@ -14,8 +14,11 @@
             $location.url("/home");
         }
 
-        function search(){
-            $location.url("/search");
+        function search(searchText){
+            if ($rootScope.currentUser.roles = 'admin'){
+                $scope.searchText = "";
+                $location.url("/search/" + searchText)
+            }
         }
     }
 })();

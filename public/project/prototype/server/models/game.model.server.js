@@ -5,10 +5,21 @@ module.exports = function(uuid) {
         findGamesForUser : findGamesForUser,
         createGame : createGame,
         deleteGame : deleteGame,
-        updateGame : updateGame
+        updateGame : updateGame,
+        findAllGamesByText: findAllGamesByText
     };
 
     return api;
+
+    function findAllGamesByText(text){
+        var temp = [];
+        for (var f in games) {
+            if (games[f].title === text) {
+                temp.push(games[f]);
+            }
+        }
+        return temp;
+    }
 
     function findAllGames(){
         return games;
@@ -17,7 +28,7 @@ module.exports = function(uuid) {
     function findGamesForUser(userId){
         var userGames = [];
         for (var f in games) {
-            if (games[f].userId === parseInt(userId)) {
+            if (games[f].userId === userId) {
                 userGames.push(games[f]);
             }
         }
@@ -26,7 +37,7 @@ module.exports = function(uuid) {
 
     function createGame (game){
         var newGame = {
-            _id: game._id,
+            _id: uuid.v4(),
             title: game.title,
             userId: game.userId,
             players: game.players,

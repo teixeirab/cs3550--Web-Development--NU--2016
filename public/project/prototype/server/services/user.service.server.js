@@ -9,6 +9,21 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
     app.put("/api/project/user/:userId", update);
     app.get("/api/project/user", users);
     app.delete("/api/project/user/:userId", delete_user);
+    app.post("/api/project/add/:userGame", addUserInGame);
+    app.get("/api/project/user/all/:text", getUsersByText);
+
+    function getUsersByText(req, res){
+        var text = req.params.text;
+        var users = userModel.getUsersByText(text);
+        res.json(users);
+    }
+
+    function addUserInGame(req, res){
+        var user = req.body;
+        var userGame = req.param.userGame;
+        var result = userModel.addUserInGame(user, userGame);
+        res.json(result);
+    }
 
     function delete_user(req, res){
         var userId = req.params.userId;

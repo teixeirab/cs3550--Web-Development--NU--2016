@@ -4,6 +4,13 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
     app.post("/api/project/portfolio", createPortfolio);
     app.delete("/api/project/portfolio/:portfolioId", deletePortfolio);
     app.put("/api/project/portfolio/:portfolioId", updatePortfolio);
+    app.get("/api/project/portfolio/all/:text", findAllPortfoliosByText);
+
+    function findAllPortfoliosByText(req, res){
+        var text = req.params.text;
+        var portfolios = portfolioModel.findAllPortfoliosByText(text);
+        res.json(portfolios);
+    }
 
     function findAllPortfolio(req, res) {
         var portfolios = portfolioModel.findAllPortfolios();

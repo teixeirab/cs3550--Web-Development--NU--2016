@@ -11,9 +11,9 @@
             <a href="#/home" class="navbar-brand"> Simuly </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-            <form ng-show="currentUser" class="navbar-form navbar-right ng-pristine ng-valid" ng-hide="$location.url() === '/home'">
-                <input ng-model="searchText" type="text" class="form-control ng-pristine ng-valid ng-touched" placeholder="search">
-                <button class="btn btn-default" ng-click="search(searchText)">Search</button>
+            <form class="navbar-form navbar-right ng-pristine ng-valid" ng-hide="$location.url() === '/home'">
+                <input ng-show="currentUser.roles === 'admin'" ng-model="searchText" type="text" class="form-control ng-pristine ng-valid ng-touched" placeholder="search">
+                <button ng-show="currentUser.roles === 'admin'" class="btn btn-default" ng-click="search(searchText)">Search</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
                 <li ng-hide="currentUser">

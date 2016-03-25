@@ -5,6 +5,13 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
     app.post("/api/project/game", createGame);
     app.delete("/api/project/game/:gameId", deleteGame);
     app.put("/api/project/game/:gameId", updateGame);
+    app.get("/api/project/game/search/:text", findAllGamesByText);
+
+    function findAllGamesByText(req, res){
+        var text = req.params.text;
+        var games = gameModel.findAllGamesByText(text);
+        res.json(games);
+    }
 
     function findAllGames(req, res) {
         var games = gameModel.findAllGames();

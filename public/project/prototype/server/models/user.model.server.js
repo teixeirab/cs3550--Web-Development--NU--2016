@@ -9,9 +9,24 @@ module.exports = function(uuid) {
         findUsersByIds: findUsersByIds,
         findUserByUsername: findUserByUsername,
         findAllUsers: findAllUsers,
-        addUser: addUser
+        addUser: addUser,
+        getUsersByText : getUsersByText
     };
     return api;
+
+    function getUsersByText(text){
+        var temp = [];
+        for (var u in users) {
+            if (users[u].username === text ||
+                users[u].firstName === text ||
+                users[u].lastName === text ||
+                users[u].email === text ||
+                users[u].roles === text) {
+                temp.push(users[u]);
+            }
+        }
+        return temp;
+    }
 
     function findAllUsers(){
         return users;
@@ -87,7 +102,7 @@ module.exports = function(uuid) {
 
     function addUser(user){
         var newUser = {
-            _id: user._id,
+            _id: uuid.v4(),
             firstName: user.firstName,
             lastName: user.lastName,
             username: user.username,

@@ -11,8 +11,13 @@
             deletePortfolio: deletePortfolio,
             findAllPortfolios: findAllPortfolios,
             findPortfolioForUser: findPortfolioForUser,
+            findAllPortfoliosByText : findAllPortfoliosByText
         };
         return api;
+
+        function findAllPortfoliosByText(text){
+            return $http.get("/api/project/portfolio/all/" + text);
+        }
 
         function findAllPortfolios() {
             return $http.get("/api/project/portfolio/");

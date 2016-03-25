@@ -11,10 +11,13 @@
                 controller: "HomeController",
                 controllerAs: "model"
             })
-            .when("/search",{
+            .when("/search/:text",{
                 templateUrl: "view/search/search.view.html",
                 controller: "SearchController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve: {
+                    checkLoggedIn : checkLoggedIn
+                }
             })
             .when("/admin/users",{
                 templateUrl: "view/admin/admin.users.view.html",

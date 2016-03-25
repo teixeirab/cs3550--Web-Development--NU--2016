@@ -11,13 +11,25 @@ module.exports = function(uuid) {
             deleteCompany : deleteCompany,
             updateCompany : updateCompany,
             getCompanyData : getCompanyData,
-            findAllCompaniesByTurn : findAllCompaniesByTurn
+            findAllCompaniesByTurn : findAllCompaniesByTurn,
+            findAllCompaniesByText : findAllCompaniesByText
         };
 
         return api;
 
         function findAllCompanies(){
             return companies;
+        }
+
+        function findAllCompaniesByText(text){
+            var temp = [];
+            for(var c in companies){
+                if (companies[c].name === text){
+                    temp.push(companies[c]);
+                }
+            }
+            console.log(temp);
+            return temp;
         }
 
         function findAllCompaniesByTurn(turn){

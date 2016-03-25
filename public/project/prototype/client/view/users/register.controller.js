@@ -4,7 +4,7 @@
         .module("SimulyApp")
         .controller("RegisterController", registerController);
 
-    function registerController($location, UserService) {
+    function registerController($location, UserService, GameService) {
         var vm = this;
         vm.message = null;
         vm.register = register;
@@ -14,6 +14,7 @@
         init();
 
         function register(user) {
+            console.log(user);
             vm.message = null;
 
             if (user == null) {
@@ -43,12 +44,19 @@
                 return;
             }
 
-            if (user.type1) {
+            if (user.type) {
                 vm.user.role = "admin"
             }
 
-            if (user.type2) {
-                vm.user.role = "player"
+            if (user.type === "player"){
+                GameService
+                    .addUserInGame(user, user.gmae_name)
+                    .then(function (response) {
+                        var currentGame = response.data;
+                        if (currentUser === null) {
+                            vm.message = "Game not found, select another one"
+                        }
+                    });
             }
 
             UserService
@@ -60,6 +68,7 @@
                         $location.url("/profile");
                     }
                 });
+
         }
     }
 })();

@@ -5,10 +5,22 @@ module.exports = function(uuid) {
         findPortfoliosForUser : findPortfoliosForUser,
         createPortfolio : createPortfolio,
         deletePortfolio : deletePortfolio,
-        updatePortfolio : updatePortfolio
+        updatePortfolio : updatePortfolio,
+        findAllPortfoliosByText: findAllPortfoliosByText
     };
-
     return api;
+
+    function findAllPortfoliosByText(text){
+        console.log(text)
+        var temp = [];
+        for (var f in portfolios) {
+            if (portfolios[f].userId === text ||
+                portfolios[f].game_id === text) {
+                temp.push(portfolios[f]);
+            }
+        }
+        return temp;
+    }
 
     function findAllPortfolios(){
         return portfolios;

@@ -17,8 +17,14 @@
             setUsers : setUsers,
             deleteUser : deleteUser,
             addUser: addUser,
+            addUserInGame : addUserInGame,
+            getUsersByText : getUsersByText
         };
         return api;
+
+        function getUsersByText(text){
+            return $http.get("/api/project/user/all/"+text);
+        }
 
         function getProfile() {
             return $http.get("/api/project/profile/"+$rootScope.currentUser._id);
@@ -34,6 +40,10 @@
 
         function addUser(user) {
             return $http.post("/api/project/add", user);
+        }
+
+        function addUserInGame(user, userGame) {
+            return $http.post("/api/project/add/"+userGame, user);
         }
 
         function logout() {

@@ -6,7 +6,14 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
     app.delete("/api/project/company/:companyId", deleteCompany);
     app.put("/api/project/company/:companyId", updateCompany);
     app.get("/api/project/company/:companyId/:reportType", getCompanyData);
+    app.get("/api/project/company/all/text/:text", findAllCompaniesByTurn);
 
+    function findAllCompaniesByText(req, res){
+        var text = req.params.text;
+        console.log(text);
+        var companies = companyModel.findAllCompaniesByText(text);
+        res.json(companies);
+    }
 
     function findAllCompanies(req, res) {
         var companies = companyModel.findAllCompanies();

@@ -10,12 +10,17 @@
             updateGame: updateGame,
             deleteGame: deleteGame,
             findAllGames: findAllGames,
-            findGamesForUser: findGamesForUser
+            findGamesForUser: findGamesForUser,
+            findAllGamesByText : findAllGamesByText
         };
         return api;
 
         function findAllGames() {
             return $http.get("/api/project/game/");
+        }
+
+        function findAllGamesByText(text){
+            return $http.get("/api/project/game/search/"+text);
         }
 
         function findGamesForUser() {
