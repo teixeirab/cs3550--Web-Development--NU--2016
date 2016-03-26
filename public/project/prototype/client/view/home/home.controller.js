@@ -25,7 +25,7 @@
                 .then(function(response){
                     if(response.data) {
                         UserService.setCurrentUser(response.data);
-                        $location.url("/profile");
+                        $location.url("/profile/" + user.username);
                     }
                 });
         }

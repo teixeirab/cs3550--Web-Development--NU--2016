@@ -57,7 +57,7 @@
                 controllerAs: "model"
 
             })
-            .when("/profile",{
+            .when("/profile/:username",{
                 templateUrl: "view/users/profile.view.html",
                 controller: "ProfileController",
                 controllerAs: "model",

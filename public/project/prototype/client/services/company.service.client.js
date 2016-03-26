@@ -17,7 +17,7 @@
         return api;
 
         function findAllCompaniesByText(text){
-            return $http.get("/api/project/company/all/text/"+ text);
+            return $http.get("/api/project/company/all/search/"+ text);
         }
 
         function findAllCompanies() {

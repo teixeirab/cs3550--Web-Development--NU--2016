@@ -4,10 +4,11 @@
         .module("SimulyApp")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController($rootScope, UserService) {
+    function ProfileController($rootScope, UserService, $routeParams) {
         var vm = this;
         vm.update = update;
         vm.currentUser = $rootScope.currentUser;
+        var username = $routeParams.username;
 
 
         function init() {

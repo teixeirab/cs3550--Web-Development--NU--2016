@@ -22,14 +22,14 @@ module.exports = function(uuid) {
         }
 
         function findAllCompaniesByText(text){
-            var temp = [];
+            var companies_temp =[];
             for(var c in companies){
                 if (companies[c].name === text){
-                    temp.push(companies[c]);
+                    console.log(companies_temp);
+                    companies_temp.push(companies[c]);
                 }
             }
-            console.log(temp);
-            return temp;
+            return companies_temp;
         }
 
         function findAllCompaniesByTurn(turn){

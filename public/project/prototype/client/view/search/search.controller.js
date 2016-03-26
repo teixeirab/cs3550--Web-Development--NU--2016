@@ -40,6 +40,7 @@
                     .findAllCompaniesByText(vm.searchText)
                     .then(function (response){
                         if(response.data) {
+                            console.log(response.data)
                             vm.companies = response.data
                         }
                     });

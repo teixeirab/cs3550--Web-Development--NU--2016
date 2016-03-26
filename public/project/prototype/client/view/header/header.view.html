@@ -21,7 +21,7 @@
                 <li ng-hide="currentUser">
                     <a href="#/login">Login</a></li>
                 <li ng-show="currentUser">
-                    <a href="#/profile">{{currentUser.username}}</a></li>
+                    <a ng-href="#/profile/{{currentUser.username}}">{{currentUser.username}}</a></li>
                 <li ng-show="currentUser">
                     <a ng-click="logout()">  Logout </a></li>
                 <li ng-show="currentUser.roles === 'player'" class="dropdown visible-xs">
