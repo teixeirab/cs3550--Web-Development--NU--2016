@@ -1,5 +1,16 @@
+// load q promise library
+var q = require("q");
+
 var mock = require("./user.mock.json");
-module.exports = function(uuid) {
+
+module.exports = function(uuid, db, mongoose) {
+
+    // load user schema
+    var UserSchema = require("./user.schema.server.js")(mongoose);
+
+    // create user model from schema
+    var UserModel = mongoose.model('User', UserSchema);
+
     var api = {
         findUserByCredentials: findUserByCredentials,
         createUser: createUser,
@@ -13,42 +24,95 @@ module.exports = function(uuid) {
     return api;
 
     function findAllUsers(){
-        return mock;
+        var deferred = q.defer();
+        UserModel.find('User', function (err, doc){
+                if (err) {
+                    // reject promise if error
+                    deferred.reject(err);
+                } else {
+                    // resolve promise
+                    deferred.resolve(doc);
+                }
+            }
+        );
+        return deferred.promise;
     }
 
     function createUser(user) {
-        user._id = uuid.v4();
-        user.role = "student";
-        mock.push(user);
-        return user;
+
+        // use q to defer the response
+        var deferred = q.defer();
+
+        // insert new user with mongoose user model's create()
+        UserModel.create(user, function (err, doc) {
+
+            if (err) {
+                // reject promise if error
+                deferred.reject(err);
+            } else {
+                // resolve promise
+                deferred.resolve(doc);
+            }
+
+        });
+
+        // return a promise
+        return deferred.promise;
     }
 
     function deleteUserById(userId){
-        for (var u in users) {
-            if (users[u]._id === id) {
-                users.splice(u, 1);
+        var deferred = q.defer();
+        UserModel.update(userId, {$pull: 'User'}, function (err, doc){
+                if (err) {
+                    // reject promise if error
+                    deferred.reject(err);
+                } else {
+                    // resolve promise
+                    deferred.resolve(doc);
+                }
             }
-        }
-        return users;
+        );
+        return deferred.promise;
+
     }
 
     function findUserByCredentials(credentials) {
-        for(var u in mock) {
-            if( mock[u].username === credentials.username &&
-                mock[u].password === credentials.password) {
-                return mock[u];
-            }
-        }
-        return null;
+
+        var deferred = q.defer();
+
+        // find one retrieves one document
+        UserModel.findOne(
+
+            // first argument is predicate
+            { username: credentials.username,
+                password: credentials.password },
+
+            // doc is unique instance matches predicate
+            function(err, doc) {
+
+                if (err) {
+                    // reject promise if error
+                    deferred.reject(err);
+                } else {
+                    // resolve promise
+                    deferred.resolve(doc);
+                }
+
+            });
+
+        return deferred.promise;
     }
 
     function findUserById(userId) {
-        for(var u in mock) {
-            if(mock[u]._id === userId) {
-                return mock[u];
+        var deferred = q.defer();
+        UserModel.findById(userId, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(doc);
             }
-        }
-        return null;
+        });
+        return deferred.promise;
     }
 
     function updateUser(user, userId){
@@ -70,17 +134,20 @@ module.exports = function(uuid) {
     }
 
     function findUsersByIds (userIds) {
-        var users = [];
-        for (var u in userIds) {
-            var user = findUserById (userIds[u]);
-            if (user) {
-                users.push ({
-                    username: user.username,
-                    _id: user._id
-                });
+        var deferred = q.defer();
+
+        // find all users in array of user IDs
+        UserModel.find({
+            _id: {$in: userIds}
+        }, function (err, users) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(users);
             }
-        }
-        return users;
+        });
+
+        return deferred.promise;
     }
 
 };

@@ -1,6 +1,18 @@
+// load q promise library
+var q = require("q");
+
 var mock = require("./form.mock.json");
 var fields = require("./field.mock.json");
-module.exports = function(uuid) {
+module.exports = function(uuid, db, mongoose) {
+
+    // load form and fields schema
+    var FormSchema = require("./form.schema.server.js")(mongoose);
+    var FieldSchema = require("./field.schema.server.js")(mongoose);
+
+    // create form model from schema
+    var FormModel = mongoose.model('Form', FormSchema);
+    var FieldModel = mongoose.model('Field', FieldSchema);
+
     var api = {
         // Forms Service
         findAllFormsForUser: findAllFormsForUser,

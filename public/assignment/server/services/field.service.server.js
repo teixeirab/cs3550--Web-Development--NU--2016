@@ -9,42 +9,90 @@ module.exports = function(app, formModel) {
 
     function getFieldsForForm(req, res) {
         var formId = req.params.formId;
-        var fields = formModel.getFieldsForForm(formId);
-        res.json(fields);
+        var fields = formModel.getFieldsForForm(formId)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                // send error if promise rejected
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
     }
 
     function getFieldTemplateType(req, res) {
         var fieldType = req.params.fieldType;
-        var field = formModel.getFieldTemplateType(fieldType);
-        res.json(field);
+        var field = formModel.getFieldTemplateType(fieldType)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                // send error if promise rejected
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
     }
 
     function getFieldForForm(req, res) {
         var formId = req.params.formId;
         var fieldId = req.params.fieldId;
-        var field = formModel.getFieldForForm(formId, fieldId);
-        res.json(field);
+        var field = formModel.getFieldForForm(formId, fieldId)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                // send error if promise rejected
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
     }
 
     function deleteFieldFromForm(req, res) {
         var formId = req.params.formId;
         var fieldId = req.params.fieldId;
-        var forms = formModel.deleteFieldFromForm(formId, fieldId);
-        res.json(forms);
+        var forms = formModel.deleteFieldFromForm(formId, fieldId)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                // send error if promise rejected
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
     }
 
     function createFieldForForm(req, res) {
         var formId = req.params.formId;
         var field = req.body;
-        var forms = formModel.createFieldForForm(formId, field);
-        res.json(forms);
+        var forms = formModel.createFieldForForm(formId, field)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                // send error if promise rejected
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
     }
 
     function updateField(req, res) {
         var formId = req.params.formId;
         var fieldId = req.params.fieldId;
         var field = req.body;
-        var forms = formModel.updateField(formId, fieldId, field);
-        res.json(forms);
+        var forms = formModel.updateField(formId, fieldId, field)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                // send error if promise rejected
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
     }
 };
