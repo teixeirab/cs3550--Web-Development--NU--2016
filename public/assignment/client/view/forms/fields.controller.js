@@ -11,6 +11,7 @@
         vm.deleteField = deleteField;
         vm.addField = addField;
         vm.editField = editField;
+        vm.reorder = reorder;
 
         function init() {
             if (formId == null) {
@@ -35,6 +36,14 @@
                 });
         }
         init();
+
+        function reorder() {
+            vm.form.fields = vm.fields;
+            FormService
+                .updateFormById(formId, vm.form)
+                .then(init);
+
+        }
 
         function deleteField(field) {
             FieldsService
