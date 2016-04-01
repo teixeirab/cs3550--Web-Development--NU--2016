@@ -9,6 +9,6 @@ module.exports = function(mongoose) {
         fields: [FieldSchema],
         created: Date,
         updated: Date
-    }, {collection: 'project.omdb.user'});
+    }, {collection: 'assignment.form'});
     return FormSchema;
 };

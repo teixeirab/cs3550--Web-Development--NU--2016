@@ -62,7 +62,7 @@ module.exports = function(uuid, db, mongoose) {
 
     function deleteUserById(userId){
         var deferred = q.defer();
-        UserModel.update(userId, {$pull: 'User'}, function (err, doc){
+        UserModel.findByIdAndRemove(userId, function (err, doc){
                 if (err) {
                     // reject promise if error
                     deferred.reject(err);
@@ -116,12 +116,25 @@ module.exports = function(uuid, db, mongoose) {
     }
 
     function updateUser(user, userId){
-        for (var u in mock) {
-            if (mock[u]._id === parseInt(userId)) {
-                mock[u] = user;
+
+        // use q to defer the response
+        var deferred = q.defer();
+
+        // insert new user with mongoose user model's create()
+        UserModel.findByIdAndUpdate(userId, user, {new: true}, function (err, doc) {
+
+            if (err) {
+                // reject promise if error
+                deferred.reject(err);
+            } else {
+                // resolve promise
+                deferred.resolve(doc);
             }
-        }
-        return mock;
+
+        });
+
+        // return a promise
+        return deferred.promise;
     }
 
     function findUserByUsername (username){

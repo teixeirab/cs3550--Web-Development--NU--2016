@@ -1,23 +1,19 @@
 [
     {
-        "_id": null,
         "label": "New Text Field",
         "type": "TEXT",
         "placeholder": "New Field"
     },
     {
-        "_id": null,
         "label": "New Text Field",
         "type": "TEXTAREA",
         "placeholder": "New Field"
     },
     {
-        "_id": null,
         "label": "New Date Field",
         "type": "DATE"
     },
     {
-        "_id": null,
         "label": "New Dropdown",
         "type": "OPTIONS",
         "options": [
@@ -36,7 +32,6 @@
         ]
     },
     {
-        "_id": null,
         "label": "New Checkboxes",
         "type": "CHECKBOXES",
         "options": [
@@ -55,7 +50,6 @@
         ]
     },
     {
-        "_id": null,
         "label": "New Radio Buttons",
         "type": "RADIOS",
         "options": [

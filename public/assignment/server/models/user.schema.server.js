@@ -9,6 +9,6 @@ module.exports = function(mongoose) {
         emails: [String],
         phones: [String],
         roles: String
-    }, {collection: 'assignment.forms.user'});
+    }, {collection: 'assignment.user'});
     return UserSchema;
 };

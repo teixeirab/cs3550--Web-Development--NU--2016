@@ -45,14 +45,23 @@
                 }
             }
 
-            var field = {
-                label: $scope.label,
-                placeholder: $scope.placeholder,
-                options: formOptionsArray.length > 0 ? formOptionsArray : null
-            };
+            var fields = [];
+            for (var j in $rootScope.fields){
+                if ($rootScope.fields[j]._id === $scope.selectedField._id){
+                    fields.push({
+                        id_ : $rootScope.fields[j]._id,
+                        label: $scope.label,
+                        placeholder: $scope.placeholder,
+                        options: formOptionsArray.length > 0 ? formOptionsArray : null,
+                        type : $rootScope.fields[j].type
+                    })
+                }
+                else fields.push($rootScope.fields[j]);
+            }
+
 
             FieldsService
-                .updateField($scope.formId, $scope.selectedField._id, field)
+                .updateField($scope.formId, fields)
                 .then(function(response) {
                     FieldsService
                         .getFieldsForForm($scope.formId)

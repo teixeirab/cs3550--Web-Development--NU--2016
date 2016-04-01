@@ -18,29 +18,27 @@
                 .getUsers()
                 .then(function (response){
                     if(response.data) {
-                        vm.users = response.data
+                        vm.users = response.data;
                     }
-                })
+                });
         }
+
         init();
+
 
         function deleteUser(user){
             UserService
                 .deleteUser(user._id)
-                .then(function(response){
-                    if(response.data) {
-                        vm.users = response.data;
-                    }
+                .then(function(){
+                    init();
                 });
         }
 
         function updateUser(user){
             UserService
                 .update(user, user._id)
-                .then(function(response){
-                    if(response.data) {
-                        vm.users = response.data;
-                    }
+                .then(function(){
+                    init();
                 });
         }
 
@@ -50,11 +48,9 @@
 
         function addUser(user){
             UserService
-                .addUser(user)
+                .register(user)
                 .then(function(response){
-                    if(response.data) {
-                        vm.users = response.data;
-                    }
+                    init();
                 });
         }
     }

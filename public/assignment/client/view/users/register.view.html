@@ -2,12 +2,24 @@
 
 <form ng-controller="RegisterController">
     <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input ng-model="model.currentUser.firstName" type="text" class="form-control" id="firstName" placeholder="First Name">
+    </div>
+    <div class="form-group">
+        <label for="username">Last Name</label>
+        <input ng-model="model.currentUser.lastName" type="text" class="form-control" id="lastName" placeholder="Last Name">
+    </div>
+    <div class="form-group">
         <label for="username">Username</label>
         <input ng-model="model.currentUser.username" type="text" class="form-control" id="username" placeholder="Username">
     </div>
     <div class="form-group">
+        <label for="email">Telephone</label>
+        <input ng-model="model.currentUser.phones" type="tel" class="form-control" id="telephone" placeholder="Telephone">
+    </div>
+    <div class="form-group">
         <label for="email">Email address</label>
-        <input ng-model="model.currentUser.email" type="email" class="form-control" id="email" placeholder="Email">
+        <input ng-model="model.currentUser.emails" type="email" class="form-control" id="email" placeholder="Email">
     </div>
     <div class="form-group">
         <label for="password">Password</label>
@@ -16,6 +28,19 @@
     <div class="form-group">
         <label for="password2">Verify Password</label>
         <input ng-model="model.currentUser.password2" type="password" class="form-control" id="password2" placeholder="Password">
+    </div>
+    <div class="form-group">
+        <label for="typeOfUser">Select your Role</label>
+        <fieldset id="typeOfUser">
+            <label>
+                <input type="radio" ng-model="model.currentUser.roles" value="admin">
+                Admin
+            </label>
+            <label>
+                <input type="radio" ng-model="model.currentUser.roles" value="student">
+                Student
+            </label><br/>
+        </fieldset>
     </div>
     <br>
     <button ng-click="model.register(model.currentUser)" type="submit" class="btn btn-default">Register</button>

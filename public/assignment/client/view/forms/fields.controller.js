@@ -4,12 +4,9 @@
         .module("FormBuilderApp")
         .controller("FieldsController", FieldsController);
 
-    function FieldsController(FieldsService, $uibModal, $rootScope , $routeParams, $scope) {
+    function FieldsController(FieldsService, $uibModal, $rootScope , $routeParams, FormService) {
         var vm = this;
         var formId = $routeParams.formId;
-        //Couldnt get sorting to work on time
-        //$scope.list = tmpList;
-        //$scope.sortingLog = [];
 
         vm.deleteField = deleteField;
         vm.addField = addField;
@@ -17,14 +14,23 @@
 
         function init() {
             if (formId == null) {
-                console.log($routeParams.formId);
             }
             var formId = $routeParams.formId;
+
+            FormService
+                .getFormById(formId)
+                .then(function(response) {
+                    if(response.data){
+                        vm.form = response.data
+                    }
+                });
+
             FieldsService
                 .getFieldsForForm(formId)
                 .then(function(response) {
                     if (response.data) {
                         vm.fields = response.data;
+                        $rootScope.fields = response.data;
                     }
                 });
         }
@@ -33,10 +39,8 @@
         function deleteField(field) {
             FieldsService
                 .deleteFieldForForm(formId, field._id)
-                .then(function(response) {
-                    if (response.data) {
-                        vm.fields = response.data;
-                    }
+                .then(function() {
+                    init();
                 });
         }
 
@@ -62,43 +66,17 @@
                 .then(function(response) {
                     if (response.data) {
                         var field = response.data;
+                        $rootScope.fields.push(field);
+
                         FieldsService
-                            .createFieldForForm(formId, field)
+                            .createFieldForForm(formId, $rootScope.fields)
                             .then(function(response) {
                                 if (response.data) {
-                                    vm.fields = response.data;
+                                    vm.fields = $rootScope.fields;
                                 }
                             });
                     }
                 });
         }
-
-        var tmpList = [];
-
-        for (var i = 1; i <= 6; i++){
-            tmpList.push({
-                text: 'Item ' + i,
-                value: i
-            });
-        }
-
-
-
-        $scope.sortableOptions = {
-            update: function(e, ui) {
-                var logEntry = tmpList.map(function(i){
-                    return i.value;
-                }).join(', ');
-                $scope.sortingLog.push('Update: ' + logEntry);
-            },
-            stop: function(e, ui) {
-                // this callback has the changed model
-                var logEntry = tmpList.map(function(i){
-                    return i.value;
-                }).join(', ');
-                $scope.sortingLog.push('Stop: ' + logEntry);
-            }
-        };
-
     }
 })();

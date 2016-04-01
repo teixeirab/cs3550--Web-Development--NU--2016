@@ -6,7 +6,7 @@ module.exports = function(mongoose) {
         type: String,
         placeholder: String,
         options: [{label:String, value:String}]
-    }, {collection: 'project.omdb.user'});
+    }, {collection: 'assignment.fields'});
     return FieldSchema;
 };
 

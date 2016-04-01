@@ -14,6 +14,7 @@
 
 
         function register(user) {
+
             UserService
                 .register(user)
                 .then(function(response){

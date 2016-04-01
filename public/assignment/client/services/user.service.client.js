@@ -19,10 +19,9 @@
         };
         return api;
 
-        function getProfile() {
-            return $http.get("/api/assignment/profile/"+$rootScope.currentUser._id);
+        function getProfile(user) {
+            return $http.get("/api/assignment/profile/"+user._id);
         }
-
 
         function getUsers() {
             return $http.get("/api/assignment/user");
@@ -59,6 +58,7 @@
         function deleteUser(userId){
             return $http.delete("/api/assignment/user/" + userId);
         }
+
 
     }
 })();

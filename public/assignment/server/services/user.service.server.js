@@ -4,10 +4,11 @@ module.exports = function(app, formModel, userModel) {
     app.get("/api/assignment/loggedin", loggedin);
     app.post("/api/assignment/logout", logout);
     app.post("/api/assignment/register", register);
+    app.post("/api/assignment/add", addUser);
     app.get("/api/assignment/profile/:userId", profile);
     app.put("/api/assignment/user/:userId", update);
     app.get("/api/assignment/user", users);
-    app.delete("/api/assignment/user/:id", delete_user);
+    app.delete("/api/assignment/user/:userId", delete_user);
 
     function delete_user(req, res){
         var userId = req.params.userId;
@@ -38,7 +39,6 @@ module.exports = function(app, formModel, userModel) {
 
     function profile(req, res) {
         var userId = req.params.userId;
-        var user = null;
 
         // use model to find user by id
         userModel.findUserById(userId)
@@ -79,6 +79,7 @@ module.exports = function(app, formModel, userModel) {
         user = userModel.updateUser(user, userId)
             .then(
                 function (doc) {
+                    req.session.currentUser = doc;
                     res.json(doc);
                 },
                 // send error if promise rejected
@@ -111,4 +112,19 @@ module.exports = function(app, formModel, userModel) {
         req.session.destroy();
         res.send(200);
     }
+
+    function addUser(req, res){
+        var user = req.body;
+        var users = userModel.createUser(user)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                // send error if promise rejected
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+    }
+
 };

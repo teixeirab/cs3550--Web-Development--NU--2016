@@ -3,8 +3,23 @@ module.exports = function(app, formModel, userModel) {
     app.get("/api/assignment/user/:userId/form", findAllFormsForUser);
     app.get("/api/assignment/form/:formId", getFormById);
     app.delete("/api/assignment/form/:formId", deleteFormById);
-    app.post("/api/assignment/user/:formId/form", createFormForUser);
+    app.post("/api/assignment/user/:userId/form", createFormForUser);
     app.put("/api/assignment/form/:formId", updateFormById);
+    app.get("/api/assignment/forms", findAllForms);
+
+    function findAllForms (req, res){
+        var forms = formModel.findAllForms()
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                // send error if promise rejected
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+    }
+
 
     // returns an array of forms belonging to a user whose id is equal to the userId path parameter
     function findAllFormsForUser(req, res){
@@ -23,7 +38,17 @@ module.exports = function(app, formModel, userModel) {
 
     // returns a form object whose id is equal to the formId path parameter
     function getFormById(req, res){
-
+        var formId = req.params.formId;
+        formModel.getFormById(formId)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                // send error if promise rejected
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
     }
 
     // removes a form object whose id is equal to the formId path parameter
@@ -46,9 +71,9 @@ module.exports = function(app, formModel, userModel) {
     // null since it is a new record. The id of the new form should be set dynamically using Node.js guid or
     // node-uuid libraries. These will eventually be set by the database when they are inserted into a collection
     function createFormForUser(req, res) {
-        var formId = req.params.formId;
+        var userId = req.params.userId;
         var form = req.body;
-        var userForms = formModel.createFormForUser(form, formId)
+        var userForms = formModel.createFormForUser(form, userId)
             .then(
                 function (doc) {
                     res.json(doc);

@@ -1,56 +1,55 @@
-(function () {
+(function(){
     "use strict";
     angular
         .module("FormBuilderApp")
-        .controller("FormsController", FormsController);
+        .controller("AdminFormsController", adminFormsController);
 
-    function FormsController(FormService, $rootScope, $routeParams) {
-
+    function adminFormsController(FormService, $routeParams) {
         var vm = this;
-        var formId = $routeParams.formId;
         vm.forms = [];
-        vm.addForm = addForm;
         vm.deleteForm = deleteForm;
         vm.updateForm = updateForm;
         vm.selectForm = selectForm;
+        vm.addForm = addForm;
 
         function init() {
             FormService
-                .findAllFormsForUser($rootScope.currentUser._id)
+                .findAllForms()
                 .then(function (response){
                     if(response.data) {
                         vm.forms = response.data;
                     }
-                })
+                });
         }
+
         init();
 
-        function addForm(form){
+        function deleteForm(form){
             FormService
-                .createFormForUser(form, $rootScope.currentUser._id)
-                .then(function (){
+                .deleteFormById(form._id)
+                .then(function(){
                     init();
-                })
+                });
         }
 
         function updateForm(form){
             FormService
                 .updateFormById(form._id, form)
-                .then(function (){
-                        init();
-                });
-        }
-
-        function deleteForm(form){
-            FormService
-                .deleteFormById(form._id)
-                .then(function (){
+                .then(function(){
                     init();
                 });
         }
 
         function selectForm(index){
             vm.form = vm.forms[index];
+        }
+
+        function addForm(form){
+            FormService
+                .createFormForUser(form, form.userId)
+                .then(function(){
+                    init();
+                });
         }
     }
 })();

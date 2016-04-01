@@ -12,8 +12,24 @@
                 controllerAs: "model"
             })
             .when("/admin",{
-                templateUrl: "view/admin/admin.view.html",
+                templateUrl: "view/admin/admin.users.view.html",
                 controller: "AdminController",
+                controllerAs: "model",
+                resolve: {
+                    checkLoggedIn : checkLoggedIn
+                }
+            })
+            .when("/admin/forms",{
+                templateUrl: "view/admin/admin.forms.view.html",
+                controller: "AdminFormsController",
+                controllerAs: "model",
+                resolve: {
+                    checkLoggedIn : checkLoggedIn
+                }
+            })
+            .when("/admin/fields",{
+                templateUrl: "view/admin/admin.fields.view.html",
+                controller: "AdminFieldsController",
                 controllerAs: "model",
                 resolve: {
                     checkLoggedIn : checkLoggedIn
