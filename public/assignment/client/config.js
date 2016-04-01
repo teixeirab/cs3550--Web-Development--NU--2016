@@ -27,14 +27,6 @@
                     checkLoggedIn : checkLoggedIn
                 }
             })
-            .when("/admin/fields",{
-                templateUrl: "view/admin/admin.fields.view.html",
-                controller: "AdminFieldsController",
-                controllerAs: "model",
-                resolve: {
-                    checkLoggedIn : checkLoggedIn
-                }
-            })
             .when("/forms",{
                 templateUrl: "view/forms/forms.view.html",
                 controller: "FormsController",

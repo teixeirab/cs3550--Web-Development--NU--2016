@@ -69,10 +69,10 @@
                         $rootScope.fields.push(field);
 
                         FieldsService
-                            .createFieldForForm(formId, $rootScope.fields)
+                            .createFieldForForm(formId, field)
                             .then(function(response) {
                                 if (response.data) {
-                                    vm.fields = $rootScope.fields;
+                                    vm.fields = response.data.fields;
                                 }
                             });
                     }

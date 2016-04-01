@@ -64,7 +64,7 @@ module.exports = function(uuid, db, mongoose) {
 
     function findAllFormsForUser(userId){
         var deferred = q.defer();
-        FormModel.find('Form.'+ userId, function (err, doc){
+        FormModel.find({userId: userId}, function(err, doc) {
                 if (err) {
                     // reject promise if error
                     deferred.reject(err);
@@ -167,6 +167,9 @@ module.exports = function(uuid, db, mongoose) {
                     if (doc.fields[i]._id == fieldId) {
                         deferred.resolve(fields[i]);
                     }
+                    else{
+                        deferred.reject("Could not Find Field ID");v
+                    }
                 }
             }
         });
@@ -196,10 +199,10 @@ module.exports = function(uuid, db, mongoose) {
         return null;
     }
 
-    function createFieldForForm(formId, fields) {
+    function createFieldForForm(formId, field) {
         var deferred = q.defer();
 
-        FormModel.update({_id: formId},{$set: {fields: fields}}, {new: true}, function (err, doc) {
+        FormModel.findByIdAndUpdate(formId, {$push: {"fields": field}}, {new: true}, function (err, doc) {
 
             if (err) {
                 deferred.reject(err);
@@ -210,11 +213,10 @@ module.exports = function(uuid, db, mongoose) {
         return deferred.promise;
     }
 
-    function updateField(formId, fields) {
+    function updateField(formId, field) {
         var deferred = q.defer();
 
-        FormModel.update({_id: formId},{$set: {fields: fields}}, {new: true}, function (err, doc) {
-
+        FormModel.update({_id: formId, "fields._id" : field._id}, {$set: {"fields.$": field}}, {new: true}, function (err, doc) {
             if (err) {
                 deferred.reject(err);
             } else {

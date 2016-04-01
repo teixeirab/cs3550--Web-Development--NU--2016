@@ -45,23 +45,17 @@
                 }
             }
 
-            var fields = [];
-            for (var j in $rootScope.fields){
-                if ($rootScope.fields[j]._id === $scope.selectedField._id){
-                    fields.push({
-                        id_ : $rootScope.fields[j]._id,
-                        label: $scope.label,
-                        placeholder: $scope.placeholder,
-                        options: formOptionsArray.length > 0 ? formOptionsArray : null,
-                        type : $rootScope.fields[j].type
-                    })
-                }
-                else fields.push($rootScope.fields[j]);
-            }
+            var field = {
+                _id : $scope.selectedField._id,
+                label: $scope.label,
+                placeholder: $scope.placeholder,
+                options: formOptionsArray.length > 0 ? formOptionsArray : null,
+                type : $scope.selectedField.type
+            };
 
 
             FieldsService
-                .updateField($scope.formId, fields)
+                .updateField($scope.formId, field)
                 .then(function(response) {
                     FieldsService
                         .getFieldsForForm($scope.formId)
@@ -71,5 +65,6 @@
             $route.reload();
             $rootScope.modalInstance.close();
         }
+
     }
 })();
