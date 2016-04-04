@@ -1,0 +1,38 @@
+[
+  {"_id": "1_ABC",
+    "market_cap": 10, "enterprise_value": 20, "sub_industry": "Hardware", "current_price": 24.5,
+    "p_e": 15, "p_b": 1.2, "p_s": 0.8, "peg":0.8, "dividend_yield": 1.2,
+    "roic": [21.96, 20.32, 21.84, 6.98, 15.23, 10.06, 10.06, 10.06, 10.06, 10.06],
+    "asset_growth": [21.96, 20.32, 21.84, 6.98, 15.23, 10.06, 10.06, 10.06, 10.06, 10.06],
+    "periods": ["t-9","t-8","t-7","t-6","t-5","t-4","t-3","t-2","t-1","current"],
+    "pod": 0, "credit_rating": "AA+", "accounting_quality": "Good",
+    "cfroi_revisions": [-1.42, -1.38, -0.01], "price_change": [-6.64,-0.10,10.29]},
+
+  {"_id": "2_ABC",
+    "market_cap": 10, "enterprise_value": 20, "sub_industry": "Hardware", "current_price": 24.5,
+    "p_e": 15, "p_b": 1.2, "p_s": 0.8, "peg":0.8, "dividend_yield": 1.2,
+    "roic": [21.96, 20.32, 21.84, 6.98, 15.23, 10.06, 10.06, 10.06, 10.06, 10.06],
+    "asset_growth": [21.96, 20.32, 21.84, 6.98, 15.23, 10.06, 10.06, 10.06, 10.06, 10.06],
+    "periods": ["t-9","t-8","t-7","t-6","t-5","t-4","t-3","t-2","t-1","current"],
+    "pod": 0, "credit_rating": "AA+", "accounting_quality": "Good",
+    "cfroi_revisions": [-1.42, -1.38, -0.01], "price_change": [-6.64,-0.10,10.29]},
+
+  {"_id": "3_ABC",
+    "market_cap": 10, "enterprise_value": 20, "sub_industry": "Hardware", "current_price": 24.5,
+    "p_e": 15, "p_b": 1.2, "p_s": 0.8, "peg":0.8, "dividend_yield": 1.2,
+    "roic": [21.96, 20.32, 21.84, 6.98, 15.23, 10.06, 10.06, 10.06, 10.06, 10.06],
+    "asset_growth": [21.96, 20.32, 21.84, 6.98, 15.23, 10.06, 10.06, 10.06, 10.06, 10.06],
+    "periods": ["t-9","t-8","t-7","t-6","t-5","t-4","t-3","t-2","t-1","current"],
+    "pod": 0, "credit_rating": "AA+", "accounting_quality": "Good",
+    "cfroi_revisions": [-1.42, -1.38, -0.01], "price_change": [-6.64,-0.10,10.29]},
+
+  {"_id": "4_ABC",
+    "market_cap": 10, "enterprise_value": 20, "sub_industry": "Hardware", "current_price": 24.5,
+    "p_e": 15, "p_b": 1.2, "p_s": 0.8, "peg":0.8, "dividend_yield": 1.2,
+    "roic": [21.96, 20.32, 21.84, 6.98, 15.23, 10.06, 10.06, 10.06, 10.06, 10.06],
+    "asset_growth": [21.96, 20.32, 21.84, 6.98, 15.23, 10.06, 10.06, 10.06, 10.06, 10.06],
+    "periods": ["t-9","t-8","t-7","t-6","t-5","t-4","t-3","t-2","t-1","current"],
+    "pod": 0, "credit_rating": "AA+", "accounting_quality": "Good",
+    "cfroi_revisions": [-1.42, -1.38, -0.01], "price_change": [-6.64,-0.10,10.29]}
+
+]

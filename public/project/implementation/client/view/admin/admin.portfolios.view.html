@@ -1,0 +1,136 @@
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h2>Portfolios</h2>
+    <ul class="nav nav-tabs">
+        <li role="presentation" ><a href="#/admin/users">Users</a></li>
+        <li role="presentation" ><a href="#/admin/games">Games</a></li>
+        <li role="presentation" class="active"><a href="#/admin/portfolios">Portfolios</a></li>
+        <li role="presentation" ><a href="#/admin/companies">Companies</a></li>
+    </ul>
+    <table class="table table-striped table-responsive" ng-controller="AdminPortfoliosController">
+        <thead>
+        <tr>
+            <th>
+                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
+                    <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
+                </svg>
+                ID
+            </th>
+            <th>
+                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
+                    <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
+                </svg>
+                Game Name
+            </th>
+            <th>
+                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
+                    <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
+                </svg>
+                Username
+            </th>
+            <th>
+                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
+                    <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
+                </svg>
+                Companies
+            </th>
+            <th>
+                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
+                    <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
+                </svg>
+                Shares
+            </th>
+            <th>
+                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
+                    <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
+                </svg>
+                Prices Paid
+            </th>
+            <th>
+                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
+                    <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
+                </svg>
+                Cash Remaining
+            </th>
+            <th>
+                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
+                    <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
+                </svg>
+                Current Turn
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td></td>
+            <td>
+                <form>
+                    <input ng-model="model.portfolio.gameName" placeholder="game id" type="text" class="form-control">
+                </form>
+            </td>
+            <td>
+                <form>
+                    <input ng-model="model.portfolio.username" placeholder="owner id" type="text" class="form-control">
+                </form>
+            </td>
+            <td>
+                <form>
+                    <input ng-model="model.portfolio.companies" placeholder="companies" type="text" class="form-control">
+                </form>
+            </td>
+            <td>
+                <form>
+                    <input ng-model="model.portfolio.shares" placeholder="shares" type="text" class="form-control">
+                </form>
+            </td>
+            <td>
+                <form>
+                    <input ng-model="model.portfolio.price_paid" placeholder="shares" type="text" class="form-control">
+                </form>
+            </td>
+            <td>
+                <form>
+                    <input ng-model="model.portfolio.cash_remaining" placeholder="cash remaining" type="text" class="form-control">
+                </form>
+            </td>
+            <td>
+                <form>
+                    <input ng-model="model.portfolio.currentTurn" placeholder="turn" type="text" class="form-control">
+                </form>
+            </td>
+            <td nowrap="">
+                <form>
+                    <button ng-click="model.updatePortfolio(model.portfolio)" class="btn btn-success">
+                        <scan class="glyphicon glyphicon-ok"></scan>
+                    </button>
+                    <button ng-click="model.addPortfolio(model.portfolio)" href="#" class="btn btn-primary">
+                        <scan class="glyphicon glyphicon-plus"></scan>
+                    </button>
+                </form>
+            </td>
+        </tr>
+        <tr ng-repeat="portfolio in model.portfolios">
+            <td>{{portfolio._id}} </td>
+            <td>{{portfolio.gameName}}</td>
+            <td>{{portfolio.username}}</td>
+            <td>{{portfolio.companies}}</td>
+            <td>{{portfolio.shares}}</td>
+            <td>{{portfolio.price_paid}}</td>
+            <td>{{portfolio.cash_remaining}}</td>
+            <td>{{portfolio.currentTurn}}</td>
+            <td>
+                <form>
+                    <button ng-click="model.deletePortfolio(portfolio)" class="btn btn-danger">
+                        <scan class="glyphicon glyphicon-remove"></scan>
+                    </button>
+                    <button ng-click="model.selectPortfolio($index)" class="btn btn-warning">
+                        <scan class="glyphicon glyphicon-pencil"></scan>
+                    </button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

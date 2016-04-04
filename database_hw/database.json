@@ -1,0 +1,34 @@
+[
+  {
+    "title" : "Southern Lights" ,
+    "author" : {"firstName" : "Danielle" , "lastName" : "Steel" , "date_of_birth": 24533} ,
+    "isbn" : "303041974",
+    "publishers" :[{"name": "Random House", "date": "4/23/2002", "street": "1475 Broadway","city": "New York", "zip": 10019, "state": "New York", "country": "US"},
+                   {"name": "Penguin Publishers", "date": "1/19/1998", "street": "140 Broadway","city": "New York", "zip": 10013, "state": "New York", "country": "US"}],
+    "available" : "Y" ,
+    "pages" : 2042 ,
+    "summary" : "Danielle Steel sweeps us from a Manhattan courtroom to the Deep South in her powerful new novelâ€”at once a behind-closed-doors look into the heart of a family and a tale of crime and punishment." ,
+    "subjects" : ["Fiction", "Romance"]  ,
+    "notes" : [{"user": {"username" : "jason" ,	"password" : "jason" ,	"active" : "Y" ,
+      "address": {"street" : "70 Peterbourough Street" ,	"city" : "Boston" ,	"zip" : 2145 ,	"state" : "Massachusetts" ,	"country" : "US"} ,
+      "dateOfCreation" : 42267 },
+      "notebody" : "Nice book. Must Read"},
+      {"notesuser" :   {"username" : "jen" ,	"password" : "jen" ,	"active" : "N" ,
+        "address": {"street" : "Geng Road" ,	"city" : "Palo Alto" ,	"zip" : 94303 ,	"state" : "California" ,	"country" : "US"},
+        "dateOfCreation" : 41603 } ,
+        "notebody" : "Nice book. I have been traveling a lot, so I listened to the audio of this book. I really enjoyed it." }],
+    "language" : "English"
+  },
+  {
+    "title" : "Concrete Mathematics" ,
+    "author" : {"firstName" : "Donald" , "lastName": "Knuth" , "date_of_birth": 13890} ,
+    "isbn" : "0-203-03803-1" ,
+    "publishers" :[{"name": "Addison-Wesley", "date": "3/1/1994", "street": "75 Arlington Street", "city": "Boston", "zip": 2116, "state": "Massachusetts", "country": "US"}],
+    "available" : "Y" ,
+    "pages" : 3524 ,
+    "summary" : "Concrete Mathematics: A Foundation for Computer Science, by Ronald Graham, Donald Knuth, and Oren Patashnik, is a textbook that is widely used in computer-science departments" ,
+    "subjects" : ["Mathematics", "Algebra"],
+    "notes": [{}],
+    "language" : "English"
+  }
+]

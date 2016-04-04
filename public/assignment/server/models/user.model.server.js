@@ -1,8 +1,6 @@
 // load q promise library
 var q = require("q");
 
-var mock = require("./user.mock.json");
-
 module.exports = function(uuid, db, mongoose) {
 
     // load user schema

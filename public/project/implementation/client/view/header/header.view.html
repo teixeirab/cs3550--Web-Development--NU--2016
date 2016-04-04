@@ -1,0 +1,54 @@
+<nav class="navbar navbar-inverse navbar-fixed-top" ng-controller="HeaderController">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="#/home" class="navbar-brand"> Simuly </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <form class="navbar-form navbar-right ng-pristine ng-valid" ng-hide="$location.url() === '/home'">
+                <input ng-show="currentUser.role === 'admin'" ng-model="searchText" type="text" class="form-control ng-pristine ng-valid ng-touched" placeholder="search">
+                <button ng-show="currentUser.role === 'admin'" class="btn btn-default" ng-click="search(searchText)">Search</button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li ng-hide="currentUser">
+                    <a href="#/register">Register</a></li>
+                <li ng-hide="currentUser">
+                    <a href="#/login">Login</a></li>
+                <li ng-show="currentUser">
+                    <a ng-href="#/profile/{{currentUser.username}}">{{currentUser.username}}</a></li>
+                <li ng-show="currentUser">
+                    <a ng-click="logout()">  Logout </a></li>
+                <li ng-show="currentUser.role === 'player'" class="dropdown visible-xs">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Explore<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#/home">Home</a></li>
+                        <li><a href="#/profile">Profile</a></li>
+                        <li><a href="#/portfolio">Portfolio</a></li>
+                        <li><a href="#/trading">Trading</a></li>
+                    </ul>
+                </li>
+                <li ng-show="currentUser.role === 'admin'" class="dropdown visible-xs">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Explore<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#/home">Home</a></li>
+                        <li><a href="#/profile">Profile</a></li>
+                        <li><a href="#/create">Create a Game</a></li>
+                        <li><a href="#/manage">Manage Games</a></li>
+                        <li><a href="#/admin/companies">Admin</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+
+

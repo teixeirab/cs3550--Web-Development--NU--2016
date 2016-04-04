@@ -1,0 +1,134 @@
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h2>Companies</h2>
+    <ul class="nav nav-tabs">
+        <li role="presentation" ><a href="#/admin/users">Users</a></li>
+        <li role="presentation" ><a href="#/admin/games">Games</a></li>
+        <li role="presentation" ><a href="#/admin/portfolios">Portfolios</a></li>
+        <li role="presentation" class="active"><a href="#/admin/companies">Companies</a></li>
+    </ul>
+    <table class="table table-striped table-responsive" ng-controller="AdminCompaniesController">
+        <thead>
+        <tr>
+            <th nowrap="">
+                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
+                    <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
+                </svg>
+                ID
+            </th>
+            <th nowrap="">
+                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
+                    <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
+                </svg>
+                Statements Id
+            </th>
+            <th nowrap="">
+                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
+                    <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
+                </svg>
+                Generated Name
+            </th>
+            <th nowrap="">
+                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
+                    <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
+                </svg>
+                Turn
+            </th>
+            <th nowrap="">
+                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
+                    <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
+                </svg>
+                Real Name
+            </th>
+            <th nowrap="">
+                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
+                    <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
+                </svg>
+                Summary
+            </th>
+            <th nowrap="">
+                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
+                    <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
+                </svg>
+                SMT
+            </th>
+            <th nowrap="">
+                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
+                    <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
+                </svg>
+                Valuation
+            </th>
+            <th nowrap="">
+                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
+                    <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
+                </svg>
+                Momentum
+            </th>
+            <th nowrap="">
+                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
+                    <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
+                </svg>
+                Reports
+            </th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>
+                <form>
+                    <input ng-model="model.company.generated_name" placeholder="fake name" type="text" class="form-control">
+                </form>
+            </td>
+            <td>
+                <form>
+                    <input ng-model="model.company.turn" placeholder="turn" type="text" class="form-control">
+                </form>
+            </td>
+            <td>
+                <form>
+                    <input ng-model="model.company.real_name" placeholder="real name" type="text" class="form-control">
+                </form>
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td nowrap="">
+                <form>
+                    <button ng-click="model.updateCompany(model.company)" class="btn btn-success">
+                        <scan class="glyphicon glyphicon-ok"></scan>
+                    </button>
+                    <button ng-click="model.addCompany(model.company)" href="#" class="btn btn-primary">
+                        <scan class="glyphicon glyphicon-plus"></scan>
+                    </button>
+                </form>
+            </td>
+        </tr>
+        <tr ng-repeat="company in model.companies">
+            <td>{{company._id}}</td>
+            <td><a ng-href="#/companies/{{company.statements_id}}">{{company.statements_id}}</a></td>
+            <td>{{company.generated_name}}</td>
+            <td>{{company.turn}}</td>
+            <td>{{company.real_name}}</td>
+            <td>{{company.summary}}</td>
+            <td>{{company.smt}}</td>
+            <td>{{company.valuation}}</td>
+            <td>{{company.momentum}}</td>
+            <td>{{company.reports}}</td>
+            <td>
+                <form>
+                    <button ng-click="model.deleteCompany(company)" class="btn btn-danger">
+                        <scan class="glyphicon glyphicon-remove"></scan>
+                    </button>
+                    <button ng-click="model.selectCompany($index)" class="btn btn-warning">
+                        <scan class="glyphicon glyphicon-pencil"></scan>
+                    </button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

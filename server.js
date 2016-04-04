@@ -10,7 +10,7 @@ var LocalStrategy = require('passport-local');
 var mongoose = require("mongoose");
 
 // create a default connection string
-var connectionString = 'mongodb://127.0.0.1:27017/webdev/';
+var connectionString = 'mongodb://127.0.0.1:27017/webdev';
 
 // use remote connection string
 // if running in remote server
@@ -39,9 +39,11 @@ app.use(session({
 }));
 app.use(express.static(__dirname+ '/public'));
 
-require("./public/assignment/server/app.js")(app, uuid, db, mongoose);
+//require("./public/assignment/server/app.js")(app, uuid, db, mongoose);
+require("./public/project/implementation/server/app.js")(app, uuid, db, mongoose);
+//require("./public/experiments/omdb_mongo_db/server/app.js")(app, db, mongoose);
 require("./public/project/prototype/server/app.js")(app, uuid);
 require("./public/experiments/omdb/server/app.js")(app);
-//require("./public/experiments/omdb_mongo_db/server/app.js")(app, db, mongoose);
+
 
 app.listen(port, ipaddress);

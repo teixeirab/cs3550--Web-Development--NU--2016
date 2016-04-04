@@ -1,0 +1,45 @@
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h2>Valuation</h2>
+    <ul class="nav nav-tabs">
+        <li role="presentation" ><a ng-href="#/companies/{{model.company_data.statements_id}}">Summary</a></li>
+        <li role="presentation" ><a ng-href="#/companies/{{model.company_data.statements_id}}/smt">SMT</a></li>
+        <li role="presentation" class="active"><a ng-href="#/companies/{{model.company_data.statements_id}}/valuation">Valuation</a></li>
+        <li role="presentation" ><a ng-href="#/companies/{{model.company_data.statements_id}}/momentum">Momentum</a></li>
+        <li role="presentation" ><a ng-href="#/companies/{{model.company_data.statements_id}}/reports">Reports</a></li>
+    </ul>
+
+    <div class="container-fluid" ng-controller="ValuationController">
+        <div class="row">
+            <div class="col-md-2">
+                <h2>{{model.company_data.generated_name}}</h2>
+            </div>
+            <div class="col-md-2">
+                <br>
+                <button type="submit" ng-click="trade()" class="btn btn-success">Trade this company</button>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <label for="peChart">P/E Ratio:</label>
+                <canvas id="peChart" height="40%" width="100%"></canvas>
+            </div>
+            <div class="col-md-6">
+                <label for="pbChart">P/B Ratio:</label>
+                <canvas id="pbChart" height="40%" width="100%"></canvas>
+            </div>
+        </div>
+        <div class="row">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="psChart">P/S Ratio</label>
+                    <canvas id="psChart" height="40%" width="100%"></canvas>
+                </div>
+                <div class="col-md-6">
+                    <label for="ev_ebitda">EV/EBITDA Ratio</label>
+                    <canvas id="ev_ebitda" height="40%" width="100%"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

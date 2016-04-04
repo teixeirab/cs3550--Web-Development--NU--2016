@@ -1,0 +1,80 @@
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div ng-show="message" class="alert alert-danger" role="alert">{{model.message}}</div>
+    <form>
+        <div class="form-group">
+            <label for="game_title">Simulation Title</label>
+            <input ng-model="model.game.title" type="text" class="form-control" id="game_title" placeholder="Title">
+        </div>
+        <div class="form-group">
+            <label for="num_players">Select the Maximum Number of Players</label> <br>
+            <div class="btn-group" id="num_players" data-toggle="buttons">
+                <label class="btn btn-default blue">
+                    <input ng-model="model.game.num_players" type="radio" class="toggle" value="1">1
+                </label>
+                <label class="btn btn-default blue">
+                    <input ng-model="model.game.num_players" type="radio" class="toggle" value="2"> 2
+                </label>
+                <label class="btn btn-default blue">
+                    <input ng-model="model.game.num_players" type="radio" class="toggle" value="3"> 3
+                </label>
+                <label class="btn btn-default blue">
+                    <input ng-model="model.game.num_players" type="radio" class="toggle" value="5"> 5
+                </label>
+                <label class="btn btn-default blue">
+                    <input ng-model="model.game.num_players" type="radio" class="toggle" value="10"> 10
+                </label>
+                <label class="btn btn-default blue">
+                    <input ng-model="model.game.num_players" type="radio" class="toggle" value="15"> 15
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="duration">Select the Game Duration</label> <br>
+            <div class="btn-group" id="duration" data-toggle="buttons">
+                <label class="btn btn-default blue">
+                    <input ng-model="model.game.duration" type="radio" class="toggle" value="5">5
+                </label>
+                <label class="btn btn-default blue">
+                    <input ng-model="model.game.duration" type="radio" class="toggle" value="10"> 10
+                </label>
+                <label class="btn btn-default blue">
+                    <input ng-model="model.game.duration" type="radio" class="toggle" value="15"> 15
+                </label>
+                <label class="btn btn-default blue">
+                    <input ng-model="model.game.duration" type="radio" class="toggle" value="20"> 20
+                </label>
+                <label class="btn btn-default blue">
+                    <input ng-model="model.game.duration" type="radio" class="toggle" value="25"> 25
+                </label>
+                <label class="btn btn-default blue">
+                    <input ng-model="model.game.duration" type="radio" class="toggle" value="30"> 30
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="universe_size">Select the Number of Stocks in the Game</label> <br>
+            <div class="btn-group" id="universe_size" data-toggle="buttons">
+                <label class="btn btn-default blue">
+                    <input ng-model="model.game.universe_size" type="radio" class="toggle" value="20">20
+                </label>
+                <label class="btn btn-default blue">
+                    <input ng-model="model.game.universe_size" type="radio" class="toggle" value="30"> 30
+                </label>
+                <label class="btn btn-default blue">
+                    <input ng-model="model.game.universe_size" type="radio" class="toggle" value="40"> 40
+                </label>
+                <label class="btn btn-default blue">
+                    <input ng-model="model.game.universe_size" type="radio" class="toggle" value="50"> 50
+                </label>
+                <label class="btn btn-default blue">
+                    <input ng-model="model.game.universe_size" type="radio" class="toggle" value="100"> 100
+                </label>
+                <label class="btn btn-default blue">
+                    <input ng-model="model.game.universe_size" type="radio" class="toggle" value="150"> 150
+                </label>
+            </div>
+        </div>
+        <br>
+        <button ng-click="model.create(model.game)" type="submit" class="btn btn-success">Submit Game</button>
+    </form>
+</div>

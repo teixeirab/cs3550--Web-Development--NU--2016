@@ -1,0 +1,14 @@
+[
+  {"_id": "000", "game_id": "game1", "userId": "123", "companies": ["1_ABC", "1_CBD", "1_EFG"],
+    "shares": [10, 5, 2], "prices": [10, 5, 2], "prices_paid": [10, 5, 2], "return": [0, 0, 0],
+    "total_value": [100, 25, 4], "weight": [0.25, 0.25, 0.25],  "cash_remaining": 500, "currentTurn": 1,
+    "portfolio_return": [0,0,0,0,0,0,0,0,0,0], "labels": [0,1,2,3,4,5,6,7,8,9,10]},
+  {"_id": "001", "game_id": "game1", "userId": "345", "companies": ["1_ABC", "1_CBD", "1_EFG"],
+    "shares": [10, 5, 2], "prices": [10, 5, 2], "prices_paid": [10, 5, 2], "return": [0, 0, 0],
+    "total_value": [100, 25, 4], "weight": [0.25, 0.25, 0.25],  "cash_remaining": 500, "currentTurn": 1,
+    "portfolio_return": [0,0,0,0,0,0,0,0,0,0], "labels": [0,1,2,3,4,5,6,7,8,9,10]},
+  {"_id": "002", "game_id": "game1", "userId": "456", "companies": ["1_ABC", "1_CBD", "1_EFG"],
+    "shares": [10, 5, 2], "prices": [10, 5, 2], "prices_paid": [10, 5, 2], "return": [0, 0, 0],
+    "total_value": [100, 25, 4], "weight": [0.25, 0.25, 0.25],  "cash_remaining": 500, "currentTurn": 1,
+    "portfolio_return": [0,0,0,0,0,0,0,0,0,0], "labels": [0,1,2,3,4,5,6,7,8,9,10]}
+]
