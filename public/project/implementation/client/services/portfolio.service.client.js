@@ -11,9 +11,19 @@
             deletePortfolio: deletePortfolio,
             findAllPortfolios: findAllPortfolios,
             findPortfolioForUser: findPortfolioForUser,
-            findAllPortfoliosByText : findAllPortfoliosByText
+            findAllPortfoliosByText : findAllPortfoliosByText,
+            tradeCompanyForUser : tradeCompanyForUser,
+            advanceTurnForGame : advanceTurnForGame,
         };
         return api;
+
+        function advanceTurnForGame(gameName, currentTurn){
+            return $http.post("/api/project/portfolio/advance/" + gameName + "/" + currentTurn);
+        }
+
+        function tradeCompanyForUser(portfolioTrade){
+            return $http.post("/api/project/portfolio/trade/" + $rootScope.currentUser.username, portfolioTrade);
+        }
 
         function findAllPortfoliosByText(text){
             return $http.get("/api/project/portfolio/all/" + text);
@@ -23,8 +33,8 @@
             return $http.get("/api/project/portfolio/");
         }
 
-        function findPortfolioForUser() {
-            return $http.get("/api/project/portfolio/"+$rootScope.currentUser._id);
+        function findPortfolioForUser(username) {
+            return $http.get("/api/project/portfolio/"+ username);
         }
         
         function createPortfolio(portfolio){

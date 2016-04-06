@@ -11,7 +11,6 @@
             deleteCompany: deleteCompany,
             findAllCompanies: findAllCompanies,
             getCompanyData : getCompanyData,
-            findAllCompaniesByTurn : findAllCompaniesByTurn,
             findAllCompaniesByText : findAllCompaniesByText
         };
         return api;
@@ -22,10 +21,6 @@
 
         function findAllCompanies() {
             return $http.get("/api/project/company/");
-        }
-
-        function findAllCompaniesByTurn(turn) {
-            return $http.get("/api/project/company/all/"+ turn);
         }
 
         function getCompanyData(companyId, reportType) {

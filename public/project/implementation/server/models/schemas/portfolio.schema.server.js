@@ -6,13 +6,18 @@ module.exports = function(mongoose) {
     var PortfolioSchema = mongoose.Schema({
         gameName: String,
         username: String,
-        companies: [String],
-        shares: [Number],
-        prices: [Number],
-        price_paid: [Number],
-        return: [Number],
-        total_value: [Number],
-        weight: [Number],
+        holdings : [
+            {
+                company_name : String,
+                shares: Number,
+                price: Number,
+                price_paid: Number,
+                return: Number,
+                total_value: Number,
+                weight: Number,
+                prices: [Number]
+            }
+        ],
         cash_remaining: Number,
         currentTurn: Number,
         portfolio_return : [Number]

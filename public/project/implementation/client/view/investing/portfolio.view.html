@@ -1,12 +1,14 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <div class="container-fluid" ng-controller="PortfolioController">
+        <div ng-show="message" class="alert alert-danger" role="alert">{{model.failureMessage}}</div>
+        <div ng-show="message" class="alert alert-success" role="alert">{{model.successMessage}}</div>
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-4">
                 <h2>{{currentUser.firstName}}'s Portfolio</h2>
             </div>
             <div class="col-md-2">
                 <br>
-                <button type="submit" ng-click="advance()" class="btn btn-success">Advance to Next Round</button>
+                <button type="submit" ng-click="model.advance()" class="btn btn-success">Advance to Next Round</button>
             </div>
         </div>
         <div class="container-fluid">
@@ -22,20 +24,24 @@
                         </thead>
                         <tbody>
                         <tr>
+                            <td>Initial Portfolio Value</td>
+                            <td>{{1000 | number:2}}</td>
+                        </tr>
+                        <tr>
                             <td>Cash Remaining</td>
-                            <td>{{model.currentPortfolio.cash_remaining}}</td>
+                            <td>{{model.currentPortfolio.cash_remaining | number:2}}</td>
                         </tr>
                         <tr>
                             <td>Invested Equity</td>
-                            <td>80,000.00</td>
+                            <td>{{model.totalEquity | number:2}}</td>
                         </tr>
                         <tr>
                             <td>Current Turn</td>
-                            <td>{{model.currentPortfolio.currentTurn}}</td>
+                            <td>{{model.currentPortfolio.currentTurn | number:0}}</td>
                         </tr>
                         <tr>
-                            <td>Relative Return</td>
-                            <td>24.5%</td>
+                            <td>Portfolio Return</td>
+                            <td>{{((model.currentPortfolio.cash_remaining + model.totalEquity) / 1000 - 1)* 100 | number:2}}%</td>
                         </tr>
                         </tbody>
                     </table>
@@ -63,13 +69,13 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="company in model.summaryTable">
-                            <td><a ng-href="#/companies/{{company._id}}">{{company._id}}</a></td>
-                            <td>{{company.shares}}</td>
-                            <td>{{company.prices}}</td>
-                            <td>{{company.price_paid}}</td>
-                            <td>{{company.return}}</td>
-                            <td>{{company.total_value}}</td>
-                            <td>{{company.weight}}</td>
+                            <td><a ng-href="#/companies/{{company.name}}/{{model.currentPortfolio.currentTurn}}">{{company.name}}</a></td>
+                            <td>{{company.shares | number:0}}</td>
+                            <td>{{company.prices | number:2}}</td>
+                            <td>{{company.price_paid | number:2}}</td>
+                            <td>{{company.return}}%</td>
+                            <td>{{company.total_value | number:2}}</td>
+                            <td>{{company.weight * 100 | number:2}}%</td>
                             <td nowrap>
                                 <a href="#" class="btn btn-primary">
                                     <scan class="glyphicon glyphicon-plus"></scan>

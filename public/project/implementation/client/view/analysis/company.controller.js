@@ -4,28 +4,61 @@
         .module("SimulyApp")
         .controller("CompanyController", CompanyController);
 
-    function CompanyController(CompanyService , $routeParams) {
+    function CompanyController(CompanyService, $routeParams) {
         var vm = this;
         vm.company_data = [];
+        vm.generated_name = $routeParams.companyId;
+        vm.turn = $routeParams.turn;
         var companyId = $routeParams.companyId;
 
+
         function init() {
-            var companyId = $routeParams.companyId;
             CompanyService
                 .getCompanyData(companyId, "summary")
                 .then(function(response) {
                     if (response.data) {
                         vm.company_data = response.data;
                         renderBar();
+                        variablesForTurn();
+                        console.log(vm.company_data);
                     }
                 });
         }
         init();
 
+        function variablesForTurn(){
+            vm.market_cap_turn = vm.company_data.market_cap[vm.turn];
+            vm.current_price_turn = vm.company_data.current_price[vm.turn];
+            vm.p_e_turn = vm.company_data.p_e[vm.turn];
+            vm.p_b_turn = vm.company_data.p_b[vm.turn];
+            vm.p_s_turn = vm.company_data.p_s[vm.turn];
+            vm.pod_turn = vm.company_data.pod[vm.turn];
+            vm.economic_leverage_turn = vm.company_data.economic_leverage[vm.turn];
+            vm._90_day_volatility_turn = vm.company_data._90_day_volatility[vm.turn]
+        }
+
 
         function renderBar(){
+            var roic = vm.company_data.roic.slice(0, vm.turn);
+            roic.push(vm.company_data.roic_fy1[vm.turn]);
+
+            var asset_growth = vm.company_data.asset_growth.slice(0, vm.turn);
+            asset_growth.push(vm.company_data.asset_growth_fy1[vm.turn]);
+
+            var periods = [];
+            var j = 1;
+            for (var i =0; i <= 10; i++){
+                if (i < vm.turn){
+                    periods.push("t"+i);
+                }
+                else {
+                    periods.push("fy"+j);
+                    j++;
+                }
+            }
+
             var roicChart = {
-                labels : vm.company_data.periods,
+                labels : periods,
                 datasets : [
                     {
                         label: "WFC ROE:",
@@ -35,13 +68,13 @@
                         pointStrokeColor : "#fff",
                         pointHighlightFill : "#fff",
                         pointHighlightStroke : "rgba(220,220,220,1)",
-                        data : vm.company_data.roic
+                        data : roic
                     }
                 ]
             };
 
             var growthChart = {
-                labels : vm.company_data.periods,
+                labels : periods,
                 datasets : [
                     {
                         label: "WFC ROE:",
@@ -51,7 +84,7 @@
                         pointStrokeColor : "#fff",
                         pointHighlightFill : "#fff",
                         pointHighlightStroke : "rgba(220,220,220,1)",
-                        data : vm.company_data.asset_growth
+                        data : asset_growth
                     }
                 ]
             };

@@ -7,6 +7,8 @@
     function ValuationController(CompanyService, $rootScope , $routeParams) {
         var vm = this;
         vm.company_data = [];
+        vm.generated_name = $routeParams.companyId;
+        vm.turn = $routeParams.turn;
         var companyId = $routeParams.companyId;
 
         function init() {
@@ -25,8 +27,15 @@
 
 
         function renderBar(){
+            var periods = [];
+            for (var i =0; i <= 10; i++){
+                if (i < vm.turn){
+                    periods.push("t"+i);
+                }
+            }
+
             var peChart = {
-                labels : vm.company_data.periods,
+                labels : periods,
                 datasets : [
                     {
                         label: "WFC ROE:",
@@ -36,13 +45,13 @@
                         pointStrokeColor : "#fff",
                         pointHighlightFill : "#fff",
                         pointHighlightStroke : "rgba(220,220,220,1)",
-                        data : vm.company_data.pe
-                    }
+                        data : vm.company_data.pe.slice(0,vm.turn)
+            }
                 ]
             };
 
             var pbChart = {
-                labels : vm.company_data.periods,
+                labels: periods,
                 datasets : [
                     {
                         label: "WFC ROE:",
@@ -52,13 +61,13 @@
                         pointStrokeColor : "#fff",
                         pointHighlightFill : "#fff",
                         pointHighlightStroke : "rgba(220,220,220,1)",
-                        data : vm.company_data.pb
+                        data : vm.company_data.pb.slice(0,vm.turn)
                     }
                 ]
             };
 
             var psChart = {
-                labels : vm.company_data.periods,
+                labels : periods,
                 datasets : [
                     {
                         label: "WFC ROE:",
@@ -68,13 +77,13 @@
                         pointStrokeColor : "#fff",
                         pointHighlightFill : "#fff",
                         pointHighlightStroke : "rgba(220,220,220,1)",
-                        data : vm.company_data.ps
+                        data : vm.company_data.ps.slice(0,vm.turn)
                     }
                 ]
             };
 
             var ev_ebitda = {
-                labels : vm.company_data.periods,
+                labels: periods,
                 datasets : [
                     {
                         label: "WFC ROE:",
@@ -84,7 +93,7 @@
                         pointStrokeColor : "#fff",
                         pointHighlightFill : "#fff",
                         pointHighlightStroke : "rgba(220,220,220,1)",
-                        data : vm.company_data.ev_ebitda
+                        data : vm.company_data.ev_ebitda.slice(0,vm.turn)
                     }
                 ]
             };

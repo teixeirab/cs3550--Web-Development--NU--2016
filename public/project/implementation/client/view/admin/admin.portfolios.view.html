@@ -31,19 +31,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
                     <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
                 </svg>
-                Companies
-            </th>
-            <th>
-                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
-                    <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
-                </svg>
-                Shares
-            </th>
-            <th>
-                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
-                    <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
-                </svg>
-                Prices Paid
+                Holdings
             </th>
             <th>
                 <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
@@ -77,17 +65,7 @@
             </td>
             <td>
                 <form>
-                    <input ng-model="model.portfolio.companies" placeholder="companies" type="text" class="form-control">
-                </form>
-            </td>
-            <td>
-                <form>
-                    <input ng-model="model.portfolio.shares" placeholder="shares" type="text" class="form-control">
-                </form>
-            </td>
-            <td>
-                <form>
-                    <input ng-model="model.portfolio.price_paid" placeholder="shares" type="text" class="form-control">
+                    <input ng-model="model.portfolio.holdings" placeholder="companies" type="text" class="form-control">
                 </form>
             </td>
             <td>
@@ -115,9 +93,7 @@
             <td>{{portfolio._id}} </td>
             <td>{{portfolio.gameName}}</td>
             <td>{{portfolio.username}}</td>
-            <td>{{portfolio.companies}}</td>
-            <td>{{portfolio.shares}}</td>
-            <td>{{portfolio.price_paid}}</td>
+            <td>{{portfolio.holdings}}</td>
             <td>{{portfolio.cash_remaining}}</td>
             <td>{{portfolio.currentTurn}}</td>
             <td>

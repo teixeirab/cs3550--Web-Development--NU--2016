@@ -1,6 +1,5 @@
 module.exports = function(app, userModel, gameModel, companyModel, portfolioModel) {
 
-    app.get("/api/project/company/all/:turn", findAllCompaniesByTurn);
     app.get("/api/project/company", findAllCompanies);
     app.post("/api/project/company", createCompany);
     app.delete("/api/project/company/:companyId", deleteCompany);
@@ -16,20 +15,6 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
 
     function findAllCompanies(req, res) {
         var companies = companyModel.findAllCompanies()
-            .then(
-                function (doc) {
-                    res.json(doc);
-                },
-                // send error if promise rejected
-                function (err) {
-                    res.status(400).send(err);
-                }
-            )
-    }
-
-    function findAllCompaniesByTurn(req, res) {
-        var turn = req.params.turn;
-        var companies = companyModel.findAllCompaniesByTurn(turn)
             .then(
                 function (doc) {
                     res.json(doc);

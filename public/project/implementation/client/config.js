@@ -102,7 +102,7 @@
                     checkLoggedIn : checkLoggedIn
                 }
             })
-            .when("/companies/:companyId",{
+            .when("/companies/:companyId/:turn",{
                 templateUrl: "view/analysis/company.view.html",
                 controller: "CompanyController",
                 controllerAs: "model",
@@ -110,7 +110,7 @@
                     checkLoggedIn : checkLoggedIn
                 }
             })
-            .when("/companies/:companyId/momentum",{
+            .when("/companies/:companyId/:turn/momentum",{
                 templateUrl: "view/analysis/momentum.view.html",
                 controller: "MomentumController",
                 controllerAs: "model",
@@ -118,7 +118,7 @@
                     checkLoggedIn : checkLoggedIn
                 }
             })
-            .when("/companies/:companyId/smt",{
+            .when("/companies/:companyId/:turn/smt",{
                 templateUrl: "view/analysis/smt.view.html",
                 controller: "SmtController",
                 controllerAs: "model",
@@ -126,7 +126,7 @@
                     checkLoggedIn : checkLoggedIn
                 }
             })
-            .when("/companies/:companyId/reports",{
+            .when("/companies/:companyId/:turn/reports",{
                 templateUrl: "view/analysis/reports.view.html",
                 controller: "ReportsController",
                 controllerAs: "model",
@@ -134,7 +134,7 @@
                     checkLoggedIn : checkLoggedIn
                 }
             })
-            .when("/companies/:companyId/valuation",{
+            .when("/companies/:companyId/:turn/valuation",{
                 templateUrl: "view/analysis/valuation.view.html",
                 controller: "ValuationController",
                 controllerAs: "model",

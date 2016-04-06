@@ -8,9 +8,7 @@ module.exports = function(mongoose) {
 
     // use mongoose to declare a user schema
     var CompanySchema = mongoose.Schema({
-        statements_id: String,
         generated_name: String,
-        turn: Number,
         real_name: String,
         summary: SummarySchema,
         smt: SmtSchema,

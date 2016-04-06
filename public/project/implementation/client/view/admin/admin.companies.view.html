@@ -19,19 +19,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
                     <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
                 </svg>
-                Statements Id
-            </th>
-            <th nowrap="">
-                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
-                    <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
-                </svg>
                 Generated Name
-            </th>
-            <th nowrap="">
-                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
-                    <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
-                </svg>
-                Turn
             </th>
             <th nowrap="">
                 <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
@@ -75,15 +63,9 @@
         <tbody>
         <tr>
             <td></td>
-            <td></td>
             <td>
                 <form>
                     <input ng-model="model.company.generated_name" placeholder="fake name" type="text" class="form-control">
-                </form>
-            </td>
-            <td>
-                <form>
-                    <input ng-model="model.company.turn" placeholder="turn" type="text" class="form-control">
                 </form>
             </td>
             <td>
@@ -109,9 +91,7 @@
         </tr>
         <tr ng-repeat="company in model.companies">
             <td>{{company._id}}</td>
-            <td><a ng-href="#/companies/{{company.statements_id}}">{{company.statements_id}}</a></td>
-            <td>{{company.generated_name}}</td>
-            <td>{{company.turn}}</td>
+            <td><a ng-href="#/companies/{{company.generated_name}}/10">{{company.generated_name}}</a></td>
             <td>{{company.real_name}}</td>
             <td>{{company.summary}}</td>
             <td>{{company.smt}}</td>

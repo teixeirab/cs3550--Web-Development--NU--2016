@@ -1,17 +1,17 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <h2>Summary</h2>
     <ul class="nav nav-tabs">
-        <li role="presentation" class="active"><a ng-href="#/companies/{{model.company_data.statements_id}}">Summary</a></li>
-        <li role="presentation" ><a ng-href="#/companies/{{model.company_data.statements_id}}/smt">SMT</a></li>
-        <li role="presentation" ><a ng-href="#/companies/{{model.company_data.statements_id}}/valuation">Valuation</a></li>
-        <li role="presentation" ><a ng-href="#/companies/{{model.company_data.statements_id}}/momentum">Momentum</a></li>
-        <li role="presentation" ><a ng-href="#/companies/{{model.company_data.statements_id}}/reports">Reports</a></li>
+        <li role="presentation" class="active"><a ng-href="#/companies/{{model.generated_name}}/{{model.turn}}">Summary</a></li>
+        <li role="presentation" ><a ng-href="#/companies/{{model.generated_name}}/{{model.turn}}/smt">SMT</a></li>
+        <li role="presentation" ><a ng-href="#/companies/{{model.generated_name}}/{{model.turn}}/valuation">Valuation</a></li>
+        <li role="presentation" ><a ng-href="#/companies/{{model.generated_name}}/{{model.turn}}/momentum">Momentum</a></li>
+        <li role="presentation" ><a ng-href="#/companies/{{model.generated_name}}/{{model.turn}}/reports">Reports</a></li>
     </ul>
 
     <div class="container-fluid" ng-controller="CompanyController">
         <div class="row">
             <div class="col-md-2">
-                <h2>{{model.company_data.generated_name}}</h2>
+                <h2>{{model.generated_name}}</h2>
             </div>
             <div class="col-md-2">
                 <br>
@@ -32,7 +32,7 @@
                     <tbody>
                     <tr>
                         <td>Market Cap</td>
-                        <td>{{model.company_data.market_cap}}</td>
+                        <td>{{model.market_cap_turn}}</td>
                     </tr>
                     <tr>
                         <td>Sub-Industry</td>
@@ -40,7 +40,7 @@
                     </tr>
                     <tr>
                         <td>Current Price</td>
-                        <td>{{model.company_data.current_price}}</td>
+                        <td>{{model.current_price_turn}}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -61,15 +61,15 @@
                     <tbody>
                     <tr>
                         <td>P/E</td>
-                        <td>{{model.company_data.p_e}}x</td>
+                        <td>{{model.p_e_turn}}x</td>
                     </tr>
                     <tr>
                         <td>P/B</td>
-                        <td>{{model.company_data.p_b}}X</td>
+                        <td>{{model.p_b_turn}}x</td>
                     </tr>
                     <tr>
                         <td>P/S</td>
-                        <td>{{model.company_data.p_s}}</td>
+                        <td>{{model.p_s_turn}}x</td>
                     </tr>
                     </tbody>
                 </table>
@@ -89,15 +89,15 @@
                         <tbody>
                         <tr>
                             <td>Probability of Default</td>
-                            <td>{{model.company_data.pod}}</td>
+                            <td>{{model.pod_turn}}</td>
                         </tr>
                         <tr>
-                            <td>Credit Rating</td>
-                            <td>{{model.company_data.credit_rating}}</td>
+                            <td>Economic Leverage</td>
+                            <td>{{model.economic_leverage_turn}}</td>
                         </tr>
                         <tr>
-                            <td>Accounting Quality</td>
-                            <td>{{model.company_data.accounting_quality}}</td>
+                            <td>90 Days Volatility</td>
+                            <td>{{model._90_day_volatility_turn}}</td>
                         </tr>
                         </tbody>
                     </table>

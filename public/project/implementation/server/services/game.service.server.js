@@ -14,7 +14,7 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
     }
 
     function findAllGames(req, res) {
-        var games = gameModel.findAllGames()
+        gameModel.findAllGames()
             .then(
                 function (doc) {
                     res.json(doc);
@@ -28,7 +28,7 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
 
     function findGamesForUser(req, res) {
         var user = req.params.userId;
-        var games = gameModel.findAllGamesForUser(user)
+        gameModel.findAllGamesForUser(user)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -42,7 +42,7 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
 
     function createGame(req, res) {
         var user = req.body;
-        var games = gameModel.createGame(user)
+        gameModel.createGame(user)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -56,7 +56,7 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
 
     function deleteGame(req, res) {
         var gameId = req.params.gameId;
-        var games = gameModel.deleteGame(gameId)
+        gameModel.deleteGame(gameId)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -71,7 +71,7 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
     function updateGame(req, res) {
         var gameId = req.params.gameId;
         var newGame = req.body;
-        var games = gameModel.updateGame(gameId, newGame)
+        gameModel.updateGame(gameId, newGame)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -82,6 +82,6 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
                 }
             )
     }
-}
+};
 
 

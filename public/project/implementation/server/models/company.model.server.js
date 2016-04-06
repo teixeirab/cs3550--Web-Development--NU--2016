@@ -1,4 +1,4 @@
-var company = require("./data/company.example.json");
+//var company = require("./data/company.example2.json");
 var q = require("q");
 module.exports = function(uuid, db, mongoose) {
 
@@ -8,7 +8,7 @@ module.exports = function(uuid, db, mongoose) {
     // create user model from schema
     var CompanyModel = mongoose.model('Company', CompanySchema);
 
-    CompanyModel.create(company);
+    //CompanyModel.create(company);
 
     var api = {
         findAllCompanies : findAllCompanies,
@@ -16,7 +16,6 @@ module.exports = function(uuid, db, mongoose) {
         deleteCompany : deleteCompany,
         updateCompany : updateCompany,
         getCompanyData : getCompanyData,
-        findAllCompaniesByTurn : findAllCompaniesByTurn,
         findAllCompaniesByText : findAllCompaniesByText
     };
 
@@ -48,24 +47,9 @@ module.exports = function(uuid, db, mongoose) {
         return deferred.promise;
     }
 
-    function findAllCompaniesByTurn(turn){
-        var deferred = q.defer();
-        CompanyModel.find({currentTurn: turn}, function (err, doc){
-                if (err) {
-                    // reject promise if error
-                    deferred.reject(err);
-                } else {
-                    // resolve promise
-                    deferred.resolve(doc);
-                }
-            }
-        );
-        return deferred.promise;
-    }
-
     function getCompanyData(companyId, reportType){
         var deferred = q.defer();
-        CompanyModel.findOne({statements_id : companyId}, function (err, doc){
+        CompanyModel.findOne({generated_name : companyId}, function (err, doc){
                 if (err) {
                     // reject promise if error
                     deferred.reject(err);

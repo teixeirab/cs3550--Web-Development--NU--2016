@@ -4,7 +4,9 @@ module.exports = function(mongoose) {
     var SmtSchema = mongoose.Schema({
         statements_id: String,
         roic : [Number],
+        roic_fy1 : [Number],
         asset_growth: [Number],
+        asset_growth_fy1: [Number],
         sales: [Number],
         margins: [Number],
         turns: [Number],

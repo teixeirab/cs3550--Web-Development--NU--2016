@@ -1,4 +1,3 @@
-var portfolios = require("./data/portfolios.mock.json");
 var q = require("q");
 module.exports = function(uuid, db, mongoose) {
     // load user schema
@@ -12,9 +11,158 @@ module.exports = function(uuid, db, mongoose) {
         createPortfolio : createPortfolio,
         deletePortfolio : deletePortfolio,
         updatePortfolio : updatePortfolio,
-        findAllPortfoliosByText: findAllPortfoliosByText
+        findAllPortfoliosByText: findAllPortfoliosByText,
+        findPortfoliosForUser : findPortfoliosForUser,
+        tradeCompanyForUser : tradeCompanyForUser,
+        getPortfolioByUsername : getPortfolioByUsername,
+        advanceTurnForGame : advanceTurnForGame,
     };
     return api;
+
+    function advanceTurnForGame(gameName, currentTurn){
+        var deferred = q.defer();
+        PortfolioModel.update({gameName: gameName}, {$set: {currentTurn : currentTurn}}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(doc)
+            }
+        });
+        // return a promise
+        return deferred.promise;
+    }
+
+    function getPortfolioByUsername (username){
+        var deferred = q.defer();
+        PortfolioModel.find({username: username}, function (err, doc){
+
+            if (err) {
+                // reject promise if error
+                deferred.reject(err);
+            } else {
+                // assigns doc to portfolio
+                deferred.resolve(doc)
+            }
+        });
+        return deferred.promise;
+    }
+
+    function tradeCompanyForUser (username, portfolioTrade){
+        var deferred = q.defer();
+        var portfolio = portfolioTrade.portfolio;
+        var trade = portfolioTrade.selectedCompany;
+
+        // checks the transaction type
+        if (trade.tradeType === "Buy") {
+            // use q to defer the response
+            // see if the whether the company is already in the portfolio
+            if (isCompanyInPortfolio(trade.name, portfolio.holdings)) {
+                for (var i = 0; i < portfolio.holdings.length; i++) {
+                    if (portfolio.holdings[i].company_name === trade.name){
+                        var updatedHolding = {
+                            company_name: trade.name,
+                            shares: trade.shares + portfolio.holdings[i].shares,
+                            price: trade.currentPrice,
+                            price_paid: trade.currentPrice,
+                            return: portfolio.holdings[i].return,
+                            total_value: trade.shares * trade.currentPrice + portfolio.holdings[i].total_value,
+                            weight: portfolio.holdings[i].weight,
+                            prices: trade.prices
+                        };
+                        portfolio.holdings.splice(i,1);
+                        portfolio.holdings.push(updatedHolding);
+                        console.log(portfolio.holdings);
+                    }
+                }
+            }
+            else {
+                portfolio.holdings.push(
+                    {
+                        company_name: trade.name,
+                        shares: trade.shares,
+                        price: trade.currentPrice,
+                        price_paid: trade.currentPrice,
+                        return: 0,
+                        total_value: trade.shares * trade.currentPrice,
+                        weight: 0,
+                        prices: trade.prices
+                    }
+                )
+            }
+        }
+
+        if (trade.tradeType === "Sell") {
+            // use q to defer the response
+            // see if the whether the company is already in the portfolio
+            if (isCompanyInPortfolio(trade.name, portfolio.holdings)) {
+                for (var i = 0; i < portfolio.holdings.length; i++) {
+                    if (portfolio.holdings[i].company_name === trade.name){
+                        var updatedHolding = {
+                            company_name: trade.name,
+                            shares: portfolio.holdings[i].shares - trade.shares,
+                            price: trade.currentPrice,
+                            price_paid: trade.currentPrice,
+                            return: portfolio.holdings[i].return,
+                            total_value: portfolio.holdings[i].total_value - trade.shares * trade.currentPrice,
+                            weight: portfolio.holdings[i].weight,
+                            prices: trade.prices
+                        };
+                        portfolio.holdings.splice(i,1);
+                        portfolio.holdings.push(updatedHolding);
+                    }
+                }
+            }
+            else {
+
+            }
+        }
+
+        var newPortfolio = {
+            gameName: portfolio.gameName,
+            username: portfolio.username,
+            holdings : portfolio.holdings,
+            cash_remaining: portfolio.cash_remaining - trade.shares * trade.currentPrice,
+            currentTurn: portfolio.currentTurn,
+            portfolio_return : portfolio.portfolio_return
+        };
+
+        PortfolioModel.findByIdAndUpdate(portfolio._id, newPortfolio, function (err, doc) {
+
+            if (err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(doc)
+            }
+        });
+
+        // return a promise
+        return deferred.promise;
+    }
+
+    function isCompanyInPortfolio(companyName, holdings){
+        var result = false;
+        for (var i = 0; i < holdings.length; i++) {
+            if(holdings[i].company_name === companyName){
+                result = true;
+            }
+        }
+        return result;
+    }
+
+    function findPortfoliosForUser(username){
+        var deferred = q.defer();
+        PortfolioModel.find({username : username}, function (err, doc){
+                if (err) {
+                    // reject promise if error
+                    deferred.reject(err);
+                } else {
+                    // resolve promise
+                    deferred.resolve(doc[0]);
+                }
+            }
+        );
+        return deferred.promise;
+    }
 
     function findAllPortfoliosByText(text){
         console.log(text)
@@ -109,5 +257,4 @@ module.exports = function(uuid, db, mongoose) {
         // return a promise
         return deferred.promise;
     }
-
-};
+}

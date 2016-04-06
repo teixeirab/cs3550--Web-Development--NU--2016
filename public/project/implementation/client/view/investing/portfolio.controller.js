@@ -4,44 +4,83 @@
         .module("SimulyApp")
         .controller("PortfolioController", PortfolioController);
 
-    function PortfolioController($rootScope, GameService, PortfolioService) {
+    function PortfolioController($rootScope, GameService, PortfolioService, CompanyService) {
         var vm = this;
+        vm.successMessage = null;
+        vm.failureMessage = null;
         vm.currentUser = $rootScope.currentUser;
         vm.currentPortfolio = [];
         vm.summaryTable = [];
-        vm.buildTable = buildTable;
+        vm.companies = [];
+        vm.totalEquity = [];
 
+        vm.buildTable = buildTable;
+        vm.advance = advance;
 
         function init() {
+            CompanyService
+                .findAllCompanies()
+                .then(function (response){
+                    if(response.data) {
+                        vm.companies = response.data
+                    }
+                });
+
             PortfolioService
-                .findPortfolioForUser()
+                .findPortfolioForUser(vm.currentUser.username)
                 .then(function(response){
                     vm.currentPortfolio = response.data;
                     buildTable();
                     renderBar();
                 });
         }
-
         init();
 
+        function advance(){
+            PortfolioService
+                .advanceTurnForGame(vm.currentPortfolio.gameName, vm.currentPortfolio.currentTurn + 1)
+                .then(function(response){
+                    init();
+                });
+        }
+
         function buildTable(){
-            for (var i = 0; i < vm.currentPortfolio.companies.length; i++){
+            vm.summaryTable = [];
+            vm.totalEquity = [];
+            for (var i = 0; i < vm.currentPortfolio.holdings.length; i++){
+                vm.totalEquity = Math.round(vm.totalEquity + vm.currentPortfolio.holdings[i].shares *
+                    vm.currentPortfolio.holdings[i].prices[vm.currentPortfolio.currentTurn]);
                 var company = {
-                    _id: vm.currentPortfolio.companies[i],
-                    shares: vm.currentPortfolio.shares[i],
-                    prices: vm.currentPortfolio.prices[i],
-                    price_paid: vm.currentPortfolio.prices_paid[i],
-                    return: vm.currentPortfolio.return[i],
-                    total_value: vm.currentPortfolio.total_value[i],
-                    weight: vm.currentPortfolio.weight[i]
+                    name: vm.currentPortfolio.holdings[i].company_name,
+                    shares: vm.currentPortfolio.holdings[i].shares,
+                    prices: vm.currentPortfolio.holdings[i].prices[vm.currentPortfolio.currentTurn],
+                    price_paid: vm.currentPortfolio.holdings[i].price_paid,
+                    return: Math.round(((vm.currentPortfolio.holdings[i].prices[vm.currentPortfolio.currentTurn] /
+                            vm.currentPortfolio.holdings[i].price_paid) - 1)*100),
+                    total_value: vm.currentPortfolio.holdings[i].shares *
+                            vm.currentPortfolio.holdings[i].prices[vm.currentPortfolio.currentTurn],
+                    weight: vm.currentPortfolio.holdings[i].weight
                 };
                 vm.summaryTable.push(company)
             }
+            console.log(vm.totalEquity)
         }
 
         function renderBar() {
+            var periods = [];
+            var j = 1;
+            for (var i =0; i <= 10; i++){
+                if (i < vm.currentPortfolio.currentTurn){
+                    periods.push("t"+i);
+                }
+                else {
+                    periods.push("fy"+j);
+                    j++;
+                }
+            }
+
             var returnsChart = {
-                labels: vm.currentPortfolio.labels,
+                labels: periods,
                 datasets: [
                     {
                         label: "WFC ROE:",

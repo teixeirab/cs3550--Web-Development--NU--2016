@@ -7,6 +7,8 @@
     function SmtController(CompanyService , $routeParams) {
         var vm = this;
         vm.company_data = [];
+        vm.generated_name = $routeParams.companyId;
+        vm.turn = $routeParams.turn;
         var companyId = $routeParams.companyId;
 
         function init() {
@@ -24,8 +26,26 @@
 
 
         function renderBar(){
+            var roic = vm.company_data.roic.slice(0, vm.turn);
+            roic.push(vm.company_data.roic_fy1[vm.turn]);
+
+            var asset_growth = vm.company_data.asset_growth.slice(0, vm.turn);
+            asset_growth.push(vm.company_data.asset_growth_fy1[vm.turn]);
+
+            var periods = [];
+            var j = 1;
+            for (var i =0; i <= 10; i++){
+                if (i < vm.turn){
+                    periods.push("t"+i);
+                }
+                else {
+                    periods.push("fy"+j);
+                    j++;
+                }
+            }
+
             var roicChart = {
-                labels : vm.company_data.periods,
+                labels : periods,
                 datasets : [
                     {
                         label: "WFC ROE:",
@@ -35,13 +55,13 @@
                         pointStrokeColor : "#fff",
                         pointHighlightFill : "#fff",
                         pointHighlightStroke : "rgba(220,220,220,1)",
-                        data : vm.company_data.roic
+                        data : roic
                     }
                 ]
             };
 
             var growthChart = {
-                labels : vm.company_data.periods,
+                labels : periods,
                 datasets : [
                     {
                         label: "WFC ROE:",
@@ -51,13 +71,13 @@
                         pointStrokeColor : "#fff",
                         pointHighlightFill : "#fff",
                         pointHighlightStroke : "rgba(220,220,220,1)",
-                        data : vm.company_data.asset_growth
+                        data : asset_growth
                     }
                 ]
             };
 
             var salesChart = {
-                labels : vm.company_data.periods,
+                labels : periods,
                 datasets : [
                     {
                         label: "WFC ROE:",
@@ -67,13 +87,13 @@
                         pointStrokeColor : "#fff",
                         pointHighlightFill : "#fff",
                         pointHighlightStroke : "rgba(220,220,220,1)",
-                        data : vm.company_data.sales
+                        data : vm.company_data.sales.slice(0, vm.turn)
                     }
                 ]
             };
 
             var marginsChart = {
-                labels : vm.company_data.periods,
+                labels : periods,
                 datasets : [
                     {
                         label: "WFC ROE:",
@@ -83,13 +103,13 @@
                         pointStrokeColor : "#fff",
                         pointHighlightFill : "#fff",
                         pointHighlightStroke : "rgba(220,220,220,1)",
-                        data : vm.company_data.margins
+                        data : vm.company_data.margins.slice(0, vm.turn)
                     }
                 ]
             };
 
             var turnsChart = {
-                labels : vm.company_data.periods,
+                labels : periods,
                 datasets : [
                     {
                         label: "WFC ROE:",
@@ -99,7 +119,7 @@
                         pointStrokeColor : "#fff",
                         pointHighlightFill : "#fff",
                         pointHighlightStroke : "rgba(220,220,220,1)",
-                        data : vm.company_data.turns
+                        data : vm.company_data.turns.slice(0, vm.turn)
                     }
                 ]
             };

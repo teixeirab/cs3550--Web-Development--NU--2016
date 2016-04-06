@@ -14,7 +14,7 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
 
     function getUsersByText(req, res){
         var text = req.params.text;
-        var users = userModel.getUsersByText(text)
+        userModel.getUsersByText(text)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -29,7 +29,7 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
     function addUserInGame(req, res){
         var user = req.body;
         var userGame = req.param.userGame;
-        var result = userModel.addUserInGame(user, userGame)
+        userModel.addUserInGame(user, userGame)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -43,7 +43,7 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
 
     function delete_user(req, res){
         var userId = req.params.userId;
-        var users = userModel.deleteUserById(userId)
+        userModel.deleteUserById(userId)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -56,7 +56,7 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
     }
 
     function users(req, res){
-        var users = userModel.findAllUsers()
+        userModel.findAllUsers()
             .then(
                 function (doc) {
                     res.json(doc);
@@ -88,8 +88,7 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
 
     function addUser(req, res){
         var user = req.body;
-        console.log(user);
-        var users = userModel.createUser(user)
+        userModel.createUser(user)
             .then(
                 function (doc) {
                     res.json(doc);
@@ -104,7 +103,7 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
     function register(req, res) {
         var user = req.body;
 
-        user = userModel.createUser(user)
+        userModel.createUser(user)
             // handle model promise
             .then(
                 // login user if promise resolved
@@ -122,7 +121,7 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
     function update(req, res) {
         var user = req.body;
         var userId = req.params.userId;
-        user = userModel.updateUser(user, userId)
+        userModel.updateUser(user, userId)
             .then(
                 function (doc) {
                     req.session.currentUser = doc;
@@ -137,7 +136,7 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
 
     function login(req, res) {
         var credentials = req.body;
-        var user = userModel.findUserByCredentials(credentials)
+        userModel.findUserByCredentials(credentials)
             .then(
                 function (doc) {
                     req.session.currentUser = doc;

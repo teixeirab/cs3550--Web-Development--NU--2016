@@ -4,9 +4,11 @@
         .module("SimulyApp")
         .controller("MomentumController", MometumController);
 
-    function MometumController(CompanyService, $rootScope , $routeParams) {
+    function MometumController(CompanyService , $routeParams) {
         var vm = this;
         vm.company_data = [];
+        vm.generated_name = $routeParams.companyId;
+        vm.turn = $routeParams.turn;
         var companyId = $routeParams.companyId;
 
         function init() {
@@ -24,8 +26,15 @@
 
 
         function renderBar(){
+            var periods = [];
+            for (var i =0; i <= 10; i++){
+                if (i < vm.turn){
+                    periods.push("t"+i);
+                }
+            }
+
             var priceChart = {
-                labels : vm.company_data.periods,
+                labels : periods,
                 datasets : [
                     {
                         label: "WFC ROE:",
@@ -39,28 +48,8 @@
                     }
                 ]
             };
-
-            var revisionsChart = {
-                labels : vm.company_data.periods,
-                datasets : [
-                    {
-                        label: "WFC ROE:",
-                        fillColor : "#7D3C98",
-                        strokeColor : "#7D3C98",
-                        pointColor : "#7D3C98",
-                        pointStrokeColor : "#fff",
-                        pointHighlightFill : "#fff",
-                        pointHighlightStroke : "rgba(220,220,220,1)",
-                        data : vm.company_data.revisions
-                    }
-                ]
-            };
-
             var ctx = document.getElementById("priceChart").getContext("2d");
-            var ctx2 = document.getElementById("revisionsChart").getContext("2d");
-
             window.myLine = new Chart(ctx).Line(priceChart, {responsive: true});
-            window.myLine = new Chart(ctx2).Line(revisionsChart, {responsive: true});
         }
     }
 })();
