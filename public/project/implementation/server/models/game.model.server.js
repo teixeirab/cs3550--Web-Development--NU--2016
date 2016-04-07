@@ -14,10 +14,23 @@ module.exports = function(uuid, db, mongoose) {
         createGame : createGame,
         deleteGame : deleteGame,
         updateGame : updateGame,
-        findAllGamesByText: findAllGamesByText
+        findAllGamesByText: findAllGamesByText,
+        addUserInGame : addUserInGame
     };
-
     return api;
+
+    function addUserInGame(username, gameName){
+        var deferred = q.defer();
+        GameModel.update({title: gameName}, {$push: {players: username}}, function (err, doc) {
+                if (err) {
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(doc)
+                }
+            });
+        // return a promise
+        return deferred.promise;
+    }
 
     function findAllGamesByText(text){
         var temp = [];

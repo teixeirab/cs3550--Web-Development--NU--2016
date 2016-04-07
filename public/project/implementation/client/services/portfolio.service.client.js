@@ -14,8 +14,13 @@
             findAllPortfoliosByText : findAllPortfoliosByText,
             tradeCompanyForUser : tradeCompanyForUser,
             advanceTurnForGame : advanceTurnForGame,
+            updateReturn : updateReturn
         };
         return api;
+
+        function updateReturn(portfolioId, turn, turnReturn){
+            return $http.post("/api/project/portfolio/return/" + portfolioId + "/" + turn + "/" + turnReturn);
+        }
 
         function advanceTurnForGame(gameName, currentTurn){
             return $http.post("/api/project/portfolio/advance/" + gameName + "/" + currentTurn);

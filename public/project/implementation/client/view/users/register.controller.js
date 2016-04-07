@@ -4,9 +4,9 @@
         .module("SimulyApp")
         .controller("RegisterController", registerController);
 
-    function registerController($location, UserService, GameService) {
+    function registerController($location, UserService, GameService, $scope) {
         var vm = this;
-        vm.message = null;
+        $scope.message = null;
         vm.register = register;
 
         function init() {
@@ -14,47 +14,54 @@
         init();
 
         function register(user) {
-            console.log(user);
-            vm.message = null;
+            $scope.message = null;
 
             if (user == null) {
-                vm.message = "Please fill in the required fields";
+                $scope.message = "Please fill in the required fields";
                 return;
             }
             if (!user.username) {
-                vm.message = "Please provide a username";
+                $scope.message = "Please provide a username";
                 return;
             }
             if (!user.password || !user.password2) {
-                vm.message = "Please provide a password";
+                $scope.message = "Please provide a password";
                 return;
             }
             if (user.password != user.password2) {
-                vm.message = "Passwords must match";
+                $scope.message = "Passwords must match";
                 return;
             }
-
-            if (user.type1 && user.type2) {
-                vm.message = "A user can only either join or create a games, please choose only one";
-                return;
-            }
-
             if (user.role === null) {
-                vm.message = "Please choose the role of the user";
+                $scope.message = "Please choose the role of the user";
                 return;
             }
 
-            if (user.type) {
-                vm.user.role = "admin"
+            if (user.role === "player"){
+                GameService
+                    .addUserInGame(user.username, user.gameName)
+                    .then(function (response) {
+                        var currentUser = response.data;
+                        if (currentUser === null) {
+                            $scope.message = "Game not found, select another one"
+                        }
+                    });
             }
 
-            if (user.type === "player"){
+            if (user.role === "admin"){
+                var newGame = {
+                    title: vm.game.title,
+                    userId: vm.user.username,
+                    players: [],
+                    duration: 10,
+                    universe: 10
+                };
                 GameService
-                    .addUserInGame(user, user.gmae_name)
+                    .createGame(newGame)
                     .then(function (response) {
-                        var currentGame = response.data;
+                        var currentUser = response.data;
                         if (currentUser === null) {
-                            vm.message = "Game not found, select another one"
+
                         }
                     });
             }

@@ -70,17 +70,17 @@
                 controller: "RegisterController",
                 controllerAs: "model"
             })
-            .when("/create",{
-                templateUrl: "view/games/create.view.html",
-                controller: "CreateController",
+            .when("/manage",{
+                templateUrl: "view/games/manage.view.html",
+                controller: "ManageController",
                 controllerAs: "model",
                 resolve: {
                     checkLoggedIn : checkLoggedIn
                 }
             })
-            .when("/manage",{
-                templateUrl: "view/games/manage.view.html",
-                controller: "ManageController",
+            .when("/ranking/:gameId",{
+                templateUrl: "view/ranking/ranking.view.html",
+                controller: "RankingController",
                 controllerAs: "model",
                 resolve: {
                     checkLoggedIn : checkLoggedIn

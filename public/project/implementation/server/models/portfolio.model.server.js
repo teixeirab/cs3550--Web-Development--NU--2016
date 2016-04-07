@@ -16,8 +16,23 @@ module.exports = function(uuid, db, mongoose) {
         tradeCompanyForUser : tradeCompanyForUser,
         getPortfolioByUsername : getPortfolioByUsername,
         advanceTurnForGame : advanceTurnForGame,
+        updateReturn : updateReturn
     };
     return api;
+
+    function updateReturn(portfolioId, currentTurn, turnReturn){
+        var deferred = q.defer();
+        PortfolioModel.update({_id: portfolioId},
+            {$push: {"portfolio_return": turnReturn, $position: currentTurn}}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(doc)
+            }
+        });
+        // return a promise
+        return deferred.promise;
+    }
 
     function advanceTurnForGame(gameName, currentTurn){
         var deferred = q.defer();

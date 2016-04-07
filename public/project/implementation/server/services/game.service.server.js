@@ -6,6 +6,22 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
     app.delete("/api/project/game/:gameId", deleteGame);
     app.put("/api/project/game/:gameId", updateGame);
     app.get("/api/project/game/search/:text", findAllGamesByText);
+    app.get("/api/project/game/add/:username/:gameName", addUserInGame);
+
+    function addUserInGame(req, res){
+        var username = req.params.username;
+        var gameName = req.params.gameName;
+        gameModel.addUserInGame(username, gameName)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                // send error if promise rejected
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+    }
 
     function findAllGamesByText(req, res){
         var text = req.params.text;

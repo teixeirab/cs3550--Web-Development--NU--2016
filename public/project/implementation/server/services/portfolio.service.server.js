@@ -7,6 +7,24 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
     app.get("/api/project/portfolio/all/:text", findAllPortfoliosByText);
     app.post("/api/project/portfolio/trade/:username", tradeCompanyForUser);
     app.post("/api/project/portfolio/advance/:gameName/:turn", advanceTurnForGame);
+    app.post("/api/project/portfolio/return/:portfolioId/:turn/:turnReturn", updateReturn);
+
+
+    function updateReturn(req, res){
+        var portfolioId = req.params.portfolioId;
+        var currentTurn = req.params.turn;
+        var turnReturn = req.params.turnReturn;
+        portfolioModel.updateReturn(portfolioId, currentTurn, turnReturn)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                // send error if promise rejected
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+    }
 
     function advanceTurnForGame(req, res){
         var gameName = req.params.gameName;

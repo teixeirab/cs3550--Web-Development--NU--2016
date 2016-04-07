@@ -4,7 +4,6 @@ module.exports = function(mongoose) {
     var GameSchema = mongoose.Schema({
         title: String,
         userId: String,
-        num_of_players: Number,
         players: [String],
         duration: Number,
         universe: Number,

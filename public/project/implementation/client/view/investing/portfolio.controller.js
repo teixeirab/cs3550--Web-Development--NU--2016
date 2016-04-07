@@ -4,7 +4,7 @@
         .module("SimulyApp")
         .controller("PortfolioController", PortfolioController);
 
-    function PortfolioController($rootScope, GameService, PortfolioService, CompanyService) {
+    function PortfolioController($rootScope, GameService, PortfolioService, CompanyService, $uibModal) {
         var vm = this;
         vm.successMessage = null;
         vm.failureMessage = null;
@@ -16,6 +16,9 @@
 
         vm.buildTable = buildTable;
         vm.advance = advance;
+        vm.updateReturn = updateReturn;
+        vm.buy = buy;
+        vm.sell = sell;
 
         function init() {
             CompanyService
@@ -30,8 +33,8 @@
                 .findPortfolioForUser(vm.currentUser.username)
                 .then(function(response){
                     vm.currentPortfolio = response.data;
-                    buildTable();
                     renderBar();
+                    buildTable();
                 });
         }
         init();
@@ -40,8 +43,42 @@
             PortfolioService
                 .advanceTurnForGame(vm.currentPortfolio.gameName, vm.currentPortfolio.currentTurn + 1)
                 .then(function(response){
+                    updateReturn();
                     init();
                 });
+        }
+
+        function updateReturn(){
+            var turnReturn = Math.round(((vm.currentPortfolio.cash_remaining + vm.totalEquity) / 1000 - 1) * 100);
+            PortfolioService
+                .updateReturn(vm.currentPortfolio._id, vm.currentPortfolio.currentTurn, turnReturn)
+                .then(function(response){
+
+                });
+        }
+
+        function buy(index) {
+            $rootScope.modalInstance = $uibModal.open({
+                templateUrl: 'view/investing/trading.popup.view.html',
+                controller: 'TradingPopupController',
+                size: 'lg'
+            });
+        }
+
+        function sell(index) {
+            $rootScope.modalInstance = $uibModal.open({
+                templateUrl: 'view/investing/trading.popup.view.html',
+                controller: 'TradingPopupController',
+                size: 'lg',
+                resolve: {
+                    selectedField: function () {
+                        return vm.fields[index];
+                    },
+                    formId: function() {
+                        return formId;
+                    }
+                }
+            });
         }
 
         function buildTable(){
@@ -58,8 +95,7 @@
                     return: Math.round(((vm.currentPortfolio.holdings[i].prices[vm.currentPortfolio.currentTurn] /
                             vm.currentPortfolio.holdings[i].price_paid) - 1)*100),
                     total_value: vm.currentPortfolio.holdings[i].shares *
-                            vm.currentPortfolio.holdings[i].prices[vm.currentPortfolio.currentTurn],
-                    weight: vm.currentPortfolio.holdings[i].weight
+                            vm.currentPortfolio.holdings[i].prices[vm.currentPortfolio.currentTurn]
                 };
                 vm.summaryTable.push(company)
             }
@@ -67,6 +103,10 @@
         }
 
         function renderBar() {
+            if(window.myLine){
+                window.myLine.destroy()
+            }
+
             var periods = [];
             var j = 1;
             for (var i =0; i <= 10; i++){
@@ -95,7 +135,9 @@
                 ]
             };
             var ctx = document.getElementById("returnsChart").getContext("2d");
-            window.myBar = new Chart(ctx).Bar(returnsChart, {responsive: true});
+            window.myLine = new Chart(ctx).Line(returnsChart, {
+                responsive: true
+            });
         }
     }
 })();

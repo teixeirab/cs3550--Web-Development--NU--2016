@@ -46,13 +46,13 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <label for="returnsChart">Relative Return per Turn:</label>
                     <canvas id="returnsChart" height="50%" width="100%"></canvas>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-10">
                     <label for="holdings">Portfolio Holdings:</label>
                     <table id="holdings" class="table table-striped table-responsive">
                         <thead>
@@ -75,12 +75,12 @@
                             <td>{{company.price_paid | number:2}}</td>
                             <td>{{company.return}}%</td>
                             <td>{{company.total_value | number:2}}</td>
-                            <td>{{company.weight * 100 | number:2}}%</td>
+                            <td>{{(company.total_value / model.totalEquity) * 100 | number:2}}%</td>
                             <td nowrap>
-                                <a href="#" class="btn btn-primary">
+                                <a ng-click="model.buy($index)" class="btn btn-primary">
                                     <scan class="glyphicon glyphicon-plus"></scan>
                                 </a>
-                                <a href="#" class="btn btn-danger">
+                                <a ng-click="model.sell($index)" class="btn btn-danger">
                                     <scan class="glyphicon glyphicon-remove"></scan>
                                 </a>
                             </td>

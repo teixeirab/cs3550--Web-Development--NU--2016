@@ -6,6 +6,7 @@
 
     function GameService($rootScope, $http) {
         var api = {
+            addUserInGame : addUserInGame,
             createGame: createGame,
             updateGame: updateGame,
             deleteGame: deleteGame,
@@ -13,7 +14,12 @@
             findGamesForUser: findGamesForUser,
             findAllGamesByText : findAllGamesByText
         };
+
         return api;
+
+        function addUserInGame(username, gameName){
+            return $http.get("/api/project/game/add/"+username+"/"+ gameName);
+        }
 
         function findAllGames() {
             return $http.get("/api/project/game/");
