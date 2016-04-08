@@ -39,8 +39,8 @@ app.use(session({
 }));
 app.use(express.static(__dirname+ '/public'));
 
-//require("./public/assignment/server/app.js")(app, uuid, db, mongoose);
-require("./public/project/implementation/server/app.js")(app, uuid, db, mongoose);
+require("./public/assignment/server/app.js")(app, uuid, db, mongoose);
+//require("./public/project/implementation/server/app.js")(app, uuid, db, mongoose);
 //require("./public/experiments/omdb_mongo_db/server/app.js")(app, db, mongoose);
 //require("./public/experiments/omdb/server/app.js")(app);
 
