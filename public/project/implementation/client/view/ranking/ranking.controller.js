@@ -5,7 +5,6 @@
         .controller("RankingController", RankingController);
 
     function RankingController(CompanyService, PortfolioService, $rootScope, $scope) {
-
     }
 
 })();

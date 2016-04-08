@@ -4,7 +4,7 @@
         .module("SimulyApp")
         .controller("AdminPortfoliosController", AdminPortfoliosController);
 
-    function AdminPortfoliosController(PortfolioService, $routeParams) {
+    function AdminPortfoliosController(PortfolioService, $routeParams, cssInjector) {
         var vm = this;
         vm.portfolios = [];
         var portfolioId = $routeParams.portfolioId;

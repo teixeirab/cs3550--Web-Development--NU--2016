@@ -4,7 +4,7 @@
         .module("SimulyApp")
         .controller("ValuationController", ValuationController);
 
-    function ValuationController(CompanyService, $rootScope , $routeParams) {
+    function ValuationController(CompanyService , $routeParams) {
         var vm = this;
         vm.company_data = [];
         vm.generated_name = $routeParams.companyId;
@@ -20,6 +20,7 @@
                         vm.company_data = response.data;
                         renderBar();
                         console.log(vm.company_data.periods)
+                        console.log(vm.company_data.pe.slice(0,vm.turn));
                     }
                 });
         }

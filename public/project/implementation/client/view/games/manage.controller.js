@@ -5,26 +5,58 @@
         .controller("ManageController", ManageController);
 
 
-    function ManageController($scope, GameService, $rootScope) {
-        $scope.deleteGame = deleteGame;
-        $scope.selectGame = selectGame;
+    function ManageController(PortfolioService, $routeParams) {
+        var vm = this;
+        vm.portfolios = [];
+        vm.deletePortfolio = deletePortfolio;
+        vm.updatePortfolio = updatePortfolio;
+        vm.selectPortfolio = selectPortfolio;
+        vm.addPortfolio = addPortfolio;
 
-        function renderForms(){
-            var callback = function (response){
-                $scope.games = response;
-            };
-            GameService.findAllGamesForUser($rootScope.currentUser._id, callback);
-            $scope.game = null;
+        function init() {
+            PortfolioService
+                .findAllPortfolios()
+                .then(function (response){
+                    if(response.data) {
+                        console.log(response.data)
+                        vm.portfolios = response.data
+                    }
+                })
         }
-        renderForms();
+        init();
 
-        function deleteGame(game){
-            GameService.deleteGameById(game._id, renderForms);
+        function deletePortfolio(company){
+            PortfolioService
+                .deletePortfolio(company._id)
+                .then(function(response){
+                    if(response.data) {
+                        init()
+                    }
+                });
         }
 
-        function selectGame(index){
-            $scope.game = $scope.games[index];
+        function updatePortfolio(company){
+            PortfolioService
+                .updatePortfolio(company._id, company)
+                .then(function(response){
+                    if(response.data) {
+                        init()
+                    }
+                });
+        }
+
+        function selectPortfolio(index){
+            vm.portfolio = vm.portfolios[index];
+        }
+
+        function addPortfolio(company){
+            PortfolioService
+                .createPortfolio(company)
+                .then(function(response){
+                    if(response.data) {
+                        init()
+                    }
+                });
         }
     }
-
 })();

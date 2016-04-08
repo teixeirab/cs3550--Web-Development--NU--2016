@@ -5,6 +5,9 @@
         .controller("RegisterController", registerController);
 
     function registerController($location, UserService, GameService, $scope) {
+
+        $('head').append('<link rel="stylesheet" type="text/css" href="assets/css/light-bootstrap-dashboard.css">');
+
         var vm = this;
         $scope.message = null;
         vm.register = register;

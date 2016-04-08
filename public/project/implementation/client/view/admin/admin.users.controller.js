@@ -4,7 +4,7 @@
         .module("SimulyApp")
         .controller("AdminUsersController", AdminUsersController);
 
-    function AdminUsersController(UserService, $routeParams) {
+    function AdminUsersController(UserService, $routeParams, cssInjector) {
         var vm = this;
         vm.users = [];
         var userId = $routeParams.userId;

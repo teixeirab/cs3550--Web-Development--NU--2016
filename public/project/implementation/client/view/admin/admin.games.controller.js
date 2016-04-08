@@ -4,7 +4,7 @@
         .module("SimulyApp")
         .controller("AdminGamesController", AdminGamesController);
 
-    function AdminGamesController(GameService, $routeParams) {
+    function AdminGamesController(GameService, $routeParams, cssInjector) {
         var vm = this;
         vm.games = [];
         var gameId = $routeParams.gameId;

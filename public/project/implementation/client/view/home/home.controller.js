@@ -2,12 +2,19 @@
     "use strict";
     angular
         .module("SimulyApp")
-        .controller("HomeController", HomeController);
+        .controller("HomeController", HomeController)
+        .config(function(cssInjectorProvider){
+            cssInjectorProvider.setSinglePageMode(true);
+        });
 
-    function HomeController(UserService, $location, $rootScope) {
+    function HomeController(UserService, $location, $rootScope, $scope, cssInjector) {
         var vm = this;
-
         vm.login = login;
+
+        cssInjector.removeAll();
+        cssInjector.add("assets/css/main.css");
+
+        $('link[rel=stylesheet][href~="assets/css/light-bootstrap-dashboard.css"]').remove();
 
         function init() {
         }

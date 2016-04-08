@@ -4,7 +4,7 @@
         .module("SimulyApp")
         .controller("AdminCompaniesController", AdminCompaniesController);
 
-    function AdminCompaniesController(CompanyService, $routeParams) {
+    function AdminCompaniesController(CompanyService, $routeParams, cssInjector) {
         var vm = this;
         vm.companies = [];
         var companyId = $routeParams.companyId;

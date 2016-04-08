@@ -33,6 +33,7 @@
                 .findPortfolioForUser(vm.currentUser.username)
                 .then(function(response){
                     vm.currentPortfolio = response.data;
+                    vm.currentTurn = vm.currentPortfolio.currentTurn;
                     renderBar();
                     buildTable();
                 });
@@ -57,25 +58,69 @@
                 });
         }
 
+        function refresh(selectedCompany){
+            var currentPrice;
+            var prices;
+            for (var i = 0; i < vm.summaryTable.length; i++){
+                if (vm.summaryTable[i].name === selectedCompany.name){
+                    currentPrice = vm.summaryTable[i].prices;
+                }
+            }
+
+            vm.selectedCompany = {
+                name: selectedCompany.name,
+                shares: selectedCompany.shares,
+                currentPrice : currentPrice,
+                tradeType: selectedCompany.tradeType,
+                prices : prices
+            }
+        }
+
         function buy(index) {
+            var temp;
+            temp = {
+                name: vm.summaryTable[index].name,
+                shares: 1,
+                tradeType: "Buy"
+            };
+            refresh(temp);
+
             $rootScope.modalInstance = $uibModal.open({
                 templateUrl: 'view/investing/trading.popup.view.html',
                 controller: 'TradingPopupController',
-                size: 'lg'
+                controllerAs: "model",
+                size: 'lg',
+                resolve: {
+                    selectedTrade : function () {
+                    return  vm.selectedCompany
+                    },
+                    currentPortfolio : function () {
+                        return  vm.currentPortfolio
+                    }
+                }
             });
         }
 
         function sell(index) {
+            var temp;
+            temp = {
+                name: vm.summaryTable[index].name,
+                shares: vm.summaryTable[index].shares,
+                tradeType: "Sell"
+            };
+            refresh(temp);
+
             $rootScope.modalInstance = $uibModal.open({
                 templateUrl: 'view/investing/trading.popup.view.html',
                 controller: 'TradingPopupController',
+                controllerAs: "model",
                 size: 'lg',
                 resolve: {
-                    selectedField: function () {
-                        return vm.fields[index];
+                    selectedTrade : function () {
+                        return  vm.selectedCompany
                     },
-                    formId: function() {
-                        return formId;
+                    currentPortfolio : function () {
+                        return  vm.currentPortfolio
                     }
                 }
             });
