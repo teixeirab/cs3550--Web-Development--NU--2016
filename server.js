@@ -35,7 +35,7 @@ app.use(multer());
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: true
 }));
 app.use(cookieParser());
 app.use(passport.initialize());
