@@ -7,39 +7,42 @@
     <thead>
     <tr>
         <th>
-            <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
-                <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
-            </svg>
-            ID
-        </th>
-        <th>
-            <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
-                <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
-            </svg>
+            <a ng-if="model.ascending" ng-click="model.sortAscending('firstName')">
+                <scan class="glyphicon glyphicon-triangle-top"></scan>
+            </a>
+            <a ng-if="model.descending" ng-click="model.sortDescending('firstName')">
+                <scan class="glyphicon glyphicon-triangle-bottom"></scan>
+            </a>
             First Name
         </th>
         <th>
-            <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
-                <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
-            </svg>
+            <a ng-if="model.ascending" ng-click="model.sortAscending('lastName')">
+                <scan class="glyphicon glyphicon-triangle-top"></scan>
+            </a>
+            <a ng-if="model.descending" ng-click="model.sortDescending('lastName')">
+                <scan class="glyphicon glyphicon-triangle-bottom"></scan>
+            </a>
             Last Name
         </th>
         <th>
-            <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
-                <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
-            </svg>
+            <a ng-if="model.ascending" ng-click="model.sortAscending('username')">
+                <scan class="glyphicon glyphicon-triangle-top"></scan>
+            </a>
+            <a ng-if="model.descending" ng-click="model.sortDescending('username')">
+                <scan class="glyphicon glyphicon-triangle-bottom"></scan>
+            </a>
             Username
         </th>
         <th>
-            <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
-                <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
-            </svg>
             Password
         </th>
         <th>
-            <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
-                <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
-            </svg>
+            <a ng-if="model.ascending" ng-click="model.sortAscending('roles')">
+                <scan class="glyphicon glyphicon-triangle-top"></scan>
+            </a>
+            <a ng-if="model.descending" ng-click="model.sortDescending('roles')">
+                <scan class="glyphicon glyphicon-triangle-bottom"></scan>
+            </a>
             Role
         </th>
         <th>
@@ -49,7 +52,6 @@
     </thead>
     <tbody>
     <tr>
-        <td></td>
         <td>
             <form>
                 <input ng-model="model.user.firstName" placeholder="first name" type="text" class="form-control">
@@ -87,11 +89,10 @@
         </td>
     </tr>
     <tr ng-repeat="user in model.users">
-        <td>{{user._id}}</td>
         <td>{{user.firstName}}</td>
         <td>{{user.lastName}}</td>
         <td>{{user.username}}</td>
-        <td>{{user.password}}</td>
+        <td></td>
         <td>{{user.roles}}</td>
         <td>
             <form>
@@ -99,7 +100,7 @@
                     <scan class="glyphicon glyphicon-remove"></scan>
                 </button>
                 <button ng-click="model.selectUser($index)" class="btn btn-warning">
-                    <scan class="glyphicon glyphicon-pencil"></scan>
+                    <scan class="glyphicon glyphicon-cog"></scan>
                 </button>
             </form>
         </td>

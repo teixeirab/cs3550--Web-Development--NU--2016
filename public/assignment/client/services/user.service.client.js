@@ -15,16 +15,14 @@
             update: update,
             getUsers: getUsers,
             setUsers : setUsers,
-            deleteUser : deleteUser
+            deleteUser : deleteUser,
+            adminUpdate: adminUpdate,
+            addUser: addUser
         };
         return api;
 
         function getProfile(user) {
             return $http.get("/api/assignment/profile/"+user._id);
-        }
-
-        function getUsers() {
-            return $http.get("/api/assignment/user");
         }
 
         function register(user) {
@@ -55,9 +53,23 @@
             return $http.put("/api/assignment/user/"+ userId, user);
         }
 
-        function deleteUser(userId){
-            return $http.delete("/api/assignment/user/" + userId);
+        // Admin Functions
+        function adminUpdate(user, userId){
+            return $http.put("/api/assignment/admin/user/"+ userId, user);
         }
+
+        function deleteUser(userId){
+            return $http.delete("/api/assignment/admin/user/" + userId);
+        }
+
+        function getUsers() {
+            return $http.get("/api/assignment/admin/user");
+        }
+
+        function addUser(user) {
+            return $http.post("/api/assignment/admin/user", user);
+        }
+
 
 
     }

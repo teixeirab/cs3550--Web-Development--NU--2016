@@ -43,7 +43,7 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
     }
 
     function findGamesForUser(req, res) {
-        var user = req.params.userId;
+        var user = req.params.username;
         gameModel.findAllGamesForUser(user)
             .then(
                 function (doc) {

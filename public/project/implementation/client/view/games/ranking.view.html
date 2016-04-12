@@ -1,0 +1,33 @@
+<div class="col-lg-12">
+    <div class="card">
+        <div class="header">
+            <h2>{{model.gameName}}'s Rank:</h2>
+        </div>
+        <div class="content">
+            <table class="table table-striped table-responsive" ng-controller="RankingController">
+                <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Username</th>
+                    <th>Invested Equity</th>
+                    <th>Cash Remaining</th>
+                    <th>Total Return</th>
+                    <th>Relative Return to the S&P500</th>
+                    <th>Sharpe Ratio</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="rank in model.ranking">
+                    <td>{{rank.rank}}</td>
+                    <td>{{rank.username}}</td>
+                    <td>${{rank.investedEquity | number:2}}</td>
+                    <td>${{rank.cashRemaining | number:2}}</td>
+                    <td>{{rank.totalReturn | number:0}}%</td>
+                    <td>{{rank.relativeReturn | number:0}}%</td>
+                    <td>{{rank.sharpeRatio | number:2}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -8,6 +8,7 @@ var multer = require('multer');
 var passport = require('passport');
 var LocalStrategy = require('passport-local');
 var mongoose = require("mongoose");
+var generateName = require('sillyname');
 
 // create a default connection string
 var connectionString = 'mongodb://127.0.0.1:27017/webdev';
@@ -29,18 +30,24 @@ var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 var port = process.env.OPENSHIFT_NODEJS_PORT ||3000;
 
 app.use(bodyParser.json());
-app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer());
 app.use(session({
-    secret: 'keyboard cat',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
 }));
+app.use(cookieParser());
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.static(__dirname+ '/public'));
 
-//require("./public/assignment/server/app.js")(app, uuid, db, mongoose);
-require("./public/project/implementation/server/app.js")(app, uuid, db, mongoose);
+
+var sillyName = generateName();
+console.log(sillyName);
+
+require("./public/assignment/server/app.js")(app, uuid, db, mongoose);
+// require("./public/project/implementation/server/app.js")(app, uuid, db, mongoose);
 //require("./public/experiments/omdb_mongo_db/server/app.js")(app, db, mongoose);
 //require("./public/experiments/omdb/server/app.js")(app);
 

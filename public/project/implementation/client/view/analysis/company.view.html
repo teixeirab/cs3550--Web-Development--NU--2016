@@ -13,11 +13,21 @@
                 <div class="header">
                     <h3 class="title">
                         {{model.generated_name}}'s Summary:
-                        <button type="submit" ng-click="trade()" class="btn btn-success">Trade this company</button>
+                        <button type="submit" ng-click="model.trade(model.generated_name)" class="btn btn-success">Trade this company</button>
                     </h3>
                 </div>
                 <div class="content">
                     <div class="row">
+                        <div class="col-lg-5">
+                            <div class="card">
+                                <div class="header">
+                                    <h5 class="title">Return on Invested Capital:</h5>
+                                </div>
+                                <div class="content">
+                                    <div id="roicChart" style="width: 100%; height: 230px;" ></div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-lg-4">
                             <div class="card">
                                 <div class="header">
@@ -34,7 +44,7 @@
                                         <tbody>
                                         <tr>
                                             <td>Market Cap</td>
-                                            <td>{{model.market_cap_turn}}</td>
+                                            <td>${{model.market_cap_turn  | number:0}} mn</td>
                                         </tr>
                                         <tr>
                                             <td>Sub-Industry</td>
@@ -42,20 +52,10 @@
                                         </tr>
                                         <tr>
                                             <td>Current Price</td>
-                                            <td>{{model.current_price_turn}}</td>
+                                            <td>${{model.current_price_turn  | number:2}}</td>
                                         </tr>
                                         </tbody>
                                     </table>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-5">
-                            <div class="card">
-                                <div class="header">
-                                    <h5 class="title">Return on Invested Capital:</h5>
-                                </div>
-                                <div class="content">
-                                    <canvas id="roicChart" height="50px" width="100%"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -77,11 +77,11 @@
                                         <tbody>
                                         <tr>
                                             <td>P/E</td>
-                                            <td>{{model.p_e_turn}}x</td>
+                                            <td>{{model.p_e_turn | number:2}}x</td>
                                         </tr>
                                         <tr>
                                             <td>P/B</td>
-                                            <td>{{model.p_b_turn}}x</td>
+                                            <td>{{model.p_b_turn | number:2}}x</td>
                                         </tr>
                                         <tr>
                                             <td>P/S</td>
@@ -94,6 +94,16 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-lg-5">
+                            <div class="card">
+                                <div class="header">
+                                    <h5 class="title">Real Asset Growth Rate:</h5>
+                                </div>
+                                <div class="content">
+                                    <div id="growthChart" style="width: 100%; height: 230px;" ></div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-lg-4">
                             <div class="card">
                                 <div class="header">
@@ -122,16 +132,6 @@
                                         </tr>
                                         </tbody>
                                     </table>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-5">
-                            <div class="card">
-                                <div class="header">
-                                    <h5 class="title">Real Asset Growth Rate:</h5>
-                                </div>
-                                <div class="content">
-                                    <canvas id="growthChart" height="40%" width="100%"></canvas>
                                 </div>
                             </div>
                         </div>

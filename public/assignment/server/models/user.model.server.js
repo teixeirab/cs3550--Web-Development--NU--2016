@@ -136,12 +136,17 @@ module.exports = function(uuid, db, mongoose) {
     }
 
     function findUserByUsername (username){
-        for(var u in mock) {
-            if( mock[u].username === username) {
-                return mock[u];
-            }
-        }
-        return null;
+        var deferred = q.defer();
+        UserModel.findOne({username: username}, function(err, doc) {
+                if (err) {
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(doc);
+                }
+
+            });
+
+        return deferred.promise;
     }
 
     function findUsersByIds (userIds) {

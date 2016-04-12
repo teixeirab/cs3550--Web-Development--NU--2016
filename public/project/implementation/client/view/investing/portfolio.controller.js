@@ -41,12 +41,55 @@
         init();
 
         function advance(){
+            var oldPortfolio = vm.summaryTable;
             PortfolioService
-                .advanceTurnForGame(vm.currentPortfolio.gameName, vm.currentPortfolio.currentTurn + 1)
+                .advanceTurnForPortfolio(vm.currentPortfolio._id, vm.currentPortfolio.currentTurn + 1)
                 .then(function(response){
-                    updateReturn();
-                    init();
+                    if (response.data){
+                        updateReturn();
+                        CompanyService
+                            .findAllCompanies()
+                            .then(function (response){
+                                if(response.data) {
+                                    vm.companies = response.data;
+                                    refreshPortfolio(oldPortfolio);
+                                }
+                            });
+                    }
                 });
+        }
+
+        function refreshPortfolio (oldPortfolio){
+            PortfolioService
+                .findPortfolioForUser(vm.currentUser.username)
+                .then(function(response){
+                    vm.currentPortfolio = response.data;
+                    vm.currentTurn = vm.currentPortfolio.currentTurn;
+                    renderBar();
+                    buildTable();
+                    var newPortfolio = vm.summaryTable;
+                    turnSummary(oldPortfolio, newPortfolio, vm.currentTurn);
+                });
+        }
+
+        function turnSummary(oldPortfolio, newPortfolio, turn){
+            $rootScope.modalInstance = $uibModal.open({
+                templateUrl: 'view/investing/nextTurn.popup.view.html',
+                controller: 'NextTurnPopupController',
+                controllerAs: "model",
+                size: 'lg',
+                resolve: {
+                    oldPortfolio : function () {
+                        return  oldPortfolio
+                    },
+                    newPortfolio : function () {
+                        return  newPortfolio
+                    },
+                    turn : function () {
+                        return  turn
+                    }
+                }
+            })
         }
 
         function updateReturn(){
@@ -59,20 +102,19 @@
         }
 
         function refresh(selectedCompany){
-            var currentPrice;
             var prices;
             for (var i = 0; i < vm.summaryTable.length; i++){
                 if (vm.summaryTable[i].name === selectedCompany.name){
-                    currentPrice = vm.summaryTable[i].prices;
+                    prices = vm.summaryTable[i].prices;
                 }
             }
-
             vm.selectedCompany = {
                 name: selectedCompany.name,
                 shares: selectedCompany.shares,
-                currentPrice : currentPrice,
+                currentPrice : prices[vm.currentTurn],
                 tradeType: selectedCompany.tradeType,
-                prices : prices
+                prices : prices,
+                totalEquity: vm.totalEquity
             }
         }
 
@@ -135,7 +177,7 @@
                 var company = {
                     name: vm.currentPortfolio.holdings[i].company_name,
                     shares: vm.currentPortfolio.holdings[i].shares,
-                    prices: vm.currentPortfolio.holdings[i].prices[vm.currentPortfolio.currentTurn],
+                    prices: vm.currentPortfolio.holdings[i].prices,
                     price_paid: vm.currentPortfolio.holdings[i].price_paid,
                     return: Math.round(((vm.currentPortfolio.holdings[i].prices[vm.currentPortfolio.currentTurn] /
                             vm.currentPortfolio.holdings[i].price_paid) - 1)*100),
@@ -144,14 +186,9 @@
                 };
                 vm.summaryTable.push(company)
             }
-            console.log(vm.totalEquity)
         }
 
         function renderBar() {
-            if(window.myLine){
-                window.myLine.destroy()
-            }
-
             var periods = [];
             var j = 1;
             for (var i =0; i <= 10; i++){
@@ -164,25 +201,20 @@
                 }
             }
 
-            var returnsChart = {
-                labels: periods,
-                datasets: [
-                    {
-                        label: "WFC ROE:",
-                        fillColor: "#1A5276",
-                        strokeColor: "#1A5276",
-                        pointColor: "#1A5276",
-                        pointStrokeColor: "#fff",
-                        pointHighlightFill: "#fff",
-                        pointHighlightStroke: "rgba(220,220,220,1)",
-                        data: vm.currentPortfolio.portfolio_return
-                    }
-                ]
-            };
-            var ctx = document.getElementById("returnsChart").getContext("2d");
-            window.myLine = new Chart(ctx).Line(returnsChart, {
-                responsive: true
-            });
+            var returns = vm.currentPortfolio.portfolio_return;
+
+            var returnsChartData = [];
+            for (var i = 0; i < periods.length; i++) {
+                if (periods[i].substring(0, 1) == "t") {
+                    returnsChartData.push({
+                        "periods": periods[i],
+                        "returns": returns[i],
+                        "color": "#2980B9"
+                    })
+                }
+            }
+
+            CompanyService.createBarGraph(returnsChartData, "returnsChart", "returns");
         }
     }
 })();

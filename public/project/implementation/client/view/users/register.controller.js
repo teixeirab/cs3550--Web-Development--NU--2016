@@ -4,7 +4,7 @@
         .module("SimulyApp")
         .controller("RegisterController", registerController);
 
-    function registerController($location, UserService, GameService, $scope) {
+    function registerController($location, UserService, GameService, PortfolioService, $scope) {
 
         $('head').append('<link rel="stylesheet" type="text/css" href="assets/css/light-bootstrap-dashboard.css">');
 
@@ -47,6 +47,23 @@
                         var currentUser = response.data;
                         if (currentUser === null) {
                             $scope.message = "Game not found, select another one"
+                        }
+                    });
+
+                var newPortfolio = {
+                    username: user.username,
+                    gameName : user.gameName,
+                    holdings : [],
+                    cash_remaining : 1000,
+                    currentTurn : 1
+                };
+
+                PortfolioService
+                    .createPortfolio(newPortfolio)
+                    .then(function (response) {
+                        var currentPortfolio = response.data;
+                        if (currentPortfolio === null) {
+                            $scope.message = "We were unable to create this portfolio"
                         }
                     });
             }

@@ -4,7 +4,7 @@
         .module("FormBuilderApp")
         .controller("LoginController", loginController);
 
-    function loginController(UserService, $location, $rootScope) {
+    function loginController(UserService, $location, $rootScope, $scope) {
         var vm = this;
 
         vm.login = login;
@@ -22,12 +22,18 @@
                     username: user.username,
                     password: user.password
                 })
-                .then(function(response){
+                .then(
+                    function(response){
                     if(response.data) {
                         UserService.setCurrentUser(response.data);
                         $location.url("/profile");
                     }
-                });
+                },
+                    function(err){
+                        $scope.error = err;
+                    }
+
+                );
         }
     }
 })();

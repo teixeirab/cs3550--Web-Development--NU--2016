@@ -36,6 +36,7 @@
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "q": "^1.4.1",
+    "sillyname": "^0.1.0",
     "sortable": "^2.0.0"
   },
   "devDependencies": {},

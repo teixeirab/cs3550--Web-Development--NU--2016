@@ -4,7 +4,7 @@
         .module("FormBuilderApp")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController($rootScope, UserService) {
+    function ProfileController($rootScope, UserService, $scope) {
         var vm = this;
         vm.update = update;
         vm.currentUser = $rootScope.currentUser;
@@ -17,7 +17,12 @@
                     if(currentUser != null) {
                         UserService.setCurrentUser(currentUser);
                     }
-                });
+
+                },
+                    function(err){
+                        $scope.error = err;
+                    }
+                );
         }
     }
 })();

@@ -24,6 +24,19 @@
         }
         init();
 
+        function getPeriods(){
+            vm.periods = [];
+            var j = 1;
+            for (var i =0; i <= 10; i++){
+                if (i < vm.turn){
+                    vm.periods.push("t"+i);
+                }
+                else {
+                    vm.periods.push("fy"+j);
+                    j++;
+                }
+            }
+        }
 
         function renderBar(){
             var roic = vm.company_data.roic.slice(0, vm.turn);
@@ -32,109 +45,112 @@
             var asset_growth = vm.company_data.asset_growth.slice(0, vm.turn);
             asset_growth.push(vm.company_data.asset_growth_fy1[vm.turn]);
 
-            var periods = [];
-            var j = 1;
-            for (var i =0; i <= 10; i++){
-                if (i < vm.turn){
-                    periods.push("t"+i);
+            var sales = vm.company_data.sales.slice(0, vm.turn);
+            var turns = vm.company_data.turns.slice(0, vm.turn);
+            var margins = vm.company_data.margins.slice(0, vm.turn);
+
+            getPeriods();
+
+            var roicChartData = [];
+            for( var i = 0; i < vm.periods.length; i++ ) {
+                if (vm.periods[i].substring(0,1)== "t"){
+                    roicChartData.push( {
+                        "periods": vm.periods[ i ],
+                        "roic": roic[ i ],
+                        "color": "#2980B9"
+                    } )
                 }
                 else {
-                    periods.push("fy"+j);
-                    j++;
+                    roicChartData.push( {
+                        "periods": vm.periods[ i ],
+                        "roic": roic[ i ],
+                        "color": "#633974"
+                    } )
                 }
             }
 
-            var roicChart = {
-                labels : periods,
-                datasets : [
-                    {
-                        label: "WFC ROE:",
-                        fillColor : "#1A5276",
-                        strokeColor : "#1A5276",
-                        pointColor : "#1A5276",
-                        pointStrokeColor : "#fff",
-                        pointHighlightFill : "#fff",
-                        pointHighlightStroke : "rgba(220,220,220,1)",
-                        data : roic
-                    }
-                ]
-            };
+            CompanyService.createBarGraph(roicChartData, "roicChart", "roic");
 
-            var growthChart = {
-                labels : periods,
-                datasets : [
-                    {
-                        label: "WFC ROE:",
-                        fillColor : "#7D3C98",
-                        strokeColor : "#7D3C98",
-                        pointColor : "#7D3C98",
-                        pointStrokeColor : "#fff",
-                        pointHighlightFill : "#fff",
-                        pointHighlightStroke : "rgba(220,220,220,1)",
-                        data : asset_growth
-                    }
-                ]
-            };
+            var growthChartData = [];
+            for( var i = 0; i < vm.periods.length; i++ ) {
+                if (vm.periods[i].substring(0,1)== "t"){
+                    growthChartData.push( {
+                        "periods": vm.periods[ i ],
+                        "growth": asset_growth[ i ],
+                        "color": "#633974"
+                    } )
+                }
+                else {
+                    growthChartData.push( {
+                        "periods": vm.periods[ i ],
+                        "growth": asset_growth[ i ],
+                        "color": "#2980B9"
+                    } )
+                }
+            }
 
-            var salesChart = {
-                labels : periods,
-                datasets : [
-                    {
-                        label: "WFC ROE:",
-                        fillColor : "#229954",
-                        strokeColor : "#229954",
-                        pointColor : "#229954",
-                        pointStrokeColor : "#fff",
-                        pointHighlightFill : "#fff",
-                        pointHighlightStroke : "rgba(220,220,220,1)",
-                        data : vm.company_data.sales.slice(0, vm.turn)
-                    }
-                ]
-            };
+            CompanyService.createBarGraph(growthChartData, "growthChart", "growth");
 
-            var marginsChart = {
-                labels : periods,
-                datasets : [
-                    {
-                        label: "WFC ROE:",
-                        fillColor : "#F1C40F",
-                        strokeColor : "#F1C40F",
-                        pointColor : "#F1C40F",
-                        pointStrokeColor : "#fff",
-                        pointHighlightFill : "#fff",
-                        pointHighlightStroke : "rgba(220,220,220,1)",
-                        data : vm.company_data.margins.slice(0, vm.turn)
-                    }
-                ]
-            };
+            var salesChartData = [];
+            for( var i = 0; i < vm.periods.length; i++ ) {
+                if (vm.periods[i].substring(0,1)== "t"){
+                    salesChartData.push( {
+                        "periods": vm.periods[ i ],
+                        "sales": sales[ i ],
+                        "color": "#1D8348"
+                    } )
+                }
+                else {
+                    salesChartData.push( {
+                        "periods": vm.periods[ i ],
+                        "sales": sales[ i ],
+                        "color": "#2980B9"
+                    } )
+                }
+            }
 
-            var turnsChart = {
-                labels : periods,
-                datasets : [
-                    {
-                        label: "WFC ROE:",
-                        fillColor : "#2980B9",
-                        strokeColor : "#2980B9",
-                        pointColor : "#2980B9",
-                        pointStrokeColor : "#fff",
-                        pointHighlightFill : "#fff",
-                        pointHighlightStroke : "rgba(220,220,220,1)",
-                        data : vm.company_data.turns.slice(0, vm.turn)
-                    }
-                ]
-            };
+            CompanyService.createBarGraph(salesChartData, "salesChart", "sales");
 
-            var ctx = document.getElementById("roicChart").getContext("2d");
-            var ctx2 = document.getElementById("growthChart").getContext("2d");
-            var ctx3 = document.getElementById("salesChart").getContext("2d");
-            var ctx4 = document.getElementById("marginsChart").getContext("2d");
-            var ctx5 = document.getElementById("turnsChart").getContext("2d");
+            var marginsChartData = [];
+            for( var i = 0; i < vm.periods.length; i++ ) {
+                if (vm.periods[i].substring(0,1)== "t"){
+                    marginsChartData.push( {
+                        "periods": vm.periods[ i ],
+                        "margins": margins[ i ],
+                        "color": "#F1C40F"
+                    } )
+                }
+                else {
+                    marginsChartData.push( {
+                        "periods": vm.periods[ i ],
+                        "margins": margins[ i ],
+                        "color": "#F1C40F"
+                    } )
+                }
+            }
 
-            window.myBar = new Chart(ctx).Bar(roicChart, {responsive: true});
-            window.myBar = new Chart(ctx2).Bar(growthChart, {responsive: true});
-            window.myBar = new Chart(ctx3).Bar(salesChart, {responsive: true});
-            window.myBar = new Chart(ctx4).Bar(marginsChart, {responsive: true});
-            window.myBar = new Chart(ctx5).Bar(turnsChart, {responsive: true});
+            CompanyService.createBarGraph(marginsChartData, "marginsChart", "margins");
+
+            var turnsChartData = [];
+            for( var i = 0; i < vm.periods.length; i++ ) {
+                if (vm.periods[i].substring(0,1)== "t"){
+                    turnsChartData.push( {
+                        "periods": vm.periods[ i ],
+                        "turns": margins[ i ],
+                        "color": "#AED6F1"
+                    } )
+                }
+                else {
+                    turnsChartData.push( {
+                        "periods": vm.periods[ i ],
+                        "turns": margins[ i ],
+                        "color": "#AED6F1"
+                    } )
+                }
+            }
+
+            CompanyService.createBarGraph(turnsChartData, "turnsChart", "turns");
+
         }
     }
 })();

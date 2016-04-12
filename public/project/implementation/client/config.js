@@ -78,8 +78,8 @@
                     checkLoggedIn : checkLoggedIn
                 }
             })
-            .when("/ranking/:gameId",{
-                templateUrl: "view/ranking/ranking.view.html",
+            .when("/ranking/:username",{
+                templateUrl: "view/games/ranking.view.html",
                 controller: "RankingController",
                 controllerAs: "model",
                 resolve: {

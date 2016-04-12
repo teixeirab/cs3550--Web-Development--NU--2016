@@ -6,9 +6,23 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
     app.put("/api/project/portfolio/:portfolioId", updatePortfolio);
     app.get("/api/project/portfolio/all/:text", findAllPortfoliosByText);
     app.post("/api/project/portfolio/trade/:username", tradeCompanyForUser);
-    app.post("/api/project/portfolio/advance/:gameName/:turn", advanceTurnForGame);
+    app.post("/api/project/portfolio/advance/:portfolioId/:turn", advanceTurnForGame);
     app.post("/api/project/portfolio/return/:portfolioId/:turn/:turnReturn", updateReturn);
+    app.get("/api/project/portfolio/game/:gameId", findPortfoliosInGame);
 
+    function findPortfoliosInGame(req, res) {
+        var gameId = req.params.gameId;
+        portfolioModel.findPortfoliosInGame(gameId)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                // send error if promise rejected
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+    }
 
     function updateReturn(req, res){
         var portfolioId = req.params.portfolioId;
@@ -27,9 +41,9 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
     }
 
     function advanceTurnForGame(req, res){
-        var gameName = req.params.gameName;
+        var portfolioId = req.params.portfolioId;
         var currentTurn = req.params.turn;
-        portfolioModel.advanceTurnForGame(gameName, currentTurn)
+        portfolioModel.advanceTurnForGame(portfolioId, currentTurn)
             .then(
                 function (doc) {
                     res.json(doc);

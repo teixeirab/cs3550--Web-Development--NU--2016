@@ -4,12 +4,13 @@
         .module("SimulyApp")
         .controller("CompanyController", CompanyController);
 
-    function CompanyController(CompanyService, $routeParams) {
+    function CompanyController(CompanyService, $routeParams, $rootScope, $uibModal) {
         var vm = this;
         vm.company_data = [];
         vm.generated_name = $routeParams.companyId;
         vm.turn = $routeParams.turn;
         var companyId = $routeParams.companyId;
+        vm.trade= trade;
 
 
         function init() {
@@ -20,11 +21,35 @@
                         vm.company_data = response.data;
                         renderBar();
                         variablesForTurn();
-                        console.log(vm.company_data);
                     }
                 });
         }
         init();
+
+        function trade(name){
+            console.log(name);
+            vm.selectedCompany = {
+                name: name,
+                shares: 1,
+                tradeType: "Buy",
+                currentPrice : vm.company_data.current_price[vm.turn]
+            };
+
+            $rootScope.modalInstance = $uibModal.open({
+                templateUrl: 'view/investing/trading.popup.view.html',
+                controller: 'TradingPopupController',
+                controllerAs: "model",
+                size: 'lg',
+                resolve: {
+                    selectedTrade : function () {
+                        return  vm.selectedCompany
+                    },
+                    currentPortfolio : function () {
+                        return  vm.currentPortfolio
+                    }
+                }
+            });
+        }
 
         function variablesForTurn(){
             vm.market_cap_turn = vm.company_data.market_cap[vm.turn];
@@ -37,6 +62,19 @@
             vm._90_day_volatility_turn = vm.company_data._90_day_volatility[vm.turn]
         }
 
+        function getPeriods(){
+            vm.periods = [];
+            var j = 1;
+            for (var i =0; i <= 10; i++){
+                if (i < vm.turn){
+                    vm.periods.push("t"+i);
+                }
+                else {
+                    vm.periods.push("fy"+j);
+                    j++;
+                }
+            }
+        }
 
         function renderBar(){
             var roic = vm.company_data.roic.slice(0, vm.turn);
@@ -45,56 +83,47 @@
             var asset_growth = vm.company_data.asset_growth.slice(0, vm.turn);
             asset_growth.push(vm.company_data.asset_growth_fy1[vm.turn]);
 
-            var periods = [];
-            var j = 1;
-            for (var i =0; i <= 10; i++){
-                if (i < vm.turn){
-                    periods.push("t"+i);
+            getPeriods();
+
+            var roicChartData = [];
+            for( var i = 0; i < vm.periods.length; i++ ) {
+                if (vm.periods[i].substring(0,1)== "t"){
+                    roicChartData.push( {
+                        "periods": vm.periods[ i ],
+                        "roic": roic[ i ],
+                        "color": "#2980B9"
+                    } )
                 }
                 else {
-                    periods.push("fy"+j);
-                    j++;
+                    roicChartData.push( {
+                        "periods": vm.periods[ i ],
+                        "roic": roic[ i ],
+                        "color": "#633974"
+                    } )
                 }
             }
 
-            var roicChart = {
-                labels : periods,
-                datasets : [
-                    {
-                        label: "WFC ROE:",
-                        fillColor : "#1A5276",
-                        strokeColor : "#1A5276",
-                        pointColor : "#1A5276",
-                        pointStrokeColor : "#fff",
-                        pointHighlightFill : "#fff",
-                        pointHighlightStroke : "rgba(220,220,220,1)",
-                        data : roic
-                    }
-                ]
-            };
+            CompanyService.createBarGraph(roicChartData, "roicChart", "roic");
 
-            var growthChart = {
-                labels : periods,
-                datasets : [
-                    {
-                        label: "WFC ROE:",
-                        fillColor : "#7D3C98",
-                        strokeColor : "#7D3C98",
-                        pointColor : "#7D3C98",
-                        pointStrokeColor : "#fff",
-                        pointHighlightFill : "#fff",
-                        pointHighlightStroke : "rgba(220,220,220,1)",
-                        data : asset_growth
-                    }
-                ]
-            };
+            var growthChartData = [];
+            for( var i = 0; i < vm.periods.length; i++ ) {
+                if (vm.periods[i].substring(0,1)== "t"){
+                    growthChartData.push( {
+                        "periods": vm.periods[ i ],
+                        "growth": asset_growth[ i ],
+                        "color": "#633974"
+                    } )
+                }
+                else {
+                    growthChartData.push( {
+                        "periods": vm.periods[ i ],
+                        "growth": asset_growth[ i ],
+                        "color": "#2980B9"
+                    } )
+                }
+            }
 
-            var ctx = document.getElementById("roicChart").getContext("2d");
-            var ctx2 = document.getElementById("growthChart").getContext("2d");
-            window.myBar = new Chart(ctx).Bar(roicChart, {responsive: true});
-            window.myBar = new Chart(ctx2).Bar(growthChart, {responsive: true});
+            CompanyService.createBarGraph(growthChartData, "growthChart", "growth");
         }
-
-
     }
 })();

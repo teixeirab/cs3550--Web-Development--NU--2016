@@ -10,20 +10,25 @@
             updatePortfolio: updatePortfolio,
             deletePortfolio: deletePortfolio,
             findAllPortfolios: findAllPortfolios,
+            findPortfoliosInGame: findPortfoliosInGame,
             findPortfolioForUser: findPortfolioForUser,
             findAllPortfoliosByText : findAllPortfoliosByText,
             tradeCompanyForUser : tradeCompanyForUser,
-            advanceTurnForGame : advanceTurnForGame,
+            advanceTurnForPortfolio : advanceTurnForPortfolio,
             updateReturn : updateReturn
         };
         return api;
+
+        function findPortfoliosInGame(gameId) {
+            return $http.get("/api/project/portfolio/game/" + gameId);
+        }
 
         function updateReturn(portfolioId, turn, turnReturn){
             return $http.post("/api/project/portfolio/return/" + portfolioId + "/" + turn + "/" + turnReturn);
         }
 
-        function advanceTurnForGame(gameName, currentTurn){
-            return $http.post("/api/project/portfolio/advance/" + gameName + "/" + currentTurn);
+        function advanceTurnForPortfolio(portfolioId, currentTurn){
+            return $http.post("/api/project/portfolio/advance/" + portfolioId + "/" + currentTurn);
         }
 
         function tradeCompanyForUser(portfolioTrade){

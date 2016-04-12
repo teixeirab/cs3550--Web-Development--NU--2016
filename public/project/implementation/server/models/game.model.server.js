@@ -57,14 +57,19 @@ module.exports = function(uuid, db, mongoose) {
         return deferred.promise;
     }
 
-    function findGamesForUser(userId){
-        var userGames = [];
-        for (var f in games) {
-            if (games[f].userId === userId) {
-                userGames.push(games[f]);
+    function findGamesForUser(username){
+        var deferred = q.defer();
+        GameModel.find({userId: username}, function (err, doc){
+                if (err) {
+                    // reject promise if error
+                    deferred.reject(err);
+                } else {
+                    // resolve promise
+                    deferred.resolve(doc);
+                }
             }
-        }
-        return userGames;
+        );
+        return deferred.promise;
     }
 
     function createGame (game){

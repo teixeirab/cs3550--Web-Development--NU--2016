@@ -1,16 +1,76 @@
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+
 module.exports = function(app, formModel, userModel) {
 
-    app.post("/api/assignment/login", login);
+    var auth = authorized;
+    var admn = isAdmin;
+    app.post("/api/assignment/login", passport.authenticate('local'), login);
     app.get("/api/assignment/loggedin", loggedin);
     app.post("/api/assignment/logout", logout);
     app.post("/api/assignment/register", register);
-    app.post("/api/assignment/add", addUser);
-    app.get("/api/assignment/profile/:userId", profile);
-    app.put("/api/assignment/user/:userId", update);
-    app.get("/api/assignment/user", users);
-    app.delete("/api/assignment/user/:userId", delete_user);
+    app.get("/api/assignment/profile/:userId", auth, profile);
+    app.put("/api/assignment/user/:userId", auth, update);
+    app.get("/api/assignment/user", auth, users);
+    // admin requests
+    app.post("/api/assignment/admin/user", auth, admn, create);
+    app.get("/api/assignment/admin/user",auth, admn, users);
+    //app.get("/api/assignment/admin/user/:userId",auth, admn,  findUserId);
+    app.delete("/api/assignment/admin/user/:userId", auth, admn, delete_user);
+    app.put("/api/assignment/admin/user/:userId", auth, admn,  update);
 
-    function delete_user(req, res){
+    passport.use(new LocalStrategy(localStrategy));
+    passport.serializeUser(serializeUser);
+    passport.deserializeUser(deserializeUser);
+
+    function localStrategy(username, password, done){
+        userModel
+            .findUserByCredentials({username: username, password: password})
+            .then(
+                function(user){
+                    if (!user){
+                        return done(null, false);}
+                        return done(null, user);
+                },
+                function(err){
+                    if (err) {return done(err);}
+                }
+            )
+    }
+
+    function serializeUser(user, done){
+        done(null, user);
+    }
+
+    function deserializeUser(user, done){
+        userModel
+            .findUserById(user._id)
+            .then(
+                function(user){
+                    done(null,user);
+                },
+                function(err){
+                    done(err, null);
+                }
+            )
+    }
+
+    function login(req, res) {
+        var user = req.user;
+        delete user.password;
+        res.json(user);
+    }
+
+    function loggedin(req, res) {
+        res.send(req.isAuthenticated() ? req.user : '0');
+    }
+
+    function logout(req, res) {
+        req.logOut();
+        res.send(200);
+    }
+
+    function delete_user(req, res) {
         var userId = req.params.userId;
         var users = userModel.deleteUserById(userId)
             .then(
@@ -25,16 +85,16 @@ module.exports = function(app, formModel, userModel) {
     }
 
     function users(req, res){
-        var users = userModel.findAllUsers()
+        userModel
+            .findAllUsers()
             .then(
-                function (doc) {
-                    res.json(doc);
+                function (users) {
+                    res.json(users);
                 },
-                // send error if promise rejected
-                function (err) {
+                function () {
                     res.status(400).send(err);
                 }
-            )
+            );
     }
 
     function profile(req, res) {
@@ -56,27 +116,55 @@ module.exports = function(app, formModel, userModel) {
     }
 
     function register(req, res) {
-        var user = req.body;
+        var newUser = req.body;
 
-        user = userModel.createUser(user)
-            // handle model promise
+        userModel
+            .findUserByUsername(newUser.username)
             .then(
-                // login user if promise resolved
-                function (doc) {
-                    req.session.currentUser = doc;
-                    res.json(doc);
+                function(user){
+                    if(user) {
+                        res.json(null);
+                    } else {
+                        return userModel.createUser(newUser);
+                    }
                 },
-                // send error if promise rejected
-                function (err) {
+                function(err){
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                function(user){
+                    if(user){
+                        req.login(user, function(err) {
+                            if(err) {
+                                res.status(400).send(err);
+                            } else {
+                                res.json(user);
+                            }
+                        });
+                    }
+                },
+                function(err){
                     res.status(400).send(err);
                 }
             );
     }
 
+    function isAdmin(req, res, next){
+        if(req.user.roles != 'admin'){
+            res.send(403);
+        }
+        else {
+            next();
+        }
+    }
+
     function update(req, res) {
-        var user = req.body;
+        var newUser = req.body;
         var userId = req.params.userId;
-        user = userModel.updateUser(user, userId)
+
+        userModel
+            .updateUser(newUser, userId)
             .then(
                 function (doc) {
                     req.session.currentUser = doc;
@@ -89,31 +177,7 @@ module.exports = function(app, formModel, userModel) {
             )
     }
 
-    function login(req, res) {
-        var credentials = req.body;
-        var user = userModel.findUserByCredentials(credentials)
-            .then(
-                function (doc) {
-                    req.session.currentUser = doc;
-                    res.json(doc);
-                },
-                // send error if promise rejected
-                function ( err ) {
-                    res.status(400).send(err);
-                }
-            )
-    }
-
-    function loggedin(req, res) {
-        res.json(req.session.currentUser);
-    }
-
-    function logout(req, res) {
-        req.session.destroy();
-        res.send(200);
-    }
-
-    function addUser(req, res){
+    function create(req, res){
         var user = req.body;
         var users = userModel.createUser(user)
             .then(
@@ -125,6 +189,14 @@ module.exports = function(app, formModel, userModel) {
                     res.status(400).send(err);
                 }
             )
+    }
+
+    function authorized (req, res, next) {
+        if (!req.isAuthenticated()) {
+            res.send(401);
+        } else {
+            next();
+        }
     }
 
 };

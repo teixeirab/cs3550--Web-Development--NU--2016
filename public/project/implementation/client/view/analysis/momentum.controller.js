@@ -24,32 +24,35 @@
         }
         init();
 
-
-        function renderBar(){
-            var periods = [];
+        function getPeriods(){
+            vm.periods = [];
+            var j = 1;
             for (var i =0; i <= 10; i++){
                 if (i < vm.turn){
-                    periods.push("t"+i);
+                    vm.periods.push("t"+i);
+                }
+                else {
+                    vm.periods.push("fy"+j);
+                    j++;
                 }
             }
+        }
 
-            var priceChart = {
-                labels : periods,
-                datasets : [
-                    {
-                        label: "WFC ROE:",
-                        fillColor : "#1A5276",
-                        strokeColor : "#1A5276",
-                        pointColor : "#1A5276",
-                        pointStrokeColor : "#fff",
-                        pointHighlightFill : "#fff",
-                        pointHighlightStroke : "rgba(220,220,220,1)",
-                        data : vm.company_data.price
-                    }
-                ]
-            };
-            var ctx = document.getElementById("priceChart").getContext("2d");
-            window.myLine = new Chart(ctx).Line(priceChart, {responsive: true});
+        function renderBar() {
+            var prices = vm.company_data.price;
+            getPeriods();
+
+            var pricesChartData = [];
+            for (var i = 0; i < vm.periods.length; i++) {
+                if (vm.periods[i].substring(0, 1) == "t") {
+                    pricesChartData.push({
+                        "periods": vm.periods[i],
+                        "prices": prices[i],
+                        "color": "#2980B9"
+                    })
+                }
+            }
+            CompanyService.createLineGraph(pricesChartData, "pricesChart", "prices");
         }
     }
 })();

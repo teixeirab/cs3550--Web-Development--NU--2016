@@ -8,6 +8,7 @@ module.exports = function(uuid, db, mongoose) {
 
     var api = {
         findAllPortfolios : findAllPortfolios,
+        findPortfoliosInGame : findPortfoliosInGame,
         createPortfolio : createPortfolio,
         deletePortfolio : deletePortfolio,
         updatePortfolio : updatePortfolio,
@@ -19,6 +20,22 @@ module.exports = function(uuid, db, mongoose) {
         updateReturn : updateReturn
     };
     return api;
+
+    function findPortfoliosInGame(gameName){
+        var deferred = q.defer();
+        PortfolioModel.find({gameName : gameName}, function (err, doc){
+                if (err) {
+                    // reject promise if error
+                    deferred.reject(err);
+                } else {
+                    // resolve promise
+                    deferred.resolve(doc);
+                }
+            }
+        );
+        return deferred.promise;
+    }
+
 
     function updateReturn(portfolioId, currentTurn, turnReturn){
         var deferred = q.defer();
@@ -34,9 +51,9 @@ module.exports = function(uuid, db, mongoose) {
         return deferred.promise;
     }
 
-    function advanceTurnForGame(gameName, currentTurn){
+    function advanceTurnForGame(portfolioId, currentTurn){
         var deferred = q.defer();
-        PortfolioModel.update({gameName: gameName}, {$set: {currentTurn : currentTurn}}, function (err, doc) {
+        PortfolioModel.findByIdAndUpdate(portfolioId, {$set: {currentTurn : currentTurn}}, function (err, doc) {
             if (err) {
                 deferred.reject(err);
             } else {
@@ -66,6 +83,7 @@ module.exports = function(uuid, db, mongoose) {
         var deferred = q.defer();
         var portfolio = portfolioTrade.portfolio;
         var trade = portfolioTrade.selectedCompany;
+        var cashRemaining = portfolio.cash_remaining;
 
         // checks the transaction type
         if (trade.tradeType === "Buy") {
@@ -86,9 +104,9 @@ module.exports = function(uuid, db, mongoose) {
                         };
                         portfolio.holdings.splice(i,1);
                         portfolio.holdings.push(updatedHolding);
-                        console.log(portfolio.holdings);
                     }
                 }
+                cashRemaining = cashRemaining - trade.shares * trade.currentPrice
             }
             else {
                 portfolio.holdings.push(
@@ -112,23 +130,30 @@ module.exports = function(uuid, db, mongoose) {
             if (isCompanyInPortfolio(trade.name, portfolio.holdings)) {
                 for (var i = 0; i < portfolio.holdings.length; i++) {
                     if (portfolio.holdings[i].company_name === trade.name){
-                        var updatedHolding = {
-                            company_name: trade.name,
-                            shares: portfolio.holdings[i].shares - trade.shares,
-                            price: trade.currentPrice,
-                            price_paid: trade.currentPrice,
-                            return: portfolio.holdings[i].return,
-                            total_value: portfolio.holdings[i].total_value - trade.shares * trade.currentPrice,
-                            weight: portfolio.holdings[i].weight,
-                            prices: trade.prices
-                        };
-                        portfolio.holdings.splice(i,1);
-                        portfolio.holdings.push(updatedHolding);
+                        if(portfolio.holdings[i].shares > trade.shares){
+                            var updatedHolding = {
+                                company_name: trade.name,
+                                shares: portfolio.holdings[i].shares - trade.shares,
+                                price: trade.currentPrice,
+                                price_paid: trade.currentPrice,
+                                return: portfolio.holdings[i].return,
+                                total_value: portfolio.holdings[i].total_value - (trade.shares * trade.currentPrice),
+                                weight: portfolio.holdings[i].weight,
+                                prices: trade.prices
+                            };
+                            portfolio.holdings.splice(i,1);
+                            portfolio.holdings.push(updatedHolding);
+                        }
+                        else {
+                            portfolio.holdings.splice(i,1);
+                        }
+
                     }
                 }
+                cashRemaining = cashRemaining + trade.shares * trade.currentPrice
             }
             else {
-
+                console.log("company not in portfolio")
             }
         }
 
@@ -136,7 +161,7 @@ module.exports = function(uuid, db, mongoose) {
             gameName: portfolio.gameName,
             username: portfolio.username,
             holdings : portfolio.holdings,
-            cash_remaining: portfolio.cash_remaining - trade.shares * trade.currentPrice,
+            cash_remaining: cashRemaining,
             currentTurn: portfolio.currentTurn,
             portfolio_return : portfolio.portfolio_return
         };
@@ -178,6 +203,7 @@ module.exports = function(uuid, db, mongoose) {
         );
         return deferred.promise;
     }
+
 
     function findAllPortfoliosByText(text){
         console.log(text)

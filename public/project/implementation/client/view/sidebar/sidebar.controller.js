@@ -4,7 +4,7 @@
         .module("SimulyApp")
         .controller("SidebarController", SidebarController);
 
-    function SidebarController($scope, $location, UserService) {
+    function SidebarController($scope, $location, UserService, $routeParams) {
         $scope.$location = $location;
         $scope.logout = logout;
 

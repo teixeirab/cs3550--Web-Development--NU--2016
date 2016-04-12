@@ -4,7 +4,7 @@
         .module("SimulyApp")
         .controller("TradingController", TradingController);
 
-    function TradingController(CompanyService, PortfolioService, $rootScope, $scope) {
+    function TradingController(CompanyService, PortfolioService, $rootScope, $scope, $uibModal) {
         var vm = this;
         $scope.showFailureMessage = false;
         $scope.showSuccessMessage = false;
@@ -18,7 +18,6 @@
         vm.refresh = refresh;
         vm.buy = buy;
         vm.sell = sell;
-        vm.trade = trade;
 
         function init() {
             PortfolioService
@@ -38,27 +37,6 @@
         }
         init();
 
-        function trade(selectedCompany){
-
-            if (selectedCompany.currentPrice * selectedCompany.shares > vm.currentPortfolio.cash_remaining) {
-                $scope.failureMessage = "You do not have enough cash for this trade!";
-                return;
-            }
-
-            var portfolio_trade = {
-                selectedCompany : selectedCompany,
-                portfolio : vm.currentPortfolio
-            };
-
-            PortfolioService
-                .tradeCompanyForUser(portfolio_trade)
-                .then (function (response){
-                    if(response.data) {
-                        $scope.successMessage = "Trade has been submitted successfully";
-                    }
-                });
-        }
-
         function refresh(selectedCompany){
             var currentPrice;
             var prices;
@@ -74,7 +52,8 @@
                 shares: selectedCompany.shares,
                 currentPrice : currentPrice,
                 tradeType: selectedCompany.tradeType,
-                prices : prices
+                prices : prices,
+                totalEquity: vm.totalEquity
             }
         }
 
@@ -86,6 +65,21 @@
                 tradeType: "Buy"
             };
             refresh(temp)
+
+            $rootScope.modalInstance = $uibModal.open({
+                templateUrl: 'view/investing/trading.popup.view.html',
+                controller: 'TradingPopupController',
+                controllerAs: "model",
+                size: 'lg',
+                resolve: {
+                    selectedTrade : function () {
+                        return  vm.selectedCompany
+                    },
+                    currentPortfolio : function () {
+                        return  vm.currentPortfolio
+                    }
+                }
+            });
         }
 
         function sell(index){
@@ -96,6 +90,21 @@
                 tradeType: "Sell"
             };
             refresh(temp)
+
+            $rootScope.modalInstance = $uibModal.open({
+                templateUrl: 'view/investing/trading.popup.view.html',
+                controller: 'TradingPopupController',
+                controllerAs: "model",
+                size: 'lg',
+                resolve: {
+                    selectedTrade : function () {
+                        return  vm.selectedCompany
+                    },
+                    currentPortfolio : function () {
+                        return  vm.currentPortfolio
+                    }
+                }
+            });
         }
 
 

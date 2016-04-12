@@ -29,8 +29,8 @@
             return $http.get("/api/project/game/search/"+text);
         }
 
-        function findGamesForUser() {
-            return $http.get("/api/project/game/"+$rootScope.currentUser._id);
+        function findGamesForUser(username) {
+            return $http.get("/api/project/game/"+ username);
         }
 
         function createGame(game){

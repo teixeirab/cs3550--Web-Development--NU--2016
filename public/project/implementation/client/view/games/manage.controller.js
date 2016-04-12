@@ -18,7 +18,6 @@
                 .findAllPortfolios()
                 .then(function (response){
                     if(response.data) {
-                        console.log(response.data)
                         vm.portfolios = response.data
                     }
                 })

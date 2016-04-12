@@ -29,35 +29,9 @@
                 </li>
                 <li ng-show="currentUser"
                     ng-class="{'active' : $location.url().indexOf('ranking') != -1}">
-                    <a href="#/ranking/">Ranking</a>
+                    <a href="#/ranking/{{currentUser.username}}">Ranking</a>
                 </li>
             </ul>
         </div>
     </div>
-
-
-    <!--
-        <ul class="sidebar" data-color="purple" data-image="assets/img/sidebar-5.jpg">
-            <li ng-class="{'active' : $location.url().indexOf('home') != -1}">
-                <a href="#/home">Home</a></li>
-            <li ng-show="currentUser"
-                ng-class="{'active' : $location.url().indexOf('profile') != -1}">
-                <a href="#/profile/{{currentUser.username}}">Profile</a></li>
-            <li ng-show="currentUser.role === 'player'"
-                ng-class="{'active' : $location.url().indexOf('portfolio') != -1}">
-                <a href="#/portfolio">Portfolio</a></li>
-            <li ng-show="currentUser.role === 'player'"
-                ng-class="{'active' : $location.url().indexOf('trading') != -1}">
-                <a href="#/trading">Trading</a></li>
-            <li ng-show="currentUser.role === 'admin'"
-                ng-class="{'active' : $location.url().indexOf('manage') != -1}">
-                <a href="#/manage">Manage Games</a></li>
-            <li ng-show="currentUser.role === 'admin'"
-                ng-class="{'active' : $location.url().indexOf('admin') != -1}">
-                <a href="#/admin/users">Admin</a></li>
-            <li ng-show="currentUser"
-                ng-class="{'active' : $location.url().indexOf('ranking') != -1}">
-                <a href="#/ranking/">Ranking</a></li>
-        </ul>
-        -->
 </div>

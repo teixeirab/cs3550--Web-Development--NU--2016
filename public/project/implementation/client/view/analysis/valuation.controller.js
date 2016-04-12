@@ -26,89 +26,107 @@
         }
         init();
 
-
-        function renderBar(){
-            var periods = [];
+        function getPeriods(){
+            vm.periods = [];
+            var j = 1;
             for (var i =0; i <= 10; i++){
                 if (i < vm.turn){
-                    periods.push("t"+i);
+                    vm.periods.push("t"+i);
+                }
+                else {
+                    vm.periods.push("fy"+j);
+                    j++;
+                }
+            }
+        }
+
+        function renderBar(){
+            var pe = vm.company_data.pe.slice(0,vm.turn);
+            var pb = vm.company_data.pb.slice(0,vm.turn);
+            var ps = vm.company_data.ps.slice(0,vm.turn);
+            var ev_ebitda = vm.company_data.ev_ebitda.slice(0,vm.turn);
+            getPeriods();
+
+            var peChartData = [];
+            for( var i = 0; i < vm.periods.length; i++ ) {
+                if (vm.periods[i].substring(0,1)== "t"){
+                    peChartData.push( {
+                        "periods": vm.periods[ i ],
+                        "pe": pe[ i ],
+                        "color": "#2980B9"
+                    } )
+                }
+                else {
+                    peChartData.push( {
+                        "periods": vm.periods[ i ],
+                        "pe": pe[ i ],
+                        "color": "#633974"
+                    } )
                 }
             }
 
-            var peChart = {
-                labels : periods,
-                datasets : [
-                    {
-                        label: "WFC ROE:",
-                        fillColor : "#1A5276",
-                        strokeColor : "#1A5276",
-                        pointColor : "#1A5276",
-                        pointStrokeColor : "#fff",
-                        pointHighlightFill : "#fff",
-                        pointHighlightStroke : "rgba(220,220,220,1)",
-                        data : vm.company_data.pe.slice(0,vm.turn)
+            CompanyService.createLineGraph(peChartData, "peChart", "pe");
+
+            var psChartData = [];
+            for( var i = 0; i < vm.periods.length; i++ ) {
+                if (vm.periods[i].substring(0,1)== "t"){
+                    psChartData.push( {
+                        "periods": vm.periods[ i ],
+                        "ps": ps[ i ],
+                        "color": "#2980B9"
+                    } )
+                }
+                else {
+                    psChartData.push( {
+                        "periods": vm.periods[ i ],
+                        "ps": ps[ i ],
+                        "color": "#633974"
+                    } )
+                }
             }
-                ]
-            };
 
-            var pbChart = {
-                labels: periods,
-                datasets : [
-                    {
-                        label: "WFC ROE:",
-                        fillColor : "#7D3C98",
-                        strokeColor : "#7D3C98",
-                        pointColor : "#7D3C98",
-                        pointStrokeColor : "#fff",
-                        pointHighlightFill : "#fff",
-                        pointHighlightStroke : "rgba(220,220,220,1)",
-                        data : vm.company_data.pb.slice(0,vm.turn)
-                    }
-                ]
-            };
+            CompanyService.createLineGraph(psChartData, "psChart", "ps");
 
-            var psChart = {
-                labels : periods,
-                datasets : [
-                    {
-                        label: "WFC ROE:",
-                        fillColor : "#229954",
-                        strokeColor : "#229954",
-                        pointColor : "#229954",
-                        pointStrokeColor : "#fff",
-                        pointHighlightFill : "#fff",
-                        pointHighlightStroke : "rgba(220,220,220,1)",
-                        data : vm.company_data.ps.slice(0,vm.turn)
-                    }
-                ]
-            };
+            var pbChartData = [];
+            for( var i = 0; i < vm.periods.length; i++ ) {
+                if (vm.periods[i].substring(0,1)== "t"){
+                    pbChartData.push( {
+                        "periods": vm.periods[ i ],
+                        "pb": pb[ i ],
+                        "color": "#2980B9"
+                    } )
+                }
+                else {
+                    pbChartData.push( {
+                        "periods": vm.periods[ i ],
+                        "pb": pb[ i ],
+                        "color": "#633974"
+                    } )
+                }
+            }
 
-            var ev_ebitda = {
-                labels: periods,
-                datasets : [
-                    {
-                        label: "WFC ROE:",
-                        fillColor : "#F1C40F",
-                        strokeColor : "#F1C40F",
-                        pointColor : "#F1C40F",
-                        pointStrokeColor : "#fff",
-                        pointHighlightFill : "#fff",
-                        pointHighlightStroke : "rgba(220,220,220,1)",
-                        data : vm.company_data.ev_ebitda.slice(0,vm.turn)
-                    }
-                ]
-            };
+            CompanyService.createLineGraph(pbChartData, "pbChart", "pb");
 
+            var ev_ebitdaChartData = [];
+            for( var i = 0; i < vm.periods.length; i++ ) {
+                if (vm.periods[i].substring(0,1)== "t"){
+                    ev_ebitdaChartData.push( {
+                        "periods": vm.periods[ i ],
+                        "ev_ebitda": ev_ebitda[ i ],
+                        "color": "#2980B9"
+                    } )
+                }
+                else {
+                    ev_ebitdaChartData.push( {
+                        "periods": vm.periods[ i ],
+                        "ev_ebitda": ev_ebitda[ i ],
+                        "color": "#633974"
+                    } )
+                }
+            }
 
-            var ctx = document.getElementById("peChart").getContext("2d");
-            var ctx2 = document.getElementById("pbChart").getContext("2d");
-            var ctx3 = document.getElementById("psChart").getContext("2d");
-            var ctx4 = document.getElementById("ev_ebitda").getContext("2d");
+            CompanyService.createLineGraph(ev_ebitdaChartData, "ev_ebitda", "ev_ebitda");
 
-            window.myLine = new Chart(ctx).Line(peChart, {responsive: true});
-            window.myLine = new Chart(ctx2).Line(pbChart, {responsive: true});
-            window.myLine = new Chart(ctx3).Line(psChart, {responsive: true});
-            window.myLine = new Chart(ctx4).Line(ev_ebitda, {responsive: true});
         }
     }
 })();

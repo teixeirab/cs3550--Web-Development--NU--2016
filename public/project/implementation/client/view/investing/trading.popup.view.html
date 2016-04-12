@@ -1,4 +1,6 @@
 <div class="modal-body">
+    <div ng-show="failureMessage" class="alert alert-danger" role="alert">{{failureMessage}}</div>
+    <div ng-show="successMessage" class="alert alert-success" role="alert">{{successMessage}}</div>
     <div class="card">
         <div class="header">
             <h4 class="title">Trade:</h4>
@@ -20,7 +22,7 @@
                 <tr>
                     <td>Price:</td>
                     <td>
-                        {{model.selectedCompany.currentPrice}}
+                        {{model.selectedCompany.currentPrice | number:2}}
                     </td>
                 </tr>
                 <tr>
@@ -32,7 +34,7 @@
                 <tr>
                     <td>Total Amount $</td>
                     <td>
-                        {{model.selectedCompany.currentPrice * model.selectedCompany.shares}}
+                        {{model.selectedCompany.currentPrice * model.selectedCompany.shares | number:2}}
                     </td>
                 </tr>
                 <tr>
@@ -75,10 +77,6 @@
                 <tr>
                     <td>Cash Remaining</td>
                     <td>{{model.currentPortfolio.cash_remaining | number:2}}</td>
-                </tr>
-                <tr>
-                    <td>Invested Equity</td>
-                    <td>{{model.currentPortfolio.totalEquity | number:2}}</td>
                 </tr>
                 <tr>
                     <td>Current Turn</td>

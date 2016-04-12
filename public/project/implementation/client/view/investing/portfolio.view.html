@@ -1,14 +1,14 @@
 <div class="container-fluid" ng-controller="PortfolioController">
-    <div ng-show="message" class="alert alert-danger" role="alert">{{model.failureMessage}}</div>
-    <div ng-show="message" class="alert alert-success" role="alert">{{model.successMessage}}</div>
+    <div ng-show="failureMessage" class="alert alert-danger" role="alert">{{model.failureMessage}}</div>
+    <div ng-show="successMessage" class="alert alert-success" role="alert">{{model.successMessage}}</div>
     <div class="row">
         <div class="card">
             <div class="header">
                 <h2 class="title">
                     {{currentUser.firstName}}'s Portfolio
-                    <button type="submit" ng-click="model.advance()" class="btn btn-success">Advance to Next Round</button>
+                    <button ng-hide="model.currentPortfolio.currentTurn === 9" type="submit" ng-click="model.advance()" class="btn btn-success">Advance to Next Round</button>
+                    <button ng-show="model.currentPortfolio.currentTurn === 9" type="submit" ng-click="model.endGame()" class="btn btn-success">Last Turn Press to End</button>
                 </h2>
-
             </div>
             <div class="content">
                 <div class="row">
@@ -28,15 +28,15 @@
                                     <tbody>
                                     <tr>
                                         <td>Initial Portfolio Value</td>
-                                        <td>{{1000 | number:2}}</td>
+                                        <td>${{1000 | number:2}}</td>
                                     </tr>
                                     <tr>
                                         <td>Cash Remaining</td>
-                                        <td>{{model.currentPortfolio.cash_remaining | number:2}}</td>
+                                        <td>${{model.currentPortfolio.cash_remaining | number:2}}</td>
                                     </tr>
                                     <tr>
                                         <td>Invested Equity</td>
-                                        <td>{{model.totalEquity | number:2}}</td>
+                                        <td>${{model.totalEquity | number:2}}</td>
                                     </tr>
                                     <tr>
                                         <td>Current Turn</td>
@@ -57,7 +57,7 @@
                                 <h4 class="title">Relative Return per Turn:</h4>
                             </div>
                             <div class="content">
-                                <canvas id="returnsChart" height="30%" width="100%"></canvas>
+                                <div id="returnsChart" style="width: 100%; height: 230px;" ></div>
                             </div>
                         </div>
                     </div>
@@ -86,11 +86,11 @@
                                     <tr ng-repeat="company in model.summaryTable">
                                         <td><a ng-href="#/companies/{{company.name}}/{{model.currentPortfolio.currentTurn}}">{{company.name}}</a></td>
                                         <td>{{company.shares | number:0}}</td>
-                                        <td>{{company.prices | number:2}}</td>
-                                        <td>{{company.price_paid | number:2}}</td>
+                                        <td>${{company.prices[model.currentPortfolio.currentTurn] | number:2}}</td>
+                                        <td>${{company.price_paid | number:2}}</td>
                                         <td>{{company.return}}%</td>
-                                        <td>{{company.total_value | number:2}}</td>
-                                        <td>{{(company.total_value / model.totalEquity) * 100 | number:2}}%</td>
+                                        <td>${{company.total_value | number:2}}</td>
+                                        <td>{{(company.total_value / (model.currentPortfolio.cash_remaining + model.totalEquity)) * 100 | number:2}}%</td>
                                         <td nowrap>
                                             <a ng-click="model.buy($index)" class="btn btn-primary">
                                                 <scan class="fa fa-plus"></scan>

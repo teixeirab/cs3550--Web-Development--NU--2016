@@ -2,72 +2,10 @@
     <div ng-show="showFailureMessage" class="alert alert-danger" role="alert">{{failureMessage}}</div>
     <div ng-show="successMessage" class="alert alert-success" role="alert">{{successMessage}}</div>
     <div class="row">
-        <div class="col-md-4">
-            <div class="card">
-                <div class="header">
-                    <h4 class="title">Trade:</h4>
-                </div>
-                <div class="content">
-                    <table class="table table-striped table-responsive">
-                        <thead>
-                        <tr>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>Company Name:</td>
-                            <td>
-                                <input ng-model="model.selectedCompany.name" placeholder="name" type="text" class="form-control">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Price:</td>
-                            <td>
-                                {{model.selectedCompany.currentPrice}}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Shares to be purchased/sold</td>
-                            <td>
-                                <input ng-model="model.selectedCompany.shares" placeholder="# of shares" type="number" class="form-control">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Total Amount $</td>
-                            <td>
-                                {{model.selectedCompany.currentPrice * model.selectedCompany.shares}}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Buy/Sell</td>
-                            <td>
-                                <label>
-                                    <input type="radio" ng-model="model.selectedCompany.tradeType" value="Buy">
-                                    Buy
-                                </label>
-                                <label>
-                                    <input type="radio" ng-model="model.selectedCompany.tradeType" value="Sell">
-                                    Sell
-                                </label><br/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Submit Trade</td>
-                            <td>
-                                <button type="submit" ng-click="model.refresh(model.selectedCompany)" class="btn btn-default">Refresh</button>
-                                <button type="submit" ng-click="model.trade(model.selectedCompany)" class="btn btn-success">Execute!</button>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
         <div class="col-md-12">
             <div class="card">
                 <div class="header">
-                    <h4 class="title"> Companies Available to Trade:</h4>
+                    <h4 class="title"> Companies Available to Trade: </h4>
                 </div>
                 <div class="content">
                     <table class="table table-striped table-responsive">
@@ -84,12 +22,12 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="company in model.companies">
-                            <<td><a ng-href="#/companies/{{company.generated_name}}/{{model.currentTurn}}">{{company.generated_name}}</a></td>
-                            <td>{{company.summary.market_cap[model.currentTurn]}}</td>
-                            <td>{{company.summary.current_price[model.currentTurn]}}</td>
-                            <td>{{company.summary.p_e[model.currentTurn]}}</td>
-                            <td>{{company.summary.p_b[model.currentTurn]}}</td>
-                            <td>{{company.valuation.ev_ebitda[model.currentTurn]}}</td>
+                            <td><a ng-href="#/companies/{{company.generated_name}}/{{model.currentTurn}}">{{company.generated_name}}</a></td>
+                            <td>${{company.summary.market_cap[model.currentTurn]| number:2}}</td>
+                            <td>${{company.summary.current_price[model.currentTurn]| number:2}}</td>
+                            <td>{{company.summary.p_e[model.currentTurn]| number:2}}x</td>
+                            <td>{{company.summary.p_b[model.currentTurn]| number:2}}x</td>
+                            <td>{{company.valuation.ev_ebitda[model.currentTurn]| number:2}}x</td>
                             <td nowrap>
                                 <button ng-click="model.buy($index)" class="btn btn-primary">
                                     <scan class="glyphicon glyphicon-plus"></scan>

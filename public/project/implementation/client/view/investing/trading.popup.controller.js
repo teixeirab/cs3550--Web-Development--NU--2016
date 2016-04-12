@@ -4,10 +4,9 @@
         .module("SimulyApp")
         .controller("TradingPopupController", TradingPopupController);
 
-    function TradingPopupController(selectedTrade, currentPortfolio, $scope, PortfolioService) {
+    function TradingPopupController($rootScope, selectedTrade, currentPortfolio, $scope, PortfolioService, $location) {
         var vm = this;
         vm.init = init;
-        vm.cancel = cancel;
         vm.trade = trade;
 
         function init() {
@@ -16,13 +15,10 @@
         }
         init();
 
-        function cancel() {
-            vm.modalInstance.dismiss('cancel');
-        }
-
         function trade(selectedCompany){
 
-            if (selectedCompany.currentPrice * selectedCompany.shares > vm.currentPortfolio.cash_remaining) {
+            if (selectedCompany.currentPrice * selectedCompany.shares > vm.currentPortfolio.cash_remaining &&
+                selectedCompany.tradeType === "Buy") {
                 $scope.failureMessage = "You do not have enough cash for this trade!";
                 return;
             }
@@ -32,11 +28,16 @@
                 portfolio : vm.currentPortfolio
             };
 
+            console.log(selectedCompany)
+
             PortfolioService
                 .tradeCompanyForUser(portfolio_trade)
                 .then (function (response){
                     if(response.data) {
+                        console.log(response.data)
+                        vm.currentPortfolio = response.data;
                         $scope.successMessage = "Trade has been submitted successfully";
+                        $location.url("/portfolio/");
                     }
                 });
         }
