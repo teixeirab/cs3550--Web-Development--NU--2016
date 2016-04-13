@@ -23,7 +23,6 @@
     "npm": ">= 1.0.0"
   },
   "dependencies": {
-    "amcharts3": "github:amcharts/amcharts3",
     "angular-ui-sortable": "^0.13.4",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.0",
