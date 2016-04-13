@@ -10,7 +10,6 @@ var LocalStrategy = require('passport-local');
 var mongoose = require("mongoose");
 
 // create a default connection string
-// create a default connection string
 var connectionString = 'mongodb://127.0.0.1:27017/webdev';
 
 // use remote connection string
