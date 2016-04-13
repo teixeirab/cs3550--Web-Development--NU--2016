@@ -41,7 +41,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(__dirname+ '/public'));
 
-console.log(process.env.OPENSHIFT_NODEJS_PORT)
 
 require("./public/assignment/server/app.js")(app, uuid, db, mongoose);
 require("./public/project/implementation/server/app.js")(app, uuid, db, mongoose);
