@@ -8,7 +8,6 @@ var multer = require('multer');
 var passport = require('passport');
 var LocalStrategy = require('passport-local');
 var mongoose = require("mongoose");
-//var generateName = require('sillyname');
 
 // create a default connection string
 var connectionString = 'mongodb://127.0.0.1:27017/webdev';
@@ -42,9 +41,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(__dirname+ '/public'));
 
-
-//var sillyName = generateName();
-//console.log(sillyName);
 
 //require("./public/assignment/server/app.js")(app, uuid, db, mongoose);
 //require("./public/project/implementation/server/app.js")(app, uuid, db, mongoose);
