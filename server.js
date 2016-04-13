@@ -47,3 +47,4 @@ require("./public/project/implementation/server/app.js")(app, uuid, db, mongoose
 //require("./public/experiments/omdb_mongo_db/server/app.js")(app, db, mongoose);
 //require("./public/experiments/omdb/server/app.js")(app);
 
+app.listen(port, ipaddress);

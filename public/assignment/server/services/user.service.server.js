@@ -16,7 +16,7 @@ module.exports = function(app, formModel, userModel) {
     // admin requests
     app.post("/api/assignment/admin/user", auth, admn, create);
     app.get("/api/assignment/admin/user",auth, admn, users);
-    //app.get("/api/assignment/admin/user/:userId",auth, admn,  findUserId);
+    app.get("/api/assignment/admin/user/:userId",auth, admn,  profile);
     app.delete("/api/assignment/admin/user/:userId", auth, admn, delete_user);
     app.put("/api/assignment/admin/user/:userId", auth, admn,  update);
 
