@@ -47,6 +47,3 @@ app.use(express.static(__dirname+ '/public'));
 //require("./public/experiments/omdb_mongo_db/server/app.js")(app, db, mongoose);
 //require("./public/experiments/omdb/server/app.js")(app);
 
-
-
-
