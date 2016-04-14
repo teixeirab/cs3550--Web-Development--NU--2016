@@ -1,10 +1,12 @@
-module.exports = function(app, userModel, gameModel, companyModel, portfolioModel) {
+module.exports = function(app, userModel, gameModel, companyModel, portfolioModel, passport, isAdmin, authorized) {
 
-    app.get("/api/project/company", findAllCompanies);
-    app.post("/api/project/company", createCompany);
-    app.delete("/api/project/company/:companyId", deleteCompany);
-    app.put("/api/project/company/:companyId", updateCompany);
-    app.get("/api/project/company/:companyId/:reportType", getCompanyData);
+    var auth = authorized;
+    var admn = isAdmin;
+    app.get("/api/project/company",auth, findAllCompanies);
+    app.post("/api/project/company",auth, admn, createCompany);
+    app.delete("/api/project/company/:companyId",auth, admn, deleteCompany);
+    app.put("/api/project/company/:companyId",auth, admn, updateCompany);
+    app.get("/api/project/company/:companyId/:reportType",auth, getCompanyData);
     app.get("/api/project/company/all/search/:text", findAllCompaniesByText);
 
     function findAllCompaniesByText(req, res){

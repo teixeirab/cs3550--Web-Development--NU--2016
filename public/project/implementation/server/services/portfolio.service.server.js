@@ -1,14 +1,17 @@
-module.exports = function(app, userModel, gameModel, companyModel, portfolioModel) {
-    app.get("/api/project/portfolio", findAllPortfolio);
-    app.get("/api/project/portfolio/:username", findPortfolioForUser);
+module.exports = function(app, userModel, gameModel, companyModel, portfolioModel, passport, isAdmin, authorized) {
+
+    var auth = authorized;
+    var admn = isAdmin;
+    app.get("/api/project/portfolio",auth, admn, findAllPortfolio);
+    app.get("/api/project/portfolio/:username", auth, findPortfolioForUser);
     app.post("/api/project/portfolio", createPortfolio);
-    app.delete("/api/project/portfolio/:portfolioId", deletePortfolio);
-    app.put("/api/project/portfolio/:portfolioId", updatePortfolio);
+    app.delete("/api/project/portfolio/:portfolioId",auth, admn, deletePortfolio);
+    app.put("/api/project/portfolio/:portfolioId",auth, updatePortfolio);
     app.get("/api/project/portfolio/all/:text", findAllPortfoliosByText);
-    app.post("/api/project/portfolio/trade/:username", tradeCompanyForUser);
-    app.post("/api/project/portfolio/advance/:portfolioId/:turn", advanceTurnForGame);
-    app.post("/api/project/portfolio/return/:portfolioId/:turn/:turnReturn", updateReturn);
-    app.get("/api/project/portfolio/game/:gameId", findPortfoliosInGame);
+    app.post("/api/project/portfolio/trade/:username",auth, tradeCompanyForUser);
+    app.post("/api/project/portfolio/advance/:portfolioId/:turn",auth, advanceTurnForGame);
+    app.post("/api/project/portfolio/return/:portfolioId/:turn/:turnReturn",auth, updateReturn);
+    app.get("/api/project/portfolio/game/:gameId",auth, findPortfoliosInGame);
 
     function findPortfoliosInGame(req, res) {
         var gameId = req.params.gameId;

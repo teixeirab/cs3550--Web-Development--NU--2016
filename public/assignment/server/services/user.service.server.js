@@ -29,7 +29,6 @@ module.exports = function(app, formModel, userModel) {
             .findUserByUsername(username)
             .then(
                 function(user){
-                    console.log(user);
                     if (user && bcrypt.compareSync(password, user.password)){
                         return done(null, user);
                     }else {

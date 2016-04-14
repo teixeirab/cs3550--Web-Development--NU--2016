@@ -8,6 +8,7 @@ module.exports = function(mongoose) {
         username: String,
         holdings : [
             {
+                identifier: Number,
                 company_name : String,
                 shares: Number,
                 price: Number,

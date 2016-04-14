@@ -21,21 +21,20 @@
         vm.sell = sell;
 
         function init() {
-            CompanyService
-                .findAllCompanies()
-                .then(function (response){
-                    if(response.data) {
-                        vm.companies = response.data
-                    }
-                });
-
             PortfolioService
                 .findPortfolioForUser(vm.currentUser.username)
                 .then(function(response){
                     vm.currentPortfolio = response.data;
-                    vm.currentTurn = vm.currentPortfolio.currentTurn;
-                    renderBar();
-                    buildTable();
+                    GameService
+                        .findAllCompaniesForGame(vm.currentPortfolio.gameName)
+                        .then(function (response){
+                            if(response.data) {
+                                vm.companies = response.data
+                                vm.currentTurn = vm.currentPortfolio.currentTurn;
+                                renderBar();
+                                buildTable();
+                            }
+                        });
                 });
         }
         init();
@@ -47,8 +46,8 @@
                 .then(function(response){
                     if (response.data){
                         updateReturn();
-                        CompanyService
-                            .findAllCompanies()
+                        GameService
+                            .findAllCompaniesForGame(vm.currentPortfolio.gameName)
                             .then(function (response){
                                 if(response.data) {
                                     vm.companies = response.data;
@@ -103,18 +102,22 @@
 
         function refresh(selectedCompany){
             var prices;
+            var identifier;
             for (var i = 0; i < vm.summaryTable.length; i++){
                 if (vm.summaryTable[i].name === selectedCompany.name){
                     prices = vm.summaryTable[i].prices;
+                    identifier = vm.companies[i].identifier;
                 }
             }
+            console.log(identifier);
             vm.selectedCompany = {
                 name: selectedCompany.name,
                 shares: selectedCompany.shares,
                 currentPrice : prices[vm.currentTurn],
                 tradeType: selectedCompany.tradeType,
                 prices : prices,
-                totalEquity: vm.totalEquity
+                totalEquity: vm.totalEquity,
+                identifier: identifier
             }
         }
 
@@ -175,6 +178,7 @@
                 vm.totalEquity = Math.round(vm.totalEquity + vm.currentPortfolio.holdings[i].shares *
                     vm.currentPortfolio.holdings[i].prices[vm.currentPortfolio.currentTurn]);
                 var company = {
+                    identifier: vm.currentPortfolio.holdings[i].identifier,
                     name: vm.currentPortfolio.holdings[i].company_name,
                     shares: vm.currentPortfolio.holdings[i].shares,
                     prices: vm.currentPortfolio.holdings[i].prices,

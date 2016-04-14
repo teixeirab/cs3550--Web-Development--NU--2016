@@ -49,7 +49,7 @@ module.exports = function(uuid, db, mongoose) {
 
     function getCompanyData(companyId, reportType){
         var deferred = q.defer();
-        CompanyModel.findOne({generated_name : companyId}, function (err, doc){
+        CompanyModel.findOne({identifier : companyId}, function (err, doc){
                 if (err) {
                     // reject promise if error
                     deferred.reject(err);

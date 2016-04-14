@@ -1,16 +1,34 @@
-module.exports = function(app, userModel, gameModel, companyModel, portfolioModel) {
+module.exports = function(app, userModel, gameModel, companyModel, portfolioModel, passport, isAdmin, authorized, bcrypt) {
 
-    app.post("/api/project/login", login);
+    var auth = authorized;
+    var admn = isAdmin;
+    app.post("/api/project/login", passport.authenticate('local'),  login);
     app.get("/api/project/loggedin", loggedin);
     app.post("/api/project/logout", logout);
     app.post("/api/project/register", register);
-    app.post("/api/project/add", addUser);
-    app.get("/api/project/profile/:userId", profile);
-    app.put("/api/project/user/:userId", update);
-    app.get("/api/project/user", users);
-    app.delete("/api/project/user/:userId", delete_user);
+    app.get("/api/project/profile/:userId",auth, profile);
+    app.put("/api/project/user/:userId",auth, update);
     app.post("/api/project/add/:userGame", addUserInGame);
     app.get("/api/project/user/all/:text", getUsersByText);
+    // admin requests
+    app.post("/api/project/add",auth, admn, addUser);
+    app.get("/api/project/user",auth, users);
+    app.delete("/api/project/user/:userId",auth, admn, delete_user);
+
+    function login(req, res) {
+        var user = req.user;
+        delete user.password;
+        res.json(user);
+    }
+
+    function loggedin(req, res) {
+        res.send(req.isAuthenticated() ? req.user : '0');
+    }
+
+    function logout(req, res) {
+        req.logOut();
+        res.send(200);
+    }
 
     function getUsersByText(req, res){
         var text = req.params.text;
@@ -101,18 +119,36 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
     }
 
     function register(req, res) {
-        var user = req.body;
+        var newUser = req.body;
 
-        userModel.createUser(user)
-            // handle model promise
+        userModel
+            .findUserByUsername(newUser.username)
             .then(
-                // login user if promise resolved
-                function (doc) {
-                    req.session.currentUser = doc;
-                    res.json(doc);
+                function(user){
+                    if(user) {
+                        res.json(null);
+                    } else {
+                        newUser.password = bcrypt.hashSync(newUser.password);
+                        return userModel.createUser(newUser);
+                    }
                 },
-                // send error if promise rejected
-                function (err) {
+                function(err){
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                function(user){
+                    if(user){
+                        req.login(user, function(err) {
+                            if(err) {
+                                res.status(400).send(err);
+                            } else {
+                                res.json(user);
+                            }
+                        });
+                    }
+                },
+                function(err){
                     res.status(400).send(err);
                 }
             );
@@ -132,29 +168,5 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
                     res.status(400).send(err);
                 }
             )
-    }
-
-    function login(req, res) {
-        var credentials = req.body;
-        userModel.findUserByCredentials(credentials)
-            .then(
-                function (doc) {
-                    req.session.currentUser = doc;
-                    res.json(doc);
-                },
-                // send error if promise rejected
-                function ( err ) {
-                    res.status(400).send(err);
-                }
-            )
-    }
-
-    function loggedin(req, res) {
-        res.json(req.session.currentUser);
-    }
-
-    function logout(req, res) {
-        req.session.destroy();
-        res.send(200);
     }
 };

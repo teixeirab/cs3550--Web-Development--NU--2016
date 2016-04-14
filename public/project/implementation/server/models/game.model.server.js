@@ -1,6 +1,6 @@
 var q = require("q");
-var games = require("./data/game.mock.json");
-module.exports = function(uuid, db, mongoose) {
+var generateName = require('sillyname');
+module.exports = function(uuid, db, mongoose, companyModel) {
 
     // load user schema
     var GameSchema = require("./schemas/game.schema.server.js")(mongoose);
@@ -15,9 +15,26 @@ module.exports = function(uuid, db, mongoose) {
         deleteGame : deleteGame,
         updateGame : updateGame,
         findAllGamesByText: findAllGamesByText,
-        addUserInGame : addUserInGame
+        addUserInGame : addUserInGame,
+        findAllCompaniesForGame : findAllCompaniesForGame
     };
     return api;
+
+    function findAllCompaniesForGame(gameName){
+        var deferred = q.defer();
+        console.log(gameName)
+        GameModel.find({title: gameName}, function (err, doc){
+                if (err) {
+                    // reject promise if error
+                    deferred.reject(err);
+                } else {
+                    // resolve promise
+                    deferred.resolve(doc);
+                }
+            }
+        );
+        return deferred.promise;
+    }
 
     function addUserInGame(username, gameName){
         var deferred = q.defer();
@@ -72,13 +89,42 @@ module.exports = function(uuid, db, mongoose) {
         return deferred.promise;
     }
 
-    function createGame (game){
+    function shuffle(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+        return array;
+    }
+
+    function generateUniverse(companies){
+        var temp = shuffle(companies);
+        for (var i =0; i< temp.length; i++){
+            temp[i].generated_name = generateName();
+        }
+        temp.slice(0,9);
+        return temp;
+    }
+
+    function createGame (game, companies){
+        var randomUniverse = generateUniverse(companies);
+
         var newGame = {
             title: game.title,
             userId: game.userId,
             players: game.players,
             duration: game.duration,
-            universe: game.universe,
+            universe: randomUniverse,
             currentTurn: game.currentTurn
         };
 

@@ -84,7 +84,7 @@
                                     </thead>
                                     <tbody>
                                     <tr ng-repeat="company in model.summaryTable">
-                                        <td><a ng-href="#/companies/{{company.name}}/{{model.currentPortfolio.currentTurn}}">{{company.name}}</a></td>
+                                        <td><a ng-href="#/companies/{{company.identifier}}/{{model.currentTurn}}/{{company.name}}">{{company.name}}</a></td>
                                         <td>{{company.shares | number:0}}</td>
                                         <td>${{company.prices[model.currentPortfolio.currentTurn] | number:2}}</td>
                                         <td>${{company.price_paid | number:2}}</td>

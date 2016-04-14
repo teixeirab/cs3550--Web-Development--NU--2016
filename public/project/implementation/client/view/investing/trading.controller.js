@@ -4,7 +4,7 @@
         .module("SimulyApp")
         .controller("TradingController", TradingController);
 
-    function TradingController(CompanyService, PortfolioService, $rootScope, $scope, $uibModal) {
+    function TradingController(GameService, CompanyService, PortfolioService, $rootScope, $scope, $uibModal) {
         var vm = this;
         $scope.showFailureMessage = false;
         $scope.showSuccessMessage = false;
@@ -25,14 +25,13 @@
                 .then(function(response){
                     vm.currentPortfolio = response.data;
                     vm.currentTurn = response.data.currentTurn;
-                });
-
-            CompanyService
-                .findAllCompanies()
-                .then(function (response){
-                    if(response.data) {
-                        vm.companies = response.data
-                    }
+                    GameService
+                        .findAllCompaniesForGame(vm.currentPortfolio.gameName)
+                        .then(function (response){
+                            if(response.data) {
+                                vm.companies = response.data
+                            }
+                        });
                 });
         }
         init();
@@ -40,10 +39,12 @@
         function refresh(selectedCompany){
             var currentPrice;
             var prices;
+            var identifier;
             for (var i = 0; i < vm.companies.length; i++){
                 if (vm.companies[i].generated_name === selectedCompany.name){
                     currentPrice = vm.companies[i].summary.current_price[vm.currentTurn];
                     prices = vm.companies[i].summary.current_price;
+                    identifier = vm.companies[i].identifier;
                 }
             }
 
@@ -53,7 +54,8 @@
                 currentPrice : currentPrice,
                 tradeType: selectedCompany.tradeType,
                 prices : prices,
-                totalEquity: vm.totalEquity
+                totalEquity: vm.totalEquity,
+                identifier: identifier
             }
         }
 
@@ -89,7 +91,7 @@
                 shares: 1,
                 tradeType: "Sell"
             };
-            refresh(temp)
+            refresh(temp);
 
             $rootScope.modalInstance = $uibModal.open({
                 templateUrl: 'view/investing/trading.popup.view.html',

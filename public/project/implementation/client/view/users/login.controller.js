@@ -4,7 +4,7 @@
         .module("SimulyApp")
         .controller("LoginController", loginController);
 
-    function loginController(UserService, $location, $rootScope, cssInjector) {
+    function loginController(UserService, $location, $rootScope, cssInjector, $scope) {
         var vm = this;
 
         vm.login = login;
@@ -15,6 +15,7 @@
         }
         init();
 
+
         function login(user) {
             if(!user) {
                 return;
@@ -24,12 +25,18 @@
                     username: user.username,
                     password: user.password
                 })
-                .then(function(response){
-                    if(response.data) {
-                        UserService.setCurrentUser(response.data);
-                        $location.url("/profile/" + user.username);
+                .then(
+                    function(response){
+                        if(response.data) {
+                            UserService.setCurrentUser(response.data);
+                            $location.url("/profile"+ "/" + user.username);
+                        }
+                    },
+                    function(err){
+                        $scope.error = err;
                     }
-                });
+
+                );
         }
     }
 })();

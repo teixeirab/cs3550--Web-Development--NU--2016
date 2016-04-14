@@ -7,9 +7,10 @@
     function MometumController(CompanyService , $routeParams) {
         var vm = this;
         vm.company_data = [];
-        vm.generated_name = $routeParams.companyId;
+        vm.identifier = $routeParams.identifier;
         vm.turn = $routeParams.turn;
-        var companyId = $routeParams.companyId;
+        var companyId = $routeParams.identifier;
+        vm.generated_name = $routeParams.generatedName;
 
         function init() {
             var companyId = $routeParams.companyId;

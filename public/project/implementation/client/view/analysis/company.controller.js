@@ -7,9 +7,10 @@
     function CompanyController(CompanyService, $routeParams, $rootScope, $uibModal) {
         var vm = this;
         vm.company_data = [];
-        vm.generated_name = $routeParams.companyId;
+        vm.identifier = $routeParams.identifier;
         vm.turn = $routeParams.turn;
-        var companyId = $routeParams.companyId;
+        vm.generated_name = $routeParams.generatedName;
+        var companyId = $routeParams.identifier;
         vm.trade= trade;
 
 

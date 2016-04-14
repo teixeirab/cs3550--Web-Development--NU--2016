@@ -1,12 +1,31 @@
-module.exports = function(app, userModel, gameModel, companyModel, portfolioModel) {
+module.exports = function(app, userModel, gameModel, companyModel, portfolioModel, passport, isAdmin, authorized) {
 
-    app.get("/api/project/game", findAllGames);
-    app.get("/api/project/game/:userId", findGamesForUser);
+    var auth = authorized;
+    var admn = isAdmin;
+    app.get("/api/project/game",auth, admn,  findAllGames);
+    app.get("/api/project/game/:userId",auth, findGamesForUser);
     app.post("/api/project/game", createGame);
-    app.delete("/api/project/game/:gameId", deleteGame);
-    app.put("/api/project/game/:gameId", updateGame);
+    app.delete("/api/project/game/:gameId",auth,admn, deleteGame);
+    app.put("/api/project/game/:gameId",auth, updateGame);
     app.get("/api/project/game/search/:text", findAllGamesByText);
     app.get("/api/project/game/add/:username/:gameName", addUserInGame);
+    app.get("/api/project/game/companies/:gameId", findAllCompaniesForGame);
+
+
+    function findAllCompaniesForGame(req, res){
+        var gameName = req.params.gameId;
+        gameModel.findAllCompaniesForGame(gameName)
+            .then(
+                function (doc) {
+                    console.log(doc)
+                    res.json(doc[0].universe);
+                },
+                // send error if promise rejected
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+    }
 
     function addUserInGame(req, res){
         var username = req.params.username;
@@ -58,10 +77,19 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
 
     function createGame(req, res) {
         var user = req.body;
-        gameModel.createGame(user)
+        companyModel.findAllCompanies()
             .then(
                 function (doc) {
-                    res.json(doc);
+                    gameModel.createGame(user, doc)
+                        .then(
+                            function (doc) {
+                                res.json(doc);
+                            },
+                            // send error if promise rejected
+                            function (err) {
+                                res.status(400).send(err);
+                            }
+                        );
                 },
                 // send error if promise rejected
                 function (err) {

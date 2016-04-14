@@ -100,7 +100,8 @@ module.exports = function(uuid, db, mongoose) {
                             return: portfolio.holdings[i].return,
                             total_value: trade.shares * trade.currentPrice + portfolio.holdings[i].total_value,
                             weight: portfolio.holdings[i].weight,
-                            prices: trade.prices
+                            prices: trade.prices,
+                            identifier: trade.identifier
                         };
                         portfolio.holdings.splice(i,1);
                         portfolio.holdings.push(updatedHolding);
@@ -118,7 +119,8 @@ module.exports = function(uuid, db, mongoose) {
                         return: 0,
                         total_value: trade.shares * trade.currentPrice,
                         weight: 0,
-                        prices: trade.prices
+                        prices: trade.prices,
+                        identifier: trade.identifier
                     }
                 )
             }
@@ -139,7 +141,8 @@ module.exports = function(uuid, db, mongoose) {
                                 return: portfolio.holdings[i].return,
                                 total_value: portfolio.holdings[i].total_value - (trade.shares * trade.currentPrice),
                                 weight: portfolio.holdings[i].weight,
-                                prices: trade.prices
+                                prices: trade.prices,
+                                identifier: trade.identifier
                             };
                             portfolio.holdings.splice(i,1);
                             portfolio.holdings.push(updatedHolding);

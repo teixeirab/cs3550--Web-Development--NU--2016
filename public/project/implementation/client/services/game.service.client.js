@@ -11,11 +11,15 @@
             updateGame: updateGame,
             deleteGame: deleteGame,
             findAllGames: findAllGames,
+            findAllCompaniesForGame: findAllCompaniesForGame,
             findGamesForUser: findGamesForUser,
             findAllGamesByText : findAllGamesByText
         };
-
         return api;
+
+        function findAllCompaniesForGame(gameId){
+            return $http.get("/api/project/game/companies/" + gameId);
+        }
 
         function addUserInGame(username, gameName){
             return $http.get("/api/project/game/add/"+username+"/"+ gameName);

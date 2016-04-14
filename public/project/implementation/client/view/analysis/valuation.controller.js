@@ -7,12 +7,12 @@
     function ValuationController(CompanyService , $routeParams) {
         var vm = this;
         vm.company_data = [];
-        vm.generated_name = $routeParams.companyId;
+        vm.generated_name = $routeParams.identifier;
         vm.turn = $routeParams.turn;
-        var companyId = $routeParams.companyId;
+        var companyId = $routeParams.identifier;
+        vm.generated_name = $routeParams.generatedName;
 
         function init() {
-            var companyId = $routeParams.companyId;
             CompanyService
                 .getCompanyData(companyId, "valuation")
                 .then(function(response) {

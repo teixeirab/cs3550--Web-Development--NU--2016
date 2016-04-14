@@ -28,13 +28,12 @@
                 portfolio : vm.currentPortfolio
             };
 
-            console.log(selectedCompany)
 
             PortfolioService
                 .tradeCompanyForUser(portfolio_trade)
                 .then (function (response){
                     if(response.data) {
-                        console.log(response.data)
+                        console.log(response.data);
                         vm.currentPortfolio = response.data;
                         $scope.successMessage = "Trade has been submitted successfully";
                         $location.url("/portfolio/");

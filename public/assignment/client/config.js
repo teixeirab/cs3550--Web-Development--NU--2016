@@ -106,6 +106,7 @@
             // User is Not Authenticated
             else
             {
+                console.log(user + "could not log in");
                 $rootScope.errorMessage = 'You need to log in.';
                 deferred.reject();
                 $location.url('/login');

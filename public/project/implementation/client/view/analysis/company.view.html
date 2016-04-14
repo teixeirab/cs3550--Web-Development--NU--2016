@@ -1,9 +1,9 @@
 <ul class="nav nav-tabs">
-    <li role="presentation" class="active"><a ng-href="#/companies/{{model.generated_name}}/{{model.turn}}">Summary</a></li>
-    <li role="presentation" ><a ng-href="#/companies/{{model.generated_name}}/{{model.turn}}/smt">Sales, Margins & Turns</a></li>
-    <li role="presentation" ><a ng-href="#/companies/{{model.generated_name}}/{{model.turn}}/valuation">Valuation</a></li>
-    <li role="presentation" ><a ng-href="#/companies/{{model.generated_name}}/{{model.turn}}/momentum">Momentum</a></li>
-    <li role="presentation" ><a ng-href="#/companies/{{model.generated_name}}/{{model.turn}}/reports">Reports</a></li>
+    <li role="presentation" class="active"><a ng-href="#/companies/{{model.identifier}}/{{model.turn}}/{{model.generated_name}}">Summary</a></li>
+    <li role="presentation" ><a ng-href="#/companies/{{model.identifier}}/{{model.turn}}/{{model.generated_name}}/smt">Sales, Margins & Turns</a></li>
+    <li role="presentation" ><a ng-href="#/companies/{{model.identifier}}/{{model.turn}}/{{model.generated_name}}/valuation">Valuation</a></li>
+    <li role="presentation" ><a ng-href="#/companies/{{model.identifier}}/{{model.turn}}/{{model.generated_name}}/momentum">Momentum</a></li>
+    <li role="presentation" ><a ng-href="#/companies/{{model.identifier}}/{{model.turn}}/{{model.generated_name}}/reports">Reports</a></li>
 </ul>
 <br>
 <div class="container-fluid" ng-controller="CompanyController">
