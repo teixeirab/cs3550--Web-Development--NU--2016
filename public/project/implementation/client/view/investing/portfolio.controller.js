@@ -4,7 +4,7 @@
         .module("SimulyApp")
         .controller("PortfolioController", PortfolioController);
 
-    function PortfolioController($rootScope, GameService, PortfolioService, CompanyService, $uibModal) {
+    function PortfolioController($rootScope, GameService, PortfolioService, CompanyService, $uibModal, $location) {
         var vm = this;
         vm.successMessage = null;
         vm.failureMessage = null;
@@ -16,6 +16,7 @@
 
         vm.buildTable = buildTable;
         vm.advance = advance;
+        vm.endGame = endGame;
         vm.updateReturn = updateReturn;
         vm.buy = buy;
         vm.sell = sell;
@@ -29,7 +30,7 @@
                         .findAllCompaniesForGame(vm.currentPortfolio.gameName)
                         .then(function (response){
                             if(response.data) {
-                                vm.companies = response.data
+                                vm.companies = response.data;
                                 vm.currentTurn = vm.currentPortfolio.currentTurn;
                                 renderBar();
                                 buildTable();
@@ -41,6 +42,12 @@
 
         function advance(){
             var oldPortfolio = vm.summaryTable;
+
+            if (vm.currentPortfolio.status === 'wait'){
+                vm.failureMessage = "Please fill in the required fields";
+                return;
+            }
+
             PortfolioService
                 .advanceTurnForPortfolio(vm.currentPortfolio._id, vm.currentPortfolio.currentTurn + 1)
                 .then(function(response){
@@ -52,6 +59,24 @@
                                 if(response.data) {
                                     vm.companies = response.data;
                                     refreshPortfolio(oldPortfolio);
+                                }
+                            });
+                    }
+                });
+        }
+
+        function endGame(){
+            var oldPortfolio = vm.summaryTable;
+            PortfolioService
+                .advanceTurnForPortfolio(vm.currentPortfolio._id, vm.currentPortfolio.currentTurn + 1)
+                .then(function(response){
+                    if (response.data){
+                        updateReturn();
+                        PortfolioService
+                            .endGameForUser(vm.currentPortfolio._id)
+                            .then(function (response){
+                                if(response.data) {
+                                    $location.url("/ranking/" + vm.currentPortfolio.username);
                                 }
                             });
                     }

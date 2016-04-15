@@ -10,13 +10,13 @@
         vm.identifier = $routeParams.identifier;
         vm.turn = $routeParams.turn;
         vm.generated_name = $routeParams.generatedName;
-        var companyId = $routeParams.identifier;
+        vm.identifier = $routeParams.identifier;
         vm.trade= trade;
 
 
         function init() {
             CompanyService
-                .getCompanyData(companyId, "summary")
+                .getCompanyData(vm.identifier, "summary")
                 .then(function(response) {
                     if (response.data) {
                         vm.company_data = response.data;
@@ -59,6 +59,7 @@
             vm.p_b_turn = vm.company_data.p_b[vm.turn];
             vm.p_s_turn = vm.company_data.p_s[vm.turn];
             vm.pod_turn = vm.company_data.pod[vm.turn];
+            //vm.ev_ebitda_turn = vm.company_data.ev_ebitda[vm.turn];
             vm.economic_leverage_turn = vm.company_data.economic_leverage[vm.turn];
             vm._90_day_volatility_turn = vm.company_data._90_day_volatility[vm.turn]
         }
@@ -78,11 +79,16 @@
         }
 
         function renderBar(){
+            var fy2 = 1 + parseInt(vm.turn);
+            console.log (fy2);
             var roic = vm.company_data.roic.slice(0, vm.turn);
             roic.push(vm.company_data.roic_fy1[vm.turn]);
+            roic.push(vm.company_data.roic_fy1[fy2]);
 
             var asset_growth = vm.company_data.asset_growth.slice(0, vm.turn);
             asset_growth.push(vm.company_data.asset_growth_fy1[vm.turn]);
+
+            var prices = vm.company_data.current_price.slice(0, vm.turn);
 
             getPeriods();
 
@@ -123,8 +129,18 @@
                     } )
                 }
             }
-
             CompanyService.createBarGraph(growthChartData, "growthChart", "growth");
+
+            var priceChartData = [];
+            for( var i = 0; i < vm.periods.length; i++ ) {
+                if (vm.periods[i].substring(0,1)== "t"){
+                    priceChartData.push( {
+                        "periods": vm.periods[ i ],
+                        "prices": prices[ i ]
+                    } )
+                }
+            }
+            CompanyService.createLineGraph(priceChartData, "pricesChart", "prices");
         }
     }
 })();

@@ -21,7 +21,8 @@ module.exports = function(mongoose) {
         ],
         cash_remaining: Number,
         currentTurn: Number,
-        portfolio_return : [Number]
+        portfolio_return : [Number],
+        status: String
     }, {collection: 'project.portfolio'});
     return PortfolioSchema;
 };

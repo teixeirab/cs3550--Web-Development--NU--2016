@@ -17,7 +17,6 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
         gameModel.findAllCompaniesForGame(gameName)
             .then(
                 function (doc) {
-                    console.log(doc)
                     res.json(doc[0].universe);
                 },
                 // send error if promise rejected

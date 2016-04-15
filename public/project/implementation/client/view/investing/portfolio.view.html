@@ -6,7 +6,7 @@
             <div class="header">
                 <h2 class="title">
                     {{currentUser.firstName}}'s Portfolio
-                    <button ng-hide="model.currentPortfolio.currentTurn === 9" type="submit" ng-click="model.advance()" class="btn btn-success">Advance to Next Round</button>
+                    <button ng-hide="model.currentPortfolio.currentTurn >= 9" type="submit" ng-click="model.advance()" class="btn btn-success">Advance to Next Round</button>
                     <button ng-show="model.currentPortfolio.currentTurn === 9" type="submit" ng-click="model.endGame()" class="btn btn-success">Last Turn Press to End</button>
                 </h2>
             </div>

@@ -13,9 +13,14 @@
             findAllGames: findAllGames,
             findAllCompaniesForGame: findAllCompaniesForGame,
             findGamesForUser: findGamesForUser,
-            findAllGamesByText : findAllGamesByText
+            findAllGamesByText : findAllGamesByText,
+            endGame : endGame
         };
         return api;
+
+        function endGame(game){
+            return $http.post("/api/project/game/end", game);
+        }
 
         function findAllCompaniesForGame(gameId){
             return $http.get("/api/project/game/companies/" + gameId);

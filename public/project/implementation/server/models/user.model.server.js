@@ -17,10 +17,19 @@ module.exports = function(uuid, db, mongoose) {
         findUsersByIds: findUsersByIds,
         findUserByUsername: findUserByUsername,
         findAllUsers: findAllUsers,
-        getUsersByText : getUsersByText
+        getUsersByText : getUsersByText,
+        findUserByGoogleId: findUserByGoogleId,
+        findUserByFacebookId: findUserByFacebookId
     };
     return api;
 
+    function findUserByFacebookId(facebookId) {
+        return UserModel.findOne({'facebook.id': facebookId});
+    }
+
+    function findUserByGoogleId(googleId) {
+        return UserModel.findOne({'google.id': googleId});
+    }
 
     function getUsersByText(text){
         var temp = [];

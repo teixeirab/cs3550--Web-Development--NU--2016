@@ -9,18 +9,16 @@
         vm.company_data = [];
         vm.generated_name = $routeParams.identifier;
         vm.turn = $routeParams.turn;
-        var companyId = $routeParams.identifier;
+        vm.identifier = $routeParams.identifier;
         vm.generated_name = $routeParams.generatedName;
 
         function init() {
             CompanyService
-                .getCompanyData(companyId, "valuation")
+                .getCompanyData(vm.identifier, "valuation")
                 .then(function(response) {
                     if (response.data) {
                         vm.company_data = response.data;
                         renderBar();
-                        console.log(vm.company_data.periods)
-                        console.log(vm.company_data.pe.slice(0,vm.turn));
                     }
                 });
         }

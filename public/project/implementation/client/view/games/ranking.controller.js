@@ -57,8 +57,10 @@
                     cashRemaining: vm.portfolios[i].cash_remaining,
                     totalReturn: relativeReturn,
                     relativeReturn: relativeReturn,
-                    sharpeRatio: (relativeReturn - 0.05) / 15
-                };
+                    sharpeRatio: (relativeReturn - 0.05) / 15,
+                    status : vm.portfolios[i].status
+
+            };
                 vm.ranking.push(rank)
             }
         }

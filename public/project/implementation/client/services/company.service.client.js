@@ -89,38 +89,11 @@
             return AmCharts.makeChart(chartId,
                 {
                     "type": "serial",
-                    "categoryField": "periods",
-                    "dataProvider": chartData,
-                    "backgroundAlpha": 1,
-                    "borderAlpha": 1,
-                    "borderColor": "#FFFFFF",
-                    "startAlpha": 1,
-                    "fontSize": 10,
                     "theme": "light",
-                    "chartCursor": {"enabled": true},
-                    "graphs": [
-                        {
-                            "fillAlphas": 1,
-                            "bullet": "round",
-                            "bulletSize": 8,
-                            "id": "AmGraph-1",
-                            "title": "graph 1",
-                            "type": "smoothedLine",
-                            "lineColor": "#d1655d",
-                            "negativeLineColor": "#637bb6",
-                            "lineThickness": 2,
-                            "valueField": valueField,
-                            "lineAlpha": 0,
-                            "cornerRadiusTop": 8,
-                            "graphFillAlpha":1
-                        }
-                    ],
-                    "categoryAxis": {
-                        "axisAlpha": 0,
-                        "gridAlpha": 0,
-                        "inside": true,
-                        "tickLength": 0
-                    },
+                    "marginTop":0,
+                    "marginRight": 0,
+                    "dataProvider": chartData,
+                    "categoryField": "periods",
                     "valueAxes": [
                         {
                             "id": "ValueAxis-1",
@@ -129,7 +102,30 @@
                             "dashLength": 4,
                             "position": "left"
                         }
-                    ]
+                    ],
+                    "categoryAxis": {
+                        "axisAlpha": 0,
+                        "gridAlpha": 0,
+                        "inside": true,
+                        "tickLength": 0
+                    },
+                    "graphs": [{
+                        "id":"g1",
+                        "bullet": "round",
+                        "bulletSize": 8,
+                        "lineColor": "#d1655d",
+                        "lineThickness": 2,
+                        "negativeLineColor": "#637bb6",
+                        "type": "smoothedLine",
+                        "valueField": valueField
+                    }],
+                    "chartCursor": {
+                        "cursorAlpha": 0,
+                        "valueLineEnabled":true,
+                        "valueLineBalloonEnabled":true,
+                        "valueLineAlpha":0.5,
+                        "fullWidth":true
+                    }
                 }
             );
         }

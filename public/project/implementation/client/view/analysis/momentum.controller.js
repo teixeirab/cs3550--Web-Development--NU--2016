@@ -9,13 +9,12 @@
         vm.company_data = [];
         vm.identifier = $routeParams.identifier;
         vm.turn = $routeParams.turn;
-        var companyId = $routeParams.identifier;
+        vm.identifier = $routeParams.identifier;
         vm.generated_name = $routeParams.generatedName;
 
         function init() {
-            var companyId = $routeParams.companyId;
             CompanyService
-                .getCompanyData(companyId, "momentum")
+                .getCompanyData(vm.identifier, "momentum")
                 .then(function(response) {
                     if (response.data) {
                         vm.company_data = response.data;

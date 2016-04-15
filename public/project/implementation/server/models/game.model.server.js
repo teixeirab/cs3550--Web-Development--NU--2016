@@ -125,7 +125,8 @@ module.exports = function(uuid, db, mongoose, companyModel) {
             players: game.players,
             duration: game.duration,
             universe: randomUniverse,
-            currentTurn: game.currentTurn
+            currentTurn: game.currentTurn,
+            status: "playable"
         };
 
         // use q to defer the response

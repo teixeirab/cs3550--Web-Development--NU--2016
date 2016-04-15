@@ -17,9 +17,24 @@ module.exports = function(uuid, db, mongoose) {
         tradeCompanyForUser : tradeCompanyForUser,
         getPortfolioByUsername : getPortfolioByUsername,
         advanceTurnForGame : advanceTurnForGame,
-        updateReturn : updateReturn
+        updateReturn : updateReturn,
+        endGameForUser : endGameForUser
     };
     return api;
+
+    function endGameForUser(portfolioId){
+        var deferred = q.defer();
+        PortfolioModel.update({_id: portfolioId},
+            {$set: {"status": "over"}}, function (err, doc) {
+                if (err) {
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(doc)
+                }
+            });
+        // return a promise
+        return deferred.promise;
+    }
 
     function findPortfoliosInGame(gameName){
         var deferred = q.defer();
@@ -242,7 +257,8 @@ module.exports = function(uuid, db, mongoose) {
             companies: portfolio.companies,
             shares: portfolio.shares,
             cash_remaining: portfolio.cash_remaining,
-            currentTurn: portfolio.currentTurn
+            currentTurn: portfolio.currentTurn,
+            status: "passable"
         };
 
         // use q to defer the response
