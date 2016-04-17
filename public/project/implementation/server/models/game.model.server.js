@@ -16,13 +16,28 @@ module.exports = function(uuid, db, mongoose, companyModel) {
         updateGame : updateGame,
         findAllGamesByText: findAllGamesByText,
         addUserInGame : addUserInGame,
-        findAllCompaniesForGame : findAllCompaniesForGame
+        findGamesByName : findGamesByName,
+        findAllOpenGames : findAllOpenGames
     };
     return api;
 
-    function findAllCompaniesForGame(gameName){
+    function findAllOpenGames(){
         var deferred = q.defer();
-        console.log(gameName)
+        GameModel.find({status: "open"}, function (err, doc){
+                if (err) {
+                    // reject promise if error
+                    deferred.reject(err);
+                } else {
+                    // resolve promise
+                    deferred.resolve(doc);
+                }
+            }
+        );
+        return deferred.promise;
+    }
+
+    function findGamesByName(gameName){
+        var deferred = q.defer();
         GameModel.find({title: gameName}, function (err, doc){
                 if (err) {
                     // reject promise if error
@@ -126,7 +141,7 @@ module.exports = function(uuid, db, mongoose, companyModel) {
             duration: game.duration,
             universe: randomUniverse,
             currentTurn: game.currentTurn,
-            status: "playable"
+            status: "open"
         };
 
         // use q to defer the response

@@ -66,7 +66,6 @@
         }
 
         function endGame(){
-            var oldPortfolio = vm.summaryTable;
             PortfolioService
                 .advanceTurnForPortfolio(vm.currentPortfolio._id, vm.currentPortfolio.currentTurn + 1)
                 .then(function(response){
@@ -81,6 +80,7 @@
                             });
                     }
                 });
+            $rootScope.$broadcast('game-over')
         }
 
         function refreshPortfolio (oldPortfolio){

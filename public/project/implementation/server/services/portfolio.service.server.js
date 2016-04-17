@@ -13,6 +13,22 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
     app.post("/api/project/portfolio/return/:portfolioId/:turn/:turnReturn",auth, updateReturn);
     app.get("/api/project/portfolio/game/:gameId",auth, findPortfoliosInGame);
     app.post("/api/project/portfolio/end/:portfolioId", auth, endGameForUser);
+    app.post("/api/project/portfolio/find", findPortfoliosInGames);
+
+
+    function findPortfoliosInGames(req, res){
+        var games = req.body;
+        portfolioModel.findPortfoliosInGames(games)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                // send error if promise rejected
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+    }
 
     function findPortfoliosInGame(req, res) {
         var gameId = req.params.gameId;

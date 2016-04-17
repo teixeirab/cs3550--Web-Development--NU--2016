@@ -10,11 +10,53 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
     app.get("/api/project/game/search/:text", findAllGamesByText);
     app.get("/api/project/game/add/:username/:gameName", addUserInGame);
     app.get("/api/project/game/companies/:gameId", findAllCompaniesForGame);
+    app.get("/api/project/game/name/:gameName",auth, findGamesByName);
+    app.get("/api/project/game/find/open", findAllOpenGames);
 
+    function findAllOpenGames(req, res){
+        gameModel.findAllOpenGames()
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                // send error if promise rejected
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+    }
+
+    function findGamesForUser(req, res) {
+        var username = req.params.userId;
+        gameModel.findGamesForUser(username)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                // send error if promise rejected
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+    }
+
+    function findGamesByName(req, res){
+        var gameName = req.params.gameName;
+        gameModel.findGamesByName(gameName)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                // send error if promise rejected
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+    }
 
     function findAllCompaniesForGame(req, res){
         var gameName = req.params.gameId;
-        gameModel.findAllCompaniesForGame(gameName)
+        gameModel.findGamesByName(gameName)
             .then(
                 function (doc) {
                     res.json(doc[0].universe);
@@ -49,20 +91,6 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
 
     function findAllGames(req, res) {
         gameModel.findAllGames()
-            .then(
-                function (doc) {
-                    res.json(doc);
-                },
-                // send error if promise rejected
-                function (err) {
-                    res.status(400).send(err);
-                }
-            )
-    }
-
-    function findGamesForUser(req, res) {
-        var user = req.params.username;
-        gameModel.findAllGamesForUser(user)
             .then(
                 function (doc) {
                     res.json(doc);

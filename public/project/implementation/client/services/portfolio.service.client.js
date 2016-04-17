@@ -16,9 +16,14 @@
             tradeCompanyForUser : tradeCompanyForUser,
             advanceTurnForPortfolio : advanceTurnForPortfolio,
             updateReturn : updateReturn,
-            endGameForUser : endGameForUser
+            endGameForUser : endGameForUser,
+            findPortfoliosInGames: findPortfoliosInGames
         };
         return api;
+
+        function findPortfoliosInGames(games){
+            return $http.post("/api/project/portfolio/find", games);
+        }
 
         function endGameForUser(portfolioId){
             return $http.post("/api/project/portfolio/end/" + portfolioId);

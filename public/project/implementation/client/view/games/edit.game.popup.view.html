@@ -1,0 +1,31 @@
+<div class="modal-body">
+    <div class="form-group">
+        <label for="game_title">Game Title</label>
+        <input ng-model="game.title" type="text" class="form-control" id="game_title" placeholder="Title">
+    </div>
+    <div class="form-group">
+        <label for="players">Players</label>
+        <div ng-repeat="player in game.players" id="players">
+            <div class="form-inline">
+                <p>
+                    {{player}}
+                    <button ng-click="deletePlayerFromGame($index)" class="btn btn-danger">
+                        <scan class="fa fa-remove"></scan>
+                    </button>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="duration">Duration</label>
+        <p id="duration">{{game.duration}}</p>
+    </div>
+    <div class="form-group">
+        <label for="status">Status</label>
+        <input ng-model="game.status" type="text" class="form-control" id="status" placeholder="Status">
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" type="button" ng-click="editGame(game)">Edit</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</div>

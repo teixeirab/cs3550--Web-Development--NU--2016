@@ -166,4 +166,4 @@ module.exports = function(app, uuid, db, mongoose) {
         }
     }
 
-}
+};

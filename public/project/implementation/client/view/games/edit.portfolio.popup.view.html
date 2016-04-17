@@ -1,0 +1,43 @@
+<div class="modal-body">
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input ng-model="portfolio.username" type="text" class="form-control" id="username" placeholder="Title">
+    </div>
+    <div class="form-group">
+        <label for="cash_remaining">Cash Remaining</label>
+        <input ng-model="portfolio.cashRemaining" type="text" class="form-control" id="cash_remaining" placeholder="Title">
+    </div>
+    <div class="form-group">
+        <label for="currentTurn">Current Turn</label>
+        <p id="currentTurn">{{portfolio.currentTurn}}</p>
+    </div>
+    <div class="form-group">
+        <label for="status">Status</label>
+        <input ng-model="portfolio.status" type="text" class="form-control" id="status" placeholder="Title">
+    </div>
+    <div class="form-group">
+        <label for="players">Holdings</label>
+        <div ng-repeat="holding in portfolio.holdings" id="players">
+            <div class="form-inline">
+                <label for="total_value">Total Value</label>
+                <input ng-model="holding.total_value" type="text" class="form-control" id="total_value" placeholder="Title">
+            </div>
+            <div class="form-inline">
+                <label for="price_paid">Price Paid</label>
+                <input ng-model="holding.price_paid" type="text" class="form-control" id="price_paid" placeholder="Title">
+            </div>
+            <div class="form-inline">
+                <label for="shares">Shares</label>
+                <input ng-model="holding.shares" type="text" class="form-control" id="shares" placeholder="Title">
+            </div>
+            <div class="form-inline">
+                <label for="company_name">Company Name</label>
+                <input ng-model="holding.company_name" type="text" class="form-control" id="company_name" placeholder="Title">
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" type="button" ng-click="editPortfolio(portfolio)">Edit</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</div>

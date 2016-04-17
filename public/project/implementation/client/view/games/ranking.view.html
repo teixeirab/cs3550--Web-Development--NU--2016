@@ -31,7 +31,7 @@
                 </tbody>
             </table>
         </div>
-        <div ng-show="model.status === 'over'" class="footer">
+        <div ng-show="model.game.status === 'over'" class="footer">
             <button class="btn btn-warning" ng-click="restart()">Restart Game</button>
             <button class="btn btn-danger" ng-click="leaveGame()">Leave Game</button>
         </div>

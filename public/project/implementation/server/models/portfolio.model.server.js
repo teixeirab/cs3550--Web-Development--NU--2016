@@ -9,6 +9,7 @@ module.exports = function(uuid, db, mongoose) {
     var api = {
         findAllPortfolios : findAllPortfolios,
         findPortfoliosInGame : findPortfoliosInGame,
+        findPortfoliosInGames : findPortfoliosInGames,
         createPortfolio : createPortfolio,
         deletePortfolio : deletePortfolio,
         updatePortfolio : updatePortfolio,
@@ -33,6 +34,22 @@ module.exports = function(uuid, db, mongoose) {
                 }
             });
         // return a promise
+        return deferred.promise;
+    }
+
+    function findPortfoliosInGames(games){
+        var deferred = q.defer();
+        PortfolioModel.find({
+            gameName : {$in: games} }, function (err, doc){
+                if (err) {
+                    // reject promise if error
+                    deferred.reject(err);
+                } else {
+                    // resolve promise
+                    deferred.resolve(doc);
+                }
+            }
+        );
         return deferred.promise;
     }
 

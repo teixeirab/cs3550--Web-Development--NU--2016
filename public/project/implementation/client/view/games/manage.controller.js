@@ -5,57 +5,90 @@
         .controller("ManageController", ManageController);
 
 
-    function ManageController(PortfolioService, $routeParams) {
+    function ManageController(PortfolioService, GameService, $routeParams, $rootScope, $uibModal) {
         var vm = this;
         vm.portfolios = [];
-        vm.deletePortfolio = deletePortfolio;
-        vm.updatePortfolio = updatePortfolio;
-        vm.selectPortfolio = selectPortfolio;
-        vm.addPortfolio = addPortfolio;
+        vm.games = [];
+        vm.createNewGame = createNewGame;
+        vm.editGame = editGame;
+        vm.editPortfolio = editPortfolio;
 
         function init() {
-            PortfolioService
-                .findAllPortfolios()
+            GameService
+                .findGamesForUser($rootScope.currentUser.username)
                 .then(function (response){
                     if(response.data) {
-                        vm.portfolios = response.data
+                        vm.games = response.data;
+                        var gameNames = listOfGameNames(vm.games);
+                        findPortfoliosInGames(gameNames);
                     }
                 })
         }
         init();
 
-        function deletePortfolio(company){
-            PortfolioService
-                .deletePortfolio(company._id)
-                .then(function(response){
-                    if(response.data) {
-                        init()
+        function createNewGame(){
+            $rootScope.modalInstance = $uibModal.open({
+                templateUrl: 'view/games/create.popup.view.html',
+                controller: 'CreatePopupController',
+                controllerAs: "model",
+                size: 'sm',
+                resolve: {
+                    username  : function () {
+                        return  $rootScope.currentUser.username
                     }
-                });
+                }
+            });
         }
 
-        function updatePortfolio(company){
-            PortfolioService
-                .updatePortfolio(company._id, company)
-                .then(function(response){
-                    if(response.data) {
-                        init()
+        function editGame(index){
+            vm.game = vm.games[index];
+            $rootScope.modalInstance = $uibModal.open({
+                templateUrl: 'view/games/edit.game.popup.view.html',
+                controller: 'EditGamePopupController',
+                controllerAs: "model",
+                size: 'md',
+                resolve: {
+                    game  : function () {
+                        return  vm.game
+                    },
+                    username  : function () {
+                        return  $rootScope.currentUser.username
                     }
-                });
+                }
+            });
         }
 
-        function selectPortfolio(index){
+        function editPortfolio(index){
             vm.portfolio = vm.portfolios[index];
+            $rootScope.modalInstance = $uibModal.open({
+                templateUrl: 'view/games/edit.portfolio.popup.view.html',
+                controller: 'EditPortfolioPopupController',
+                controllerAs: "model",
+                size: 'md',
+                resolve: {
+                    portfolio  : function () {
+                        return  vm.portfolio
+                    }
+                }
+            });
         }
 
-        function addPortfolio(company){
+        function listOfGameNames(games){
+            var temp = [];
+            for (var i = 0; i < games.length; i++){
+                temp.push(games[i].title)
+            }
+            return temp;
+        }
+
+        function findPortfoliosInGames(games){
             PortfolioService
-                .createPortfolio(company)
-                .then(function(response){
+                .findPortfoliosInGames(games)
+                .then(function (response){
                     if(response.data) {
-                        init()
+                        vm.portfolios = response.data;
                     }
-                });
+                })
         }
     }
 })();

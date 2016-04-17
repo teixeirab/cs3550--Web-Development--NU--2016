@@ -16,20 +16,33 @@
                 .then(function (response){
                     if(response.data) {
                         vm.gameName = response.data.gameName;
-                        PortfolioService
-                            .findPortfoliosInGame(vm.gameName)
-                            .then(function (response){
-                                if(response.data) {
-                                    vm.portfolios = response.data;
-                                    buildRankTable();
-                                }
-                            })
+                        findPortfolios();
+                        findGame();
                     }
                 });
-
-
         }
         init();
+
+        function findGame(){
+            GameService
+                .findGamesByName(vm.gameName)
+                .then(function (response){
+                    if(response.data) {
+                        vm.game = response.data;
+                    }
+                })
+        }
+
+        function findPortfolios(){
+            PortfolioService
+                .findPortfoliosInGame(vm.gameName)
+                .then(function (response){
+                    if(response.data) {
+                        vm.portfolios = response.data;
+                        buildRankTable();
+                    }
+                })
+        }
 
         function findTotalReturn(returns){
             var result = 1;

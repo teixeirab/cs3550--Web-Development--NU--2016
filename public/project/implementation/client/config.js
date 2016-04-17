@@ -76,6 +76,14 @@
                         loggedin: checkLoggedin
                     }
                 })
+                .when("/game/registration", {
+                    templateUrl: "view/games/game.registration.view.html",
+                    controller: "GameRegistrationController",
+                    controllerAs: "model",
+                    resolve: {
+                        loggedin: checkLoggedin
+                    }
+                })
                 .when("/ranking/:username", {
                     templateUrl: "view/games/ranking.view.html",
                     controller: "RankingController",
