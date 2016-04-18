@@ -20,14 +20,53 @@ module.exports = function(uuid, db, mongoose) {
         advanceTurnForGame : advanceTurnForGame,
         updateReturn : updateReturn,
         endGameForUser : endGameForUser,
-        resetStatusForGame : resetStatusForGame
+        resetStatusForGame : resetStatusForGame,
+        setStatusForPortfolio : setStatusForPortfolio
     };
     return api;
+
+    function findPortfoliosInGame(gameName){
+        var deferred = q.defer();
+        PortfolioModel.find({gameName : gameName}, function (err, doc){
+                if (err) {
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(doc);
+                }
+            }
+        );
+        return deferred.promise;
+    }
+
+    function setStatusForPortfolio(portfolioId, status){
+        var deferred = q.defer();
+        PortfolioModel.findByIdAndUpdate(portfolioId, {$set: {status : status}}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(doc)
+            }
+        });
+        return deferred.promise;
+    }
+
+    function advanceTurnForGame(portfolioId, currentTurn){
+        var deferred = q.defer();
+        var nextTurn = parseInt(currentTurn) + 1;
+        PortfolioModel.findByIdAndUpdate(portfolioId, {$set: {currentTurn : nextTurn}}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(doc)
+            }
+        });
+        return deferred.promise;
+    }
 
     function resetStatusForGame(gameName){
         var deferred = q.defer();
         PortfolioModel.update({gameName: gameName},
-            {$set: {"status": "passable"}}, function (err, doc) {
+            {$set: {"status": "passable"}}, { multi: true },  function (err, doc) {
                 if (err) {
                     deferred.reject(err);
                 } else {
@@ -68,39 +107,10 @@ module.exports = function(uuid, db, mongoose) {
         return deferred.promise;
     }
 
-    function findPortfoliosInGame(gameName){
-        var deferred = q.defer();
-        PortfolioModel.find({gameName : gameName}, function (err, doc){
-                if (err) {
-                    // reject promise if error
-                    deferred.reject(err);
-                } else {
-                    // resolve promise
-                    deferred.resolve(doc);
-                }
-            }
-        );
-        return deferred.promise;
-    }
-
-
     function updateReturn(portfolioId, currentTurn, turnReturn){
         var deferred = q.defer();
         PortfolioModel.update({_id: portfolioId},
             {$push: {"portfolio_return": turnReturn, $position: currentTurn}}, function (err, doc) {
-            if (err) {
-                deferred.reject(err);
-            } else {
-                deferred.resolve(doc)
-            }
-        });
-        // return a promise
-        return deferred.promise;
-    }
-
-    function advanceTurnForGame(portfolioId, currentTurn){
-        var deferred = q.defer();
-        PortfolioModel.findByIdAndUpdate(portfolioId, {$set: {currentTurn : currentTurn}}, function (err, doc) {
             if (err) {
                 deferred.reject(err);
             } else {
@@ -239,9 +249,9 @@ module.exports = function(uuid, db, mongoose) {
         return result;
     }
 
-    function findPortfoliosForUser(username){
+    function findPortfoliosForUser(username, gameName){
         var deferred = q.defer();
-        PortfolioModel.find({username : username}, function (err, doc){
+        PortfolioModel.find({username : username, gameName: gameName}, function (err, doc){
                 if (err) {
                     deferred.reject(err);
                 } else {
@@ -254,15 +264,18 @@ module.exports = function(uuid, db, mongoose) {
 
 
     function findAllPortfoliosByText(text){
-        console.log(text)
-        var temp = [];
-        for (var f in portfolios) {
-            if (portfolios[f].userId === text ||
-                portfolios[f].game_id === text) {
-                temp.push(portfolios[f]);
+        var deferred = q.defer();
+        PortfolioModel.find({ $or: [{gameName: text}, {username: text}, {status: text}]},
+            function (err, doc){
+                if (err) {
+                    // reject promise if error
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(doc);
+                }
             }
-        }
-        return temp;
+        );
+        return deferred.promise;
     }
 
     function findAllPortfolios(){
@@ -315,9 +328,6 @@ module.exports = function(uuid, db, mongoose) {
     }
 
     function updatePortfolio (portfolioId, newPortfolio) {
-        console.log(portfolioId);
-        console.log(newPortfolio);
-
         var deferred = q.defer();
         PortfolioModel.findByIdAndUpdate(portfolioId, newPortfolio, {new: true}, function (err, doc) {
             if (err) {

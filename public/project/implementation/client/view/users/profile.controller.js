@@ -4,15 +4,26 @@
         .module("SimulyApp")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController($rootScope, UserService, $routeParams) {
+    function ProfileController($rootScope, UserService, GameService,  $routeParams) {
         var vm = this;
         vm.update = update;
         vm.currentUser = $rootScope.currentUser;
-        var username = $routeParams.username;
-
 
         function init() {
-            UserService.getUsers();
+            if (vm.currentUser.role === 'player'){
+                GameService
+                    .findGameUserIsIn(vm.currentUser.username)
+                    .then(function(response){
+                        if (response.data.length > 0){
+                            vm.currentGame = response.data[0];
+                            GameService.setCurrentGame(vm.currentGame);
+                            $rootScope.$broadcast('new-game')
+                        }
+                        else {
+                            $rootScope.$broadcast('game-over')
+                        }
+                    });
+            }
         }
         return init();
 

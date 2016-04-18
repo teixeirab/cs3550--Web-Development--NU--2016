@@ -4,19 +4,17 @@
         .module("SimulyApp")
         .controller("GameRegistrationController", GameRegistrationController);
 
-
-    function GameRegistrationController(PortfolioService, $routeParams) {
+    function GameRegistrationController(PortfolioService, GameService,  $routeParams, $rootScope, $location) {
         var vm = this;
         vm.games = [];
         var gameId = $routeParams.gameId;
-        vm.deleteGame = deleteGame;
-        vm.updateGame = updateGame;
-        vm.selectGame = selectGame;
-        vm.addGame = addGame;
+        vm.joinGame = joinGame;
+        vm.currentUser = $rootScope.currentUser;
 
         function init() {
+            $rootScope.$broadcast('game-over');
             GameService
-                .findAllGames()
+                .findAllOpenGames()
                 .then(function (response){
                     if(response.data) {
                         vm.games = response.data
@@ -25,38 +23,34 @@
         }
         init();
 
-        function deleteGame(game){
+        function joinGame(index) {
+            var newPortfolio = {
+                username: vm.currentUser.username,
+                gameName : vm.games[index].title,
+                holdings : [],
+                cash_remaining : 1000,
+                currentTurn : 1
+            };
+
             GameService
-                .deleteGame(game._id)
-                .then(function(response){
-                    if(response.data) {
-                        init()
+                .addUserInGame(vm.currentUser.username, vm.games[index].title)
+                .then(function (response) {
+                    if (response.data) {
+                        createPortfolio(newPortfolio)
                     }
                 });
         }
 
-        function updateGame(Game){
-            GameService
-                .updateGame(Game._id, Game)
-                .then(function(response){
-                    if(response.data) {
-                        init()
+
+        function createPortfolio(newPortfolio){
+            PortfolioService
+                .createPortfolio(newPortfolio)
+                .then(function (response) {
+                    if (response.data) {
+                        $location.url("/profile/" + newPortfolio.username);
                     }
                 });
         }
 
-        function selectGame(index){
-            vm.game = vm.games[index];
-        }
-
-        function addGame(game){
-            GameService
-                .createGame(game)
-                .then(function(response){
-                    if(response.data) {
-                        init()
-                    }
-                });
-        }
     }
 })();

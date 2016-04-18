@@ -16,9 +16,29 @@
             findAllGamesByText : findAllGamesByText,
             endGame : endGame,
             findGamesByName: findGamesByName,
-            findAllOpenGames: findAllOpenGames
+            findAllOpenGames: findAllOpenGames,
+            updateStatus : updateStatus,
+            deleteUserFromGame: deleteUserFromGame,
+            findGameUserIsIn: findGameUserIsIn,
+            setCurrentGame : setCurrentGame
         };
         return api;
+
+        function setCurrentGame(game) {
+            $rootScope.currentGame = game;
+        }
+
+        function findGameUserIsIn(username){
+            return $http.get("/api/project/game/find/users/" + username);
+        }
+
+        function updateStatus(gameName, status){
+            return $http.get("/api/project/game/update/" + gameName + '/' + status);
+        }
+
+        function deleteUserFromGame(gameName, username){
+            return $http.get("/api/project/game/delete/" + gameName + '/' + username);
+        }
 
         function findAllOpenGames(){
             return $http.get("/api/project/game/find/open");

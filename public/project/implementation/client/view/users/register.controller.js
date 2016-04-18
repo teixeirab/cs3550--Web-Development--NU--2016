@@ -111,7 +111,7 @@
                 }
             }
 
-            if (user.role === "admin"){
+            if (user.role === "creator"){
                 var newGame = {
                     title: vm.game.title,
                     userId: vm.user.username,

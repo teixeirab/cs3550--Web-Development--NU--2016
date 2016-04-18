@@ -4,15 +4,18 @@
         .module("SimulyApp")
         .controller("RankingController", RankingController);
 
-    function RankingController(PortfolioService, GameService, $routeParams, $rootScope, $scope) {
+    function RankingController(PortfolioService, GameService, $routeParams, $rootScope, $location) {
         var vm = this;
         vm.portfolios = [];
         vm.ranking = [];
         var username = $routeParams.username;
+        vm.currentUser = $rootScope.currentUser;
+        vm.currentGame = $rootScope.currentGame;
+        vm.leaveGame = leaveGame;
 
         function init() {
             PortfolioService
-                .findPortfolioForUser(username)
+                .findPortfolioForUser(username, vm.currentGame.title)
                 .then(function (response){
                     if(response.data) {
                         vm.gameName = response.data.gameName;
@@ -20,8 +23,33 @@
                         findGame();
                     }
                 });
+            PortfolioService
+                .findPortfolioForUser(username, vm.currentGame.title)
+                .then(function(response){
+                    if(response.data) {
+                        vm.currentPortfolio = response.data;
+                        if(vm.currentPortfolio.status === 'over'){
+                            $rootScope.$broadcast('game-over')
+                        }
+                    }
+                });
         }
         init();
+
+        function leaveGame(){
+            PortfolioService
+                .deletePortfolio(vm.currentPortfolio._id)
+                .then(function (response){
+                    if(response.data) {
+                        console.log(response.data);
+                        GameService
+                            .deleteUserFromGame(vm.gameName, vm.currentUser.username)
+                            .then(function (){
+                                $location.url("/game/registration");
+                            })
+                    }
+            })
+        }
 
         function findGame(){
             GameService
@@ -39,9 +67,28 @@
                 .then(function (response){
                     if(response.data) {
                         vm.portfolios = response.data;
+                        checkEndGame();
                         buildRankTable();
                     }
                 })
+        }
+
+        function checkEndGame(){
+            var result = true;
+            for (var i = 0; i < vm.portfolios.length; i++){
+                if (vm.portfolios[i].status != 'over'){
+                    result = false
+                }
+            }
+            if (result === true){
+                GameService
+                    .updateStatus(vm.gameName, "over")
+                    .then(function (response){
+                        if(response.data) {
+                            vm.game = response.data;
+                        }
+                    })
+            }
         }
 
         function findTotalReturn(returns){
@@ -78,25 +125,6 @@
             }
         }
 
-        function buildTable(){
-            vm.summaryTable = [];
-            vm.totalEquity = [];
-            for (var i = 0; i < vm.currentPortfolio.holdings.length; i++){
-                vm.totalEquity = Math.round(vm.totalEquity + vm.currentPortfolio.holdings[i].shares *
-                    vm.currentPortfolio.holdings[i].prices[vm.currentPortfolio.currentTurn]);
-                var company = {
-                    name: vm.currentPortfolio.holdings[i].company_name,
-                    shares: vm.currentPortfolio.holdings[i].shares,
-                    prices: vm.currentPortfolio.holdings[i].prices,
-                    price_paid: vm.currentPortfolio.holdings[i].price_paid,
-                    return: Math.round(((vm.currentPortfolio.holdings[i].prices[vm.currentPortfolio.currentTurn] /
-                        vm.currentPortfolio.holdings[i].price_paid) - 1)*100),
-                    total_value: vm.currentPortfolio.holdings[i].shares *
-                    vm.currentPortfolio.holdings[i].prices[vm.currentPortfolio.currentTurn]
-                };
-                vm.summaryTable.push(company)
-            }
-        }
     }
 
 })();

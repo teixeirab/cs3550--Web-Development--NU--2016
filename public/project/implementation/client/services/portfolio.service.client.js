@@ -18,12 +18,17 @@
             updateReturn : updateReturn,
             endGameForUser : endGameForUser,
             findPortfoliosInGames: findPortfoliosInGames,
-            resetStatusForGame: resetStatusForGame
+            resetStatusForGame: resetStatusForGame,
+            setStatusForPortfolio: setStatusForPortfolio
         };
         return api;
 
+        function setStatusForPortfolio(portfolioId, status){
+            return $http.post("/api/project/portfolio/update/" + portfolioId + "/" + status);
+        }
+
         function resetStatusForGame(gameName){
-            return $http.post("/api/project/portfolio/update/status", gameName);
+            return $http.get("/api/project/portfolio/update/status/" + gameName);
         }
 
         function findPortfoliosInGames(games){
@@ -35,7 +40,7 @@
         }
 
         function findPortfoliosInGame(gameId) {
-            return $http.get("/api/project/portfolio/game/" + gameId);
+            return $http.get("/api/project/portfolio/game/find/" + gameId);
         }
 
         function updateReturn(portfolioId, turn, turnReturn){
@@ -58,8 +63,8 @@
             return $http.get("/api/project/portfolio/");
         }
 
-        function findPortfolioForUser(username) {
-            return $http.get("/api/project/portfolio/"+ username);
+        function findPortfolioForUser(username, gameName) {
+            return $http.get("/api/project/portfolio/"+ username + "/" + gameName);
         }
         
         function createPortfolio(portfolio){

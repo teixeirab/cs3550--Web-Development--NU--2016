@@ -67,7 +67,7 @@
         function getPeriods(){
             vm.periods = [];
             var j = 1;
-            for (var i =0; i <= 10; i++){
+            for (var i= 1; i <= 10; i++){
                 if (i < vm.turn){
                     vm.periods.push("t"+i);
                 }
@@ -79,11 +79,9 @@
         }
 
         function renderBar(){
-            var fy2 = 1 + parseInt(vm.turn);
-            console.log (fy2);
             var roic = vm.company_data.roic.slice(0, vm.turn);
+            roic.push(vm.company_data.roic_fy1[vm.turn - 1]);
             roic.push(vm.company_data.roic_fy1[vm.turn]);
-            roic.push(vm.company_data.roic_fy1[fy2]);
 
             var asset_growth = vm.company_data.asset_growth.slice(0, vm.turn);
             asset_growth.push(vm.company_data.asset_growth_fy1[vm.turn]);
@@ -109,7 +107,6 @@
                     } )
                 }
             }
-
             CompanyService.createBarGraph(roicChartData, "roicChart", "roic");
 
             var growthChartData = [];

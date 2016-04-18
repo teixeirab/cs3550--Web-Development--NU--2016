@@ -22,14 +22,18 @@ module.exports = function(uuid, db, mongoose) {
     return api;
 
     function findAllCompaniesByText(text){
-        var companies_temp =[];
-        for(var c in companies){
-            if (companies[c].name === text){
-                console.log(companies_temp);
-                companies_temp.push(companies[c]);
+        var deferred = q.defer();
+        CompanyModel.find({ $or: [{real_name: text}, {identifier: text}]},
+            function (err, doc){
+                if (err) {
+                    // reject promise if error
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(doc);
+                }
             }
-        }
-        return companies_temp;
+        );
+        return deferred.promise;
     }
 
     function findAllCompanies(){

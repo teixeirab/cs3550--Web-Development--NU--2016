@@ -12,6 +12,51 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
     app.get("/api/project/game/companies/:gameId", findAllCompaniesForGame);
     app.get("/api/project/game/name/:gameName",auth, findGamesByName);
     app.get("/api/project/game/find/open", findAllOpenGames);
+    app.get("/api/project/game/update/:gameName/:status", updateStatus);
+    app.get("/api/project/game/delete/:gameName/:username", deleteUserFromGame);
+    app.get("/api/project/game/find/users/:username", findGameUserIsIn);
+
+    function findGameUserIsIn(req, res){
+        var username = req.params.username;
+        gameModel.findGameUserIsIn(username)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+    }
+
+
+    function deleteUserFromGame(req, res){
+        var gameName = req.params.gameName;
+        var username = req.params.username;
+        gameModel.deleteUserFromGame(gameName, username)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+    }
+
+    function updateStatus(req, res){
+        var gameName = req.params.gameName;
+        var status = req.params.status;
+        gameModel.updateStatus(gameName, status)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+    }
 
     function findAllOpenGames(req, res){
         gameModel.findAllOpenGames()

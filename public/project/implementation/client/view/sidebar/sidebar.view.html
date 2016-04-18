@@ -11,19 +11,19 @@
                     ng-class="{'active' : $location.url().indexOf('profile') != -1}">
                     <a href="#/profile/{{currentUser.username}}">Profile</a>
                 </li>
-                <li ng-show="register === true"
+                <li ng-show="register === true && currentUser.role === 'player'"
                     ng-class="{'active' : $location.url().indexOf('game/registration') != -1}">
                     <a href="#/game/registration">Register for Another Game</a>
                 </li>
-                <li ng-show="currentUser.role === 'player'"
+                <li ng-show="currentUser.role === 'player' && register != true"
                     ng-class="{'active' : $location.url().indexOf('portfolio') != -1}">
                     <a href="#/portfolio">Portfolio</a>
                 </li>
-                <li ng-show="currentUser.role === 'player'"
+                <li ng-show="currentUser.role === 'player' && register != true"
                     ng-class="{'active' : $location.url().indexOf('trading') != -1}">
                     <a href="#/trading">Trading</a>
                 </li>
-                <li ng-show="currentUser.role === 'admin'"
+                <li ng-show="currentUser.role === 'creator'"
                     ng-class="{'active' : $location.url().indexOf('manage') != -1}">
                     <a href="#/manage">Manage Games</a>
                 </li>

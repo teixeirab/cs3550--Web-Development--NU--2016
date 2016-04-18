@@ -9,6 +9,7 @@
         vm.successMessage = null;
         vm.failureMessage = null;
         vm.currentUser = $rootScope.currentUser;
+        vm.currentGame = $rootScope.currentGame;
         vm.currentPortfolio = [];
         vm.summaryTable = [];
         vm.companies = [];
@@ -21,13 +22,12 @@
         vm.buy = buy;
         vm.sell = sell;
         vm.waitCount = waitCount;
-        vm.resetStatus = resetStatus;
+        vm.resetStatus = resetStatuses;
         vm.advanceCurrentPortfolio = advanceCurrentPortfolio;
-        vm.updatePortfolioStatus = updatePortfolioStatus;
 
         function init() {
             PortfolioService
-                .findPortfolioForUser(vm.currentUser.username)
+                .findPortfolioForUser(vm.currentUser.username, vm.currentGame.title)
                 .then(function(response){
                     vm.currentPortfolio = response.data;
                     GameService
@@ -46,27 +46,22 @@
 
         function waitCount(){
             vm.waitCount = 0;
-            for (var i = 0; i < vm.game.length; i++) {
-                if (vm.game[i].status > 'wait') {
+            for (var i = 0; i < vm.portfolios.length; i++) {
+                if (vm.portfolios[i].status === 'wait') {
                     vm.waitCount = vm.waitCount + 1
                 }
             }
         }
 
-
         function advance(){
-            updatePortfolioStatus();
-        }
-
-        function updatePortfolioStatus(){
-            GameService
-                .findGamesByName(vm.gameName)
+            PortfolioService
+                .findPortfoliosInGame(vm.currentPortfolio.gameName)
                 .then(function (response){
                     if(response.data) {
-                        vm.game = response.data;
+                        vm.portfolios = response.data;
                         waitCount();
-                        if (vm.game.length === vm.waitCount){
-                            resetStatus()
+                        if (vm.portfolios.length === vm.waitCount){
+                            resetStatuses()
                         }
                         if (vm.currentPortfolio.status === 'passable'){
                             advanceCurrentPortfolio()
@@ -78,9 +73,9 @@
                 })
         }
 
-        function resetStatus(){
+        function resetStatuses(){
             PortfolioService
-                .resetStatusForGame(vm.gameName)
+                .resetStatusForGame(vm.currentPortfolio.gameName)
                 .then(function (response){
                     if(response.data) {
                         vm.portfolios = response.data;
@@ -89,30 +84,10 @@
                 })
         }
 
-        function updateStatus(portfolioId, status){
-            var newPortfolio ={
-                gameName: vm.currentPortfolio.gameName,
-                username: vm.currentPortfolio.username,
-                holdings : vm.currentPortfolio.holdings,
-                cash_remaining: vm.currentPortfolio,
-                currentTurn: vm.currentPortfolio,
-                portfolio_return : vm.currentPortfolio,
-                status : status
-            };
-
-            PortfolioService
-                .updatePortfolio(portfolioId, newPortfolio)
-                .then(function(response){
-                    if (response.data){
-                        vm.currentPortfolio = response.data
-                    }
-                });
-        }
-
         function advanceCurrentPortfolio(){
             var oldPortfolio = vm.summaryTable;
             PortfolioService
-                .advanceTurnForPortfolio(vm.currentPortfolio._id, vm.currentPortfolio.currentTurn + 1)
+                .advanceTurnForPortfolio(vm.currentPortfolio._id, vm.currentPortfolio.currentTurn)
                 .then(function(response){
                     if (response.data){
                         updateReturn();
@@ -122,10 +97,18 @@
                                 if(response.data) {
                                     vm.companies = response.data;
                                     refreshPortfolio(oldPortfolio);
-                                    updateStatus(vm.currentPortfolio._id, "wait")
                                 }
                             });
                     }
+                });
+        }
+
+        function updateReturn(){
+            var turnReturn = Math.round(((vm.currentPortfolio.cash_remaining + vm.totalEquity) / 1000 - 1) * 100);
+            PortfolioService
+                .updateReturn(vm.currentPortfolio._id, vm.currentPortfolio.currentTurn, turnReturn)
+                .then(function(response){
+
                 });
         }
 
@@ -149,7 +132,7 @@
 
         function refreshPortfolio (oldPortfolio){
             PortfolioService
-                .findPortfolioForUser(vm.currentUser.username)
+                .findPortfolioForUser(vm.currentUser.username, vm.currentGame.title)
                 .then(function(response){
                     vm.currentPortfolio = response.data;
                     vm.currentTurn = vm.currentPortfolio.currentTurn;
@@ -180,15 +163,6 @@
             })
         }
 
-        function updateReturn(){
-            var turnReturn = Math.round(((vm.currentPortfolio.cash_remaining + vm.totalEquity) / 1000 - 1) * 100);
-            PortfolioService
-                .updateReturn(vm.currentPortfolio._id, vm.currentPortfolio.currentTurn, turnReturn)
-                .then(function(response){
-
-                });
-        }
-
         function refresh(selectedCompany){
             var prices;
             var identifier;
@@ -198,7 +172,6 @@
                     identifier = vm.companies[i].identifier;
                 }
             }
-            console.log(identifier);
             vm.selectedCompany = {
                 name: selectedCompany.name,
                 shares: selectedCompany.shares,
@@ -284,7 +257,7 @@
         function renderBar() {
             var periods = [];
             var j = 1;
-            for (var i =0; i <= 10; i++){
+            for (var i=1; i <= 10; i++){
                 if (i < vm.currentPortfolio.currentTurn){
                     periods.push("t"+i);
                 }
@@ -304,6 +277,13 @@
                         "returns": returns[i],
                         "color": "#2980B9"
                     })
+                }
+                else {
+                    returnsChartData.push( {
+                        "periods": periods[i],
+                        "returns": returns[i],
+                        "color": "#2980B9"
+                    } )
                 }
             }
             CompanyService.createBarGraph(returnsChartData, "returnsChart", "returns");

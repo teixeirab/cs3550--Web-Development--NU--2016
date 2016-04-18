@@ -17,9 +17,51 @@ module.exports = function(uuid, db, mongoose, companyModel) {
         findAllGamesByText: findAllGamesByText,
         addUserInGame : addUserInGame,
         findGamesByName : findGamesByName,
-        findAllOpenGames : findAllOpenGames
+        findAllOpenGames : findAllOpenGames,
+        updateStatus : updateStatus,
+        deleteUserFromGame : deleteUserFromGame,
+        findGameUserIsIn : findGameUserIsIn
     };
     return api;
+
+    function findGameUserIsIn(username){
+        var deferred = q.defer();
+        GameModel.find({players: username}, function (err, doc){
+                if (err) {
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(doc);
+                }
+            }
+        );
+        return deferred.promise;
+    }
+
+    function deleteUserFromGame(gameName, username){
+        var deferred = q.defer();
+        GameModel.update({title: gameName},
+            {$pull: {"players": username}},  function (err, doc) {
+                if (err) {
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(doc)
+                }
+            });
+        return deferred.promise;
+    }
+
+    function updateStatus(gameName, status){
+        var deferred = q.defer();
+        GameModel.update({title: gameName},
+            {$set: {"status": status}},  function (err, doc) {
+                if (err) {
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(doc)
+                }
+            });
+        return deferred.promise;
+    }
 
     function findAllOpenGames(){
         var deferred = q.defer();
@@ -65,13 +107,18 @@ module.exports = function(uuid, db, mongoose, companyModel) {
     }
 
     function findAllGamesByText(text){
-        var temp = [];
-        for (var f in games) {
-            if (games[f].title === text) {
-                temp.push(games[f]);
+        var deferred = q.defer();
+        GameModel.find({ $or: [{title: text}, {userId: text}, {status: text}]},
+            function (err, doc){
+                if (err) {
+                    // reject promise if error
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(doc);
+                }
             }
-        }
-        return temp;
+        );
+        return deferred.promise;
     }
 
     function findAllGames(){

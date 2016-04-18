@@ -14,6 +14,7 @@
         vm.currentPortfolio = [];
         vm.currentTurn = 1;
         vm.currentUser = $rootScope.currentUser;
+        vm.currentGame = $rootScope.currentGame;
 
         vm.refresh = refresh;
         vm.buy = buy;
@@ -21,7 +22,7 @@
 
         function init() {
             PortfolioService
-                .findPortfolioForUser(vm.currentUser.username)
+                .findPortfolioForUser(vm.currentUser.username, vm.currentGame.title)
                 .then(function(response){
                     vm.currentPortfolio = response.data;
                     vm.currentTurn = response.data.currentTurn;

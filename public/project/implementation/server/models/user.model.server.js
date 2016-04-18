@@ -7,6 +7,7 @@ module.exports = function(uuid, db, mongoose) {
     // create user model from schema
     var UserModel = mongoose.model('Users', UserSchema);
 
+    getUsersByText("alice");
 
     var api = {
         findUserByCredentials: findUserByCredentials,
@@ -32,17 +33,18 @@ module.exports = function(uuid, db, mongoose) {
     }
 
     function getUsersByText(text){
-        var temp = [];
-        for (var u in users) {
-            if (users[u].username === text ||
-                users[u].firstName === text ||
-                users[u].lastName === text ||
-                users[u].email === text ||
-                users[u].roles === text) {
-                temp.push(users[u]);
+        var deferred = q.defer();
+        UserModel.find({ $or: [{username: text}, {firstName: text}, {lastName: text}, {email: text}, {role: text}]},
+            function (err, doc){
+                if (err) {
+                    // reject promise if error
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(doc);
+                }
             }
-        }
-        return temp;
+        );
+        return deferred.promise;
     }
 
     function findAllUsers(){

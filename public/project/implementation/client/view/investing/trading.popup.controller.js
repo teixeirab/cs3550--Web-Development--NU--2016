@@ -28,7 +28,6 @@
                 portfolio : vm.currentPortfolio
             };
 
-
             PortfolioService
                 .tradeCompanyForUser(portfolio_trade)
                 .then (function (response){

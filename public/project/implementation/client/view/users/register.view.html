@@ -35,7 +35,7 @@
                         <label for="typeOfUser">Are You a Creating or Joining a Game?</label>
                         <fieldset id="typeOfUser">
                             <label>
-                                <input type="radio" ng-model="model.user.role" value="admin">
+                                <input type="radio" ng-model="model.user.role" value="creator">
                                 Creating
                             </label>
                             <label>
@@ -50,7 +50,7 @@
                             <input ng-model="model.user.gameName" type="text" class="form-control" id="game_name" placeholder="game name">
                         </div>
                     </div>
-                    <div ng-show="model.user.role === 'admin'">
+                    <div ng-show="model.user.role === 'creator'">
                         <div class="form-group">
                             <label for="game_title">Game Title</label>
                             <input ng-model="model.game.title" type="text" class="form-control" id="game_title" placeholder="Title">

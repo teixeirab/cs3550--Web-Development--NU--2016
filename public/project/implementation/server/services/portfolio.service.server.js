@@ -3,27 +3,42 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
     var auth = authorized;
     var admn = isAdmin;
     app.get("/api/project/portfolio",auth, admn, findAllPortfolio);
-    app.get("/api/project/portfolio/:username", auth, findPortfolioForUser);
+    app.get("/api/project/portfolio/:username/:gameName", auth, findPortfolioForUser);
     app.post("/api/project/portfolio", createPortfolio);
-    app.delete("/api/project/portfolio/:portfolioId",auth, admn, deletePortfolio);
+    app.delete("/api/project/portfolio/:portfolioId",auth, deletePortfolio);
     app.put("/api/project/portfolio/:portfolioId",auth, updatePortfolio);
     app.get("/api/project/portfolio/all/:text", findAllPortfoliosByText);
     app.post("/api/project/portfolio/trade/:username",auth, tradeCompanyForUser);
     app.post("/api/project/portfolio/advance/:portfolioId/:turn",auth, advanceTurnForGame);
     app.post("/api/project/portfolio/return/:portfolioId/:turn/:turnReturn",auth, updateReturn);
-    app.get("/api/project/portfolio/game/:gameId",auth, findPortfoliosInGame);
+    app.get("/api/project/portfolio/game/find/:gameId",auth, findPortfoliosInGame);
     app.post("/api/project/portfolio/end/:portfolioId", auth, endGameForUser);
     app.post("/api/project/portfolio/find", findPortfoliosInGames);
-    app.post("/api/project/portfolio/update/status", resetStatusForGame);
+    app.get("/api/project/portfolio/update/status/:gameId", resetStatusForGame);
+    app.post("/api/project/portfolio/update/:portfolioId/:status", setStatusForPortfolio);
+
+
+    function setStatusForPortfolio(req, res){
+        var portfolioId = req.params.portfolioId;
+        var status = req.params.status;
+        portfolioModel.setStatusForPortfolio(portfolioId, status)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+    }
 
     function resetStatusForGame(req, res){
-        var gameName = req.body;
+        var gameName = req.params.gameId;
         portfolioModel.resetStatusForGame(gameName)
             .then(
                 function (doc) {
                     res.json(doc);
                 },
-                // send error if promise rejected
                 function (err) {
                     res.status(400).send(err);
                 }
@@ -37,7 +52,6 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
                 function (doc) {
                     res.json(doc);
                 },
-                // send error if promise rejected
                 function (err) {
                     res.status(400).send(err);
                 }
@@ -51,7 +65,6 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
                 function (doc) {
                     res.json(doc);
                 },
-                // send error if promise rejected
                 function (err) {
                     res.status(400).send(err);
                 }
@@ -126,7 +139,6 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
                 function (doc) {
                     res.json(doc);
                 },
-                // send error if promise rejected
                 function (err) {
                     res.status(400).send(err);
                 }
@@ -148,7 +160,8 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
 
     function findPortfolioForUser(req, res) {
         var username = req.params.username;
-        portfolioModel.findPortfoliosForUser(username)
+        var gameName = req.params.gameName
+        portfolioModel.findPortfoliosForUser(username, gameName)
             .then(
                 function (doc) {
                     res.json(doc);

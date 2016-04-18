@@ -8,6 +8,11 @@
 
 /*! normalize.css v2.1.3 | MIT License | git.io/normalize */
 
+a, a label {
+  cursor: pointer;
+}
+
+
 article,
 aside,
 details,

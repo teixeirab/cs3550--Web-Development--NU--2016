@@ -9,7 +9,7 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
     app.get("/api/project/profile/:userId",auth, profile);
     app.put("/api/project/user/:userId",auth, update);
     app.post("/api/project/add/:userGame", addUserInGame);
-    app.get("/api/project/user/all/:text", getUsersByText);
+    app.get("/api/project/user/all/:text", auth, admn, getUsersByText);
     // admin requests
     app.post("/api/project/add",auth, admn, addUser);
     app.get("/api/project/user",auth, users);
