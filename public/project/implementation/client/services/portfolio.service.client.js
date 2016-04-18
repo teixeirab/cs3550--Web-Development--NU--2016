@@ -17,9 +17,14 @@
             advanceTurnForPortfolio : advanceTurnForPortfolio,
             updateReturn : updateReturn,
             endGameForUser : endGameForUser,
-            findPortfoliosInGames: findPortfoliosInGames
+            findPortfoliosInGames: findPortfoliosInGames,
+            resetStatusForGame: resetStatusForGame
         };
         return api;
+
+        function resetStatusForGame(gameName){
+            return $http.post("/api/project/portfolio/update/status", gameName);
+        }
 
         function findPortfoliosInGames(games){
             return $http.post("/api/project/portfolio/find", games);

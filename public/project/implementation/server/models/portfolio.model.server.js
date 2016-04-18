@@ -19,9 +19,24 @@ module.exports = function(uuid, db, mongoose) {
         getPortfolioByUsername : getPortfolioByUsername,
         advanceTurnForGame : advanceTurnForGame,
         updateReturn : updateReturn,
-        endGameForUser : endGameForUser
+        endGameForUser : endGameForUser,
+        resetStatusForGame : resetStatusForGame
     };
     return api;
+
+    function resetStatusForGame(gameName){
+        var deferred = q.defer();
+        PortfolioModel.update({gameName: gameName},
+            {$set: {"status": "passable"}}, function (err, doc) {
+                if (err) {
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(doc)
+                }
+            });
+        // return a promise
+        return deferred.promise;
+    }
 
     function endGameForUser(portfolioId){
         var deferred = q.defer();
@@ -154,7 +169,8 @@ module.exports = function(uuid, db, mongoose) {
                         prices: trade.prices,
                         identifier: trade.identifier
                     }
-                )
+                );
+                cashRemaining = cashRemaining - trade.shares * trade.currentPrice
             }
         }
 
@@ -198,7 +214,8 @@ module.exports = function(uuid, db, mongoose) {
             holdings : portfolio.holdings,
             cash_remaining: cashRemaining,
             currentTurn: portfolio.currentTurn,
-            portfolio_return : portfolio.portfolio_return
+            portfolio_return : portfolio.portfolio_return,
+            status : portfolio.status
         };
 
         PortfolioModel.findByIdAndUpdate(portfolio._id, newPortfolio, function (err, doc) {
@@ -209,8 +226,6 @@ module.exports = function(uuid, db, mongoose) {
                 deferred.resolve(doc)
             }
         });
-
-        // return a promise
         return deferred.promise;
     }
 
@@ -228,10 +243,8 @@ module.exports = function(uuid, db, mongoose) {
         var deferred = q.defer();
         PortfolioModel.find({username : username}, function (err, doc){
                 if (err) {
-                    // reject promise if error
                     deferred.reject(err);
                 } else {
-                    // resolve promise
                     deferred.resolve(doc[0]);
                 }
             }
@@ -256,10 +269,8 @@ module.exports = function(uuid, db, mongoose) {
         var deferred = q.defer();
         PortfolioModel.find('portfolio', function (err, doc){
                 if (err) {
-                    // reject promise if error
                     deferred.reject(err);
                 } else {
-                    // resolve promise
                     deferred.resolve(doc);
                 }
             }
@@ -278,23 +289,15 @@ module.exports = function(uuid, db, mongoose) {
             status: "passable"
         };
 
-        // use q to defer the response
         var deferred = q.defer();
-
-        // insert new user with mongoose user model's create()
         PortfolioModel.create(newPortfolio, function (err, doc) {
-
             if (err) {
-                // reject promise if error
                 deferred.reject(err);
             } else {
-                // resolve promise
                 deferred.resolve(doc);
             }
 
         });
-
-        // return a promise
         return deferred.promise;
     }
 
@@ -302,10 +305,8 @@ module.exports = function(uuid, db, mongoose) {
         var deferred = q.defer();
         PortfolioModel.findByIdAndRemove(portfolioId, function (err, doc){
                 if (err) {
-                    // reject promise if error
                     deferred.reject(err);
                 } else {
-                    // resolve promise
                     deferred.resolve(doc);
                 }
             }
@@ -314,24 +315,17 @@ module.exports = function(uuid, db, mongoose) {
     }
 
     function updatePortfolio (portfolioId, newPortfolio) {
+        console.log(portfolioId);
+        console.log(newPortfolio);
 
-        // use q to defer the response
         var deferred = q.defer();
-
-        // insert new user with mongoose user model's create()
         PortfolioModel.findByIdAndUpdate(portfolioId, newPortfolio, {new: true}, function (err, doc) {
-
             if (err) {
-                // reject promise if error
                 deferred.reject(err);
             } else {
-                // resolve promise
                 deferred.resolve(doc);
             }
-
         });
-
-        // return a promise
         return deferred.promise;
     }
 }

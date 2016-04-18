@@ -20,6 +20,10 @@
         vm.updateReturn = updateReturn;
         vm.buy = buy;
         vm.sell = sell;
+        vm.waitCount = waitCount;
+        vm.resetStatus = resetStatus;
+        vm.advanceCurrentPortfolio = advanceCurrentPortfolio;
+        vm.updatePortfolioStatus = updatePortfolioStatus;
 
         function init() {
             PortfolioService
@@ -40,14 +44,73 @@
         }
         init();
 
-        function advance(){
-            var oldPortfolio = vm.summaryTable;
-
-            if (vm.currentPortfolio.status === 'wait'){
-                vm.failureMessage = "Please fill in the required fields";
-                return;
+        function waitCount(){
+            vm.waitCount = 0;
+            for (var i = 0; i < vm.game.length; i++) {
+                if (vm.game[i].status > 'wait') {
+                    vm.waitCount = vm.waitCount + 1
+                }
             }
+        }
 
+
+        function advance(){
+            updatePortfolioStatus();
+        }
+
+        function updatePortfolioStatus(){
+            GameService
+                .findGamesByName(vm.gameName)
+                .then(function (response){
+                    if(response.data) {
+                        vm.game = response.data;
+                        waitCount();
+                        if (vm.game.length === vm.waitCount){
+                            resetStatus()
+                        }
+                        if (vm.currentPortfolio.status === 'passable'){
+                            advanceCurrentPortfolio()
+                        }
+                        else {
+                            vm.failureMessage = "Please wait for other players to advance"
+                        }
+                    }
+                })
+        }
+
+        function resetStatus(){
+            PortfolioService
+                .resetStatusForGame(vm.gameName)
+                .then(function (response){
+                    if(response.data) {
+                        vm.portfolios = response.data;
+                        advanceCurrentPortfolio();
+                    }
+                })
+        }
+
+        function updateStatus(portfolioId, status){
+            var newPortfolio ={
+                gameName: vm.currentPortfolio.gameName,
+                username: vm.currentPortfolio.username,
+                holdings : vm.currentPortfolio.holdings,
+                cash_remaining: vm.currentPortfolio,
+                currentTurn: vm.currentPortfolio,
+                portfolio_return : vm.currentPortfolio,
+                status : status
+            };
+
+            PortfolioService
+                .updatePortfolio(portfolioId, newPortfolio)
+                .then(function(response){
+                    if (response.data){
+                        vm.currentPortfolio = response.data
+                    }
+                });
+        }
+
+        function advanceCurrentPortfolio(){
+            var oldPortfolio = vm.summaryTable;
             PortfolioService
                 .advanceTurnForPortfolio(vm.currentPortfolio._id, vm.currentPortfolio.currentTurn + 1)
                 .then(function(response){
@@ -59,6 +122,7 @@
                                 if(response.data) {
                                     vm.companies = response.data;
                                     refreshPortfolio(oldPortfolio);
+                                    updateStatus(vm.currentPortfolio._id, "wait")
                                 }
                             });
                     }
@@ -242,7 +306,6 @@
                     })
                 }
             }
-
             CompanyService.createBarGraph(returnsChartData, "returnsChart", "returns");
         }
     }

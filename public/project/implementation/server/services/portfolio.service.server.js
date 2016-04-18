@@ -14,7 +14,21 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
     app.get("/api/project/portfolio/game/:gameId",auth, findPortfoliosInGame);
     app.post("/api/project/portfolio/end/:portfolioId", auth, endGameForUser);
     app.post("/api/project/portfolio/find", findPortfoliosInGames);
+    app.post("/api/project/portfolio/update/status", resetStatusForGame);
 
+    function resetStatusForGame(req, res){
+        var gameName = req.body;
+        portfolioModel.resetStatusForGame(gameName)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                // send error if promise rejected
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+    }
 
     function findPortfoliosInGames(req, res){
         var games = req.body;
@@ -182,7 +196,6 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
                 function (doc) {
                     res.json(doc);
                 },
-                // send error if promise rejected
                 function (err) {
                     res.status(400).send(err);
                 }
