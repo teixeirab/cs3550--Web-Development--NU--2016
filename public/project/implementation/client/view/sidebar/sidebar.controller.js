@@ -12,7 +12,8 @@
             $scope.register = true;
         });
 
-        $scope.$on('new-game', function(){
+        $scope.$on('new-game', function(event, data){
+            $scope.currentGame = data;
             $scope.register = false;
         });
 

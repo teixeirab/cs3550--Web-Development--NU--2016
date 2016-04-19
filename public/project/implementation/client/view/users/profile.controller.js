@@ -17,7 +17,7 @@
                         if (response.data.length > 0){
                             vm.currentGame = response.data[0];
                             GameService.setCurrentGame(vm.currentGame);
-                            $rootScope.$broadcast('new-game')
+                            $rootScope.$broadcast('new-game', vm.currentGame.title)
                         }
                         else {
                             $rootScope.$broadcast('game-over')

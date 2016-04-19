@@ -10,12 +10,13 @@
         vm.ranking = [];
         var username = $routeParams.username;
         vm.currentUser = $rootScope.currentUser;
-        vm.currentGame = $rootScope.currentGame;
+        vm.gameName = $routeParams.gameTitle;
         vm.leaveGame = leaveGame;
 
         function init() {
+            $rootScope.$broadcast('new-game', vm.gameName);
             PortfolioService
-                .findPortfolioForUser(username, vm.currentGame.title)
+                .findPortfolioForUser(username, vm.gameName)
                 .then(function (response){
                     if(response.data) {
                         vm.gameName = response.data.gameName;
@@ -24,7 +25,7 @@
                     }
                 });
             PortfolioService
-                .findPortfolioForUser(username, vm.currentGame.title)
+                .findPortfolioForUser(username, vm.gameName)
                 .then(function(response){
                     if(response.data) {
                         vm.currentPortfolio = response.data;

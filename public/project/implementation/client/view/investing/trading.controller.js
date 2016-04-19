@@ -4,7 +4,7 @@
         .module("SimulyApp")
         .controller("TradingController", TradingController);
 
-    function TradingController(GameService, CompanyService, PortfolioService, $rootScope, $scope, $uibModal) {
+    function TradingController(GameService, CompanyService, PortfolioService, $rootScope, $scope, $uibModal, $routeParams) {
         var vm = this;
         $scope.showFailureMessage = false;
         $scope.showSuccessMessage = false;
@@ -14,15 +14,16 @@
         vm.currentPortfolio = [];
         vm.currentTurn = 1;
         vm.currentUser = $rootScope.currentUser;
-        vm.currentGame = $rootScope.currentGame;
+        vm.gameTitle = $routeParams.gameTitle;
 
         vm.refresh = refresh;
         vm.buy = buy;
         vm.sell = sell;
 
         function init() {
+            $rootScope.$broadcast('new-game', vm.gameTitle);
             PortfolioService
-                .findPortfolioForUser(vm.currentUser.username, vm.currentGame.title)
+                .findPortfolioForUser(vm.currentUser.username, vm.gameTitle)
                 .then(function(response){
                     vm.currentPortfolio = response.data;
                     vm.currentTurn = response.data.currentTurn;

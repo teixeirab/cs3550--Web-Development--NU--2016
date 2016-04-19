@@ -1,4 +1,4 @@
-//var company = require("./data/company.example2.json");
+var staticData = require ("./schemas/static_data/project.company.json");
 var q = require("q");
 module.exports = function(db, mongoose) {
 
@@ -8,7 +8,7 @@ module.exports = function(db, mongoose) {
     // create user model from schema
     var CompanyModel = mongoose.model('Company', CompanySchema);
 
-    //CompanyModel.create(company);
+    checkStaticData();
 
     var api = {
         findAllCompanies : findAllCompanies,
@@ -16,10 +16,25 @@ module.exports = function(db, mongoose) {
         deleteCompany : deleteCompany,
         updateCompany : updateCompany,
         getCompanyData : getCompanyData,
-        findAllCompaniesByText : findAllCompaniesByText
+        findAllCompaniesByText : findAllCompaniesByText,
+        checkStaticData : checkStaticData
     };
 
     return api;
+
+    function checkStaticData(){
+                CompanyModel.find({real_name: "APPLE INC [AAPL]"}, function (err, doc){
+                if (err){console.log("issue")}
+                if (doc.length === 0) {
+                    CompanyModel.insertMany(staticData, function(err, doc){
+                        if (err){
+                            console.log("bad")
+                        }
+                        else {}
+                    })
+                } else{console.log("good")}
+        })
+    }
 
     function findAllCompaniesByText(text){
         var deferred = q.defer();

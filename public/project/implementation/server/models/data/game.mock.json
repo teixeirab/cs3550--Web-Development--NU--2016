@@ -1,8 +1,0 @@
-[
-  {"_id": "000", "title": "game1", "userId": "234","num_players": 3,
-    "players": ["123", "345", "456"], "duration": 30, "universe": 10, "currentTurn": 1},
-  {"_id": "001", "title": "game2", "userId": "234","num_players": 3,
-    "players": ["123", "345"] , "duration": 30, "universe": 10, "currentTurn": 1},
-  {"_id": "002", "title": "game3", "userId": "234","num_players": 3,
-    "players": ["123"] , "duration": 30, "universe": 10, "currentTurn": 1}
-]

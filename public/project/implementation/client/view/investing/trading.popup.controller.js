@@ -35,7 +35,7 @@
                         console.log(response.data);
                         vm.currentPortfolio = response.data;
                         $scope.successMessage = "Trade has been submitted successfully";
-                        $location.url("/portfolio/");
+                        $location.url("/portfolio/" + vm.currentPortfolio.gameName);
                     }
                 });
         }

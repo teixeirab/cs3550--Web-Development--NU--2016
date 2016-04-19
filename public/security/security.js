@@ -109,7 +109,7 @@ module.exports = function(app, projectUserModel, assignmentUserModel, bcrypt) {
                         res.json(null);
                     } else {
                         newUser.password = bcrypt.hashSync(newUser.password);
-                        return userModel.createUser(newUser);
+                        return projectUserModel.createUser(newUser);
                     }
                 },
                 function(err){
@@ -145,7 +145,7 @@ module.exports = function(app, projectUserModel, assignmentUserModel, bcrypt) {
                         res.json(null);
                     } else {
                         newUser.password = bcrypt.hashSync(newUser.password);
-                        return userModel.createUser(newUser);
+                        return assignmentUserModel.createUser(newUser);
                     }
                 },
                 function(err){

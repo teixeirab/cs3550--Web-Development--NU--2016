@@ -10,7 +10,6 @@ module.exports = function(mongoose) {
         duration: Number,
         universe: [CompanySchema],
         status: String,
-        currentTurn: Number
     }, {collection: 'project.games'});
     return GameSchema;
 };

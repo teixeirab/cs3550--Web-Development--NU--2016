@@ -17,11 +17,11 @@
                 </li>
                 <li ng-show="currentUser.role === 'player' && register != true"
                     ng-class="{'active' : $location.url().indexOf('portfolio') != -1}">
-                    <a href="#/portfolio">Portfolio</a>
+                    <a ng-href="#/portfolio/{{currentGame}}">Portfolio</a>
                 </li>
                 <li ng-show="currentUser.role === 'player' && register != true"
                     ng-class="{'active' : $location.url().indexOf('trading') != -1}">
-                    <a href="#/trading">Trading</a>
+                    <a href="#/trading/{{currentGame}}">Trading</a>
                 </li>
                 <li ng-show="currentUser.role === 'creator'"
                     ng-class="{'active' : $location.url().indexOf('manage') != -1}">
@@ -33,7 +33,7 @@
                 </li>
                 <li ng-show="currentUser.role === 'player'"
                     ng-class="{'active' : $location.url().indexOf('ranking') != -1}">
-                    <a href="#/ranking/{{currentUser.username}}">Ranking</a>
+                    <a href="#/ranking/{{currentUser.username}}/{{currentGame}}">Ranking</a>
                 </li>
             </ul>
         </div>

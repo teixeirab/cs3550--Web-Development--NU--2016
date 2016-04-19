@@ -84,7 +84,7 @@
                         loggedin: checkLoggedin
                     }
                 })
-                .when("/ranking/:username", {
+                .when("/ranking/:username/:gameTitle", {
                     templateUrl: "view/games/ranking.view.html",
                     controller: "RankingController",
                     controllerAs: "model",
@@ -92,7 +92,7 @@
                         loggedin: checkLoggedin
                     }
                 })
-                .when("/portfolio", {
+                .when("/portfolio/:gameTitle", {
                     templateUrl: "view/investing/portfolio.view.html",
                     controller: "PortfolioController",
                     controllerAs: "model",
@@ -100,7 +100,7 @@
                         loggedin: checkLoggedin
                     }
                 })
-                .when("/trading", {
+                .when("/trading/:gameTitle", {
                     templateUrl: "view/investing/trading.view.html",
                     controller: "TradingController",
                     controllerAs: "model",

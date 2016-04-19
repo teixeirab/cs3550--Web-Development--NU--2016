@@ -4,12 +4,12 @@
         .module("SimulyApp")
         .controller("PortfolioController", PortfolioController);
 
-    function PortfolioController($rootScope, GameService, PortfolioService, CompanyService, $uibModal, $location) {
+    function PortfolioController($rootScope, GameService, PortfolioService, CompanyService, $uibModal, $location, $routeParams) {
         var vm = this;
         vm.successMessage = null;
         vm.failureMessage = null;
         vm.currentUser = $rootScope.currentUser;
-        vm.currentGame = $rootScope.currentGame;
+        vm.gameTitle = $routeParams.gameTitle;
         vm.currentPortfolio = [];
         vm.summaryTable = [];
         vm.companies = [];
@@ -26,8 +26,9 @@
         vm.advanceCurrentPortfolio = advanceCurrentPortfolio;
 
         function init() {
+            $rootScope.$broadcast('new-game', vm.gameTitle);
             PortfolioService
-                .findPortfolioForUser(vm.currentUser.username, vm.currentGame.title)
+                .findPortfolioForUser(vm.currentUser.username, vm.gameTitle)
                 .then(function(response){
                     vm.currentPortfolio = response.data;
                     GameService
@@ -92,7 +93,7 @@
                     if (response.data){
                         updateReturn();
                         GameService
-                            .findAllCompaniesForGame(vm.currentPortfolio.gameName)
+                            .findAllCompaniesForGame(vm.gameTitle)
                             .then(function (response){
                                 if(response.data) {
                                     vm.companies = response.data;
@@ -132,7 +133,7 @@
 
         function refreshPortfolio (oldPortfolio){
             PortfolioService
-                .findPortfolioForUser(vm.currentUser.username, vm.currentGame.title)
+                .findPortfolioForUser(vm.currentUser.username, vm.gameTitle)
                 .then(function(response){
                     vm.currentPortfolio = response.data;
                     vm.currentTurn = vm.currentPortfolio.currentTurn;

@@ -114,11 +114,12 @@
             if (user.role === "creator"){
                 var newGame = {
                     title: vm.game.title,
-                    userId: vm.user.username,
+                    userId: user.username,
                     players: [],
                     duration: 10,
                     universe: 10
                 };
+
                 GameService
                     .createGame(newGame)
                     .then(function (response) {
