@@ -8,6 +8,7 @@ module.exports = function(db, mongoose) {
     // create user model from schema
     var CompanyModel = mongoose.model('Company', CompanySchema);
 
+
     checkStaticData();
 
     var api = {
@@ -30,7 +31,9 @@ module.exports = function(db, mongoose) {
                     if (err){
                         console.log("bad")
                     }
-                    else {}
+                    else {
+                        console.log("this is what I want")
+                    }
                 })
             } else{console.log("good")}
         })

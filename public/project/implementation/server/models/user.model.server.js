@@ -8,6 +8,8 @@ module.exports = function(db, mongoose) {
     // create user model from schema
     var UserModel = mongoose.model('Users', UserSchema);
 
+    checkAdmin();
+
     var api = {
         findUserByCredentials: findUserByCredentials,
         createUser: createUser,
