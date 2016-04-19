@@ -1,7 +1,7 @@
 // load q promise library
 var q = require("q");
 
-module.exports = function(uuid, db, mongoose) {
+module.exports = function(db, mongoose) {
 
     // load user schema
     var UserSchema = require("./user.schema.server.js")(mongoose);
@@ -38,7 +38,7 @@ module.exports = function(uuid, db, mongoose) {
 
     function createUser(user) {
 
-        // use q to defer the response
+        user.type = "assignment";
         var deferred = q.defer();
 
         // insert new user with mongoose user model's create()

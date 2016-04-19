@@ -15,7 +15,8 @@ module.exports = function(mongoose) {
         firstName: String,
         lastName: String,
         email: String,
-        role: String
+        role: String,
+        type: String
     }, {collection: 'project.user'});
     return UserSchema;
 };

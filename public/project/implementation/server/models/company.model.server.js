@@ -1,6 +1,6 @@
 //var company = require("./data/company.example2.json");
 var q = require("q");
-module.exports = function(uuid, db, mongoose) {
+module.exports = function(db, mongoose) {
 
     // load user schema
     var CompanySchema = require("./schemas/company.schema.server.js")(mongoose);

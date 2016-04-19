@@ -1,4 +1,4 @@
-module.exports = function(app, userModel, gameModel, companyModel, portfolioModel, passport, isAdmin, authorized) {
+module.exports = function(app, userModel, gameModel, companyModel, portfolioModel, bcrypt) {
 
     var auth = authorized;
     var admn = isAdmin;
@@ -197,6 +197,23 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
                     res.status(400).send(err);
                 }
             )
+    }
+
+    function authorized (req, res, next) {
+        if (!req.isAuthenticated()) {
+            res.send(401);
+        } else {
+            next();
+        }
+    }
+
+    function isAdmin(req, res, next){
+        if(req.user.role != 'admin'){
+            res.send(403);
+        }
+        else {
+            next();
+        }
     }
 };
 

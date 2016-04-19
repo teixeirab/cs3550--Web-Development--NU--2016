@@ -1,5 +1,5 @@
 var q = require("q");
-module.exports = function(uuid, db, mongoose) {
+module.exports = function(db, mongoose) {
     // load user schema
     var PortfolioSchema = require("./schemas/portfolio.schema.server.js")(mongoose);
 

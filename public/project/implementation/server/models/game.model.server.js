@@ -1,6 +1,6 @@
 var q = require("q");
 var generateName = require('sillyname');
-module.exports = function(uuid, db, mongoose, companyModel) {
+module.exports = function(db, mongoose, companyModel) {
 
     // load user schema
     var GameSchema = require("./schemas/game.schema.server.js")(mongoose);

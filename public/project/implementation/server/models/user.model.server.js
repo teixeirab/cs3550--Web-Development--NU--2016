@@ -1,13 +1,11 @@
 var q = require("q");
-module.exports = function(uuid, db, mongoose) {
+module.exports = function(db, mongoose) {
 
     // load user schema
     var UserSchema = require("./schemas/user.schema.server.js")(mongoose);
 
     // create user model from schema
     var UserModel = mongoose.model('Users', UserSchema);
-
-    getUsersByText("alice");
 
     var api = {
         findUserByCredentials: findUserByCredentials,
@@ -71,6 +69,8 @@ module.exports = function(uuid, db, mongoose) {
             email: user.email,
             role: user.role
         };
+
+        newUser.type = "project";
 
         // use q to defer the response
         var deferred = q.defer();

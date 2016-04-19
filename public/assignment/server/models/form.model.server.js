@@ -2,7 +2,7 @@
 var q = require("q");
 var templates = require("./field.mock.json");
 
-module.exports = function(uuid, db, mongoose) {
+module.exports = function(db, mongoose) {
 
     // load form and fields schema
     var FormSchema = require("./form.schema.server.js")(mongoose);

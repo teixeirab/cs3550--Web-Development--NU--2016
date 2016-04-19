@@ -2,15 +2,16 @@ var express = require('express');
 var session       = require('express-session');
 var cookieParser  = require('cookie-parser');
 var bodyParser = require('body-parser');
-var uuid = require("node-uuid");
 var app = express();
 var multer = require('multer');
 var passport = require('passport');
 var LocalStrategy = require('passport-local');
 var mongoose = require("mongoose");
+var bcrypt = require("bcrypt-nodejs");
 
 // create a default connection string
 var connectionString = 'mongodb://127.0.0.1:27017/webdev';
+
 
 // use remote connection string
 // if running in remote server
@@ -43,9 +44,13 @@ app.use(express.static(__dirname+ '/public'));
 
 
 //    "amcharts3": "github:amcharts/amcharts3",
+var projectUserModel = require("./public/project/implementation/server/models/user.model.server.js")(db, mongoose);
+var assignmentUserModel = require("./public/assignment/server/models/user.model.server.js")(db, mongoose);
 
-//require("./public/assignment/server/app.js")(app, uuid, db, mongoose);
-require("./public/project/implementation/server/app.js")(app, uuid, db, mongoose);
+require("./public/security/security.js")(app, projectUserModel, assignmentUserModel, bcrypt);
+require("./public/assignment/server/app.js")(app, db, mongoose, assignmentUserModel, bcrypt);
+require("./public/project/implementation/server/app.js")(app, db, mongoose, projectUserModel, bcrypt);
+
 //require("./public/experiments/omdb_mongo_db/server/app.js")(app, db, mongoose);
 //require("./public/experiments/omdb/server/app.js")(app);
 
