@@ -33,11 +33,13 @@
         }
 
         function updateStatus(gameName, status){
-            return $http.get("/api/project/game/update/" + gameName + '/' + status);
+            var body = {status : status};
+            return $http.put("/api/project/game/update/" + gameName, body);
         }
 
         function deleteUserFromGame(gameName, username){
-            return $http.get("/api/project/game/delete/" + gameName + '/' + username);
+            var body = {username : username};
+            return $http.delete("/api/project/game/delete/" + gameName, body);
         }
 
         function findAllOpenGames(){
@@ -57,7 +59,8 @@
         }
 
         function addUserInGame(username, gameName){
-            return $http.get("/api/project/game/add/"+username+"/"+ gameName);
+            var gameTitle = {gameName : gameName};
+            return $http.put("/api/project/game/add/"+username, gameTitle);
         }
 
         function findAllGames() {

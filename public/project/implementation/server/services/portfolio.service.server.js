@@ -14,7 +14,7 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
     app.get("/api/project/portfolio/game/find/:gameId",auth, findPortfoliosInGame);
     app.post("/api/project/portfolio/end/:portfolioId", auth, endGameForUser);
     app.post("/api/project/portfolio/find", findPortfoliosInGames);
-    app.get("/api/project/portfolio/update/status/:gameId", resetStatusForGame);
+    app.get("/api/project/portfolio/update/status", resetStatusForGame);
     app.post("/api/project/portfolio/update/:portfolioId/:status", setStatusForPortfolio);
 
 
@@ -33,7 +33,7 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
     }
 
     function resetStatusForGame(req, res){
-        var gameName = req.params.gameId;
+        var gameName = req.body.gameName;
         portfolioModel.resetStatusForGame(gameName)
             .then(
                 function (doc) {

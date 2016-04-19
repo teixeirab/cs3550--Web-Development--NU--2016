@@ -28,7 +28,8 @@
         }
 
         function resetStatusForGame(gameName){
-            return $http.get("/api/project/portfolio/update/status/" + gameName);
+            var body = {gameName : gameName};
+            return $http.post("/api/project/portfolio/update/status/", body);
         }
 
         function findPortfoliosInGames(games){
@@ -78,9 +79,6 @@
         function deletePortfolio(portfolioId){
             return $http.delete("/api/project/portfolio/"+ portfolioId);
         }
-
     }
-
-
 })();
 

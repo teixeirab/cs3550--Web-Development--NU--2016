@@ -8,12 +8,12 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
     app.delete("/api/project/game/:gameId",auth,admn, deleteGame);
     app.put("/api/project/game/:gameId",auth, updateGame);
     app.get("/api/project/game/search/:text", findAllGamesByText);
-    app.get("/api/project/game/add/:username/:gameName", addUserInGame);
+    app.put("/api/project/game/add/:username", addUserInGame);
     app.get("/api/project/game/companies/:gameId", findAllCompaniesForGame);
     app.get("/api/project/game/name/:gameName",auth, findGamesByName);
     app.get("/api/project/game/find/open", findAllOpenGames);
-    app.get("/api/project/game/update/:gameName/:status", updateStatus);
-    app.get("/api/project/game/delete/:gameName/:username", deleteUserFromGame);
+    app.put("/api/project/game/update/:gameName", updateStatus);
+    app.delete("/api/project/game/delete/:gameName", deleteUserFromGame);
     app.get("/api/project/game/find/users/:username", findGameUserIsIn);
 
     function findGameUserIsIn(req, res){
@@ -32,7 +32,7 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
 
     function deleteUserFromGame(req, res){
         var gameName = req.params.gameName;
-        var username = req.params.username;
+        var username = req.body.username;
         gameModel.deleteUserFromGame(gameName, username)
             .then(
                 function (doc) {
@@ -46,7 +46,7 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
 
     function updateStatus(req, res){
         var gameName = req.params.gameName;
-        var status = req.params.status;
+        var status = req.body.status;
         gameModel.updateStatus(gameName, status)
             .then(
                 function (doc) {
@@ -115,7 +115,7 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
 
     function addUserInGame(req, res){
         var username = req.params.username;
-        var gameName = req.params.gameName;
+        var gameName = req.body.gameName
         gameModel.addUserInGame(username, gameName)
             .then(
                 function (doc) {
