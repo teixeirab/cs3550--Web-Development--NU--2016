@@ -1,3 +1,4 @@
+var defaultAdmin = require ("./schemas/static_data/project.admin.user.json");
 var q = require("q");
 module.exports = function(db, mongoose) {
 
@@ -21,6 +22,20 @@ module.exports = function(db, mongoose) {
         findUserByFacebookId: findUserByFacebookId
     };
     return api;
+
+    function checkAdmin(){
+        UserModel.find({username: "admin"}, function (err, doc){
+            if (err){console.log("issue")}
+            if (doc.length === 0) {
+                UserModel.insertMany(defaultAdmin, function(err, doc){
+                    if (err){
+                        console.log("bad")
+                    }
+                    else {}
+                })
+            } else{console.log("good")}
+        })
+    }
 
     function findUserByFacebookId(facebookId) {
         return UserModel.findOne({'facebook.id': facebookId});

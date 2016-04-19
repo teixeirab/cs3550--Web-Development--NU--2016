@@ -23,16 +23,16 @@ module.exports = function(db, mongoose) {
     return api;
 
     function checkStaticData(){
-                CompanyModel.find({real_name: "APPLE INC [AAPL]"}, function (err, doc){
-                if (err){console.log("issue")}
-                if (doc.length === 0) {
-                    CompanyModel.insertMany(staticData, function(err, doc){
-                        if (err){
-                            console.log("bad")
-                        }
-                        else {}
-                    })
-                } else{console.log("good")}
+        CompanyModel.find({real_name: "APPLE INC [AAPL]"}, function (err, doc){
+            if (err){console.log("issue")}
+            if (doc.length === 0) {
+                CompanyModel.insertMany(staticData, function(err, doc){
+                    if (err){
+                        console.log("bad")
+                    }
+                    else {}
+                })
+            } else{console.log("good")}
         })
     }
 
