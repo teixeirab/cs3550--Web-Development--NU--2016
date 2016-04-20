@@ -123,7 +123,7 @@
                             .endGameForUser(vm.currentPortfolio._id)
                             .then(function (response){
                                 if(response.data) {
-                                    $location.url("/ranking/" + vm.currentPortfolio.username);
+                                    $location.url("/ranking/" + vm.currentPortfolio.username + '/' + vm.currentPortfolio.gameName);
                                 }
                             });
                     }

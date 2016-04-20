@@ -46,12 +46,14 @@
         init();
 
         function trade(name){
-            console.log(name);
+
             vm.selectedCompany = {
                 name: name,
                 shares: 1,
                 tradeType: "Buy",
-                currentPrice : vm.company_data.current_price[vm.turn]
+                currentPrice : vm.company_data.current_price[vm.turn],
+                identifier: parseInt(vm.identifier),
+                prices: vm.company_data.current_price
             };
 
             $rootScope.modalInstance = $uibModal.open({

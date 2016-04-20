@@ -12,6 +12,7 @@
         vm.identifier = $routeParams.identifier;
         vm.generated_name = $routeParams.generatedName;
         vm.portfolioId = $routeParams.portfolioId;
+        vm.trade= trade;
 
         function init() {
             CompanyService
@@ -27,7 +28,7 @@
                 .then(function(response) {
                     if (response.data) {
                         vm.currentPortfolio = response.data;
-                        $rootScope.currentGame = vm.currentPortfolio.gameName
+                        $rootScope.$broadcast('new-game', vm.currentPortfolio.gameName)
                     }
                 });
             var data = {
@@ -39,6 +40,31 @@
             $rootScope.$broadcast('company', data);
         }
         init();
+
+        function trade(name){
+            console.log(name);
+            vm.selectedCompany = {
+                name: name,
+                shares: 1,
+                tradeType: "Buy",
+                currentPrice : vm.company_data.current_price[vm.turn]
+            };
+
+            $rootScope.modalInstance = $uibModal.open({
+                templateUrl: 'view/investing/trading.popup.view.html',
+                controller: 'TradingPopupController',
+                controllerAs: "model",
+                size: 'lg',
+                resolve: {
+                    selectedTrade : function () {
+                        return  vm.selectedCompany
+                    },
+                    currentPortfolio : function () {
+                        return  vm.currentPortfolio
+                    }
+                }
+            });
+        }
 
         function getPeriods(){
             vm.periods = [];

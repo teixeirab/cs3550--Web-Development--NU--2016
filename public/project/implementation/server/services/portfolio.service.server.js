@@ -2,6 +2,7 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
 
     var auth = authorized;
     var admn = isAdmin;
+    var creator = isCreator;
     app.get("/api/project/portfolio",auth, admn, findAllPortfolio);
     app.get("/api/project/portfolio/:username/:gameName", auth, findPortfolioForUser);
     app.post("/api/project/portfolio", createPortfolio);
@@ -238,6 +239,15 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
 
     function isAdmin(req, res, next){
         if(req.user.role != 'admin'){
+            res.send(403);
+        }
+        else {
+            next();
+        }
+    }
+
+    function isCreator(req, res, next){
+        if(req.user.role != 'creator'){
             res.send(403);
         }
         else {

@@ -2,12 +2,13 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
 
     var auth = authorized;
     var admn = isAdmin;
+    var creator = isCreator;
     app.get("/api/project/game",auth, admn,  findAllGames);
     app.get("/api/project/game/:userId",auth, findGamesForUser);
     app.post("/api/project/game", createGame);
     app.delete("/api/project/game/:gameId",auth,admn, deleteGame);
     app.put("/api/project/game/:gameId",auth, updateGame);
-    app.get("/api/project/game/search/:text", findAllGamesByText);
+    app.get("/api/project/game/search/:text",creator, findAllGamesByText);
     app.put("/api/project/game/add/:username", addUserInGame);
     app.get("/api/project/game/companies/:gameId", findAllCompaniesForGame);
     app.get("/api/project/game/name/:gameName",auth, findGamesByName);
@@ -209,6 +210,15 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
 
     function isAdmin(req, res, next){
         if(req.user.role != 'admin'){
+            res.send(403);
+        }
+        else {
+            next();
+        }
+    }
+
+    function isCreator(req, res, next){
+        if(req.user.role != 'creator'){
             res.send(403);
         }
         else {

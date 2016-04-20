@@ -17,6 +17,7 @@
                         if (response.data.length > 0){
                             vm.currentGame = response.data[0];
                             GameService.setCurrentGame(vm.currentGame);
+                            console.log("fshit")
                             $rootScope.$broadcast('new-game', vm.currentGame.title)
                         }
                         else {

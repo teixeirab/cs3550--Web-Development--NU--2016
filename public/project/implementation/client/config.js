@@ -149,7 +149,7 @@
                     }
                 })
                 .otherwise({
-                    redirectTo: "/login"
+                    redirectTo: "/home"
                 });
         });
     var checkAdmin = function($q, $timeout, $http, $location, $rootScope)

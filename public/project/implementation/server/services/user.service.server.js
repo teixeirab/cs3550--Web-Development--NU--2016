@@ -2,11 +2,11 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
 
     var auth = authorized;
     var admn = isAdmin;
-
+    var creator = isCreator;
     app.get("/api/project/profile/:userId",auth, profile);
     app.put("/api/project/user/:userId",auth, update);
     app.post("/api/project/add/:userGame", addUserInGame);
-    app.get("/api/project/user/all/:text", auth, admn, getUsersByText);
+    app.get("/api/project/user/all/:text", auth, creator,  getUsersByText);
     // admin requests
     app.post("/api/project/add",auth, admn, addUser);
     app.get("/api/project/user",auth, users);
@@ -126,6 +126,15 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
 
     function isAdmin(req, res, next){
         if(req.user.role != 'admin'){
+            res.send(403);
+        }
+        else {
+            next();
+        }
+    }
+
+    function isCreator(req, res, next){
+        if(req.user.role != 'creator'){
             res.send(403);
         }
         else {
