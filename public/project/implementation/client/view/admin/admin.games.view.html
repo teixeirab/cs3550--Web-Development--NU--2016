@@ -30,7 +30,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
                 <path d="M8.33,0L4,7.5L-0.33,0H8.33z" min-width="9" min-height="8" fill="#000000"></path>
             </svg>
-            Players in Game
+            Game Universe
         </th>
         <th nowrap="">
             <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" min-height="7" min-width="9">
@@ -78,11 +78,7 @@
                 <input ng-model="model.game.duration" placeholder="duration" type="text" class="form-control">
             </form>
         </td>
-        <td nowrap="">
-            <form>
-                <input ng-model="model.game.universe" placeholder="number of companies" type="text" class="form-control">
-            </form>
-        </td>
+        <td nowrap=""></td>
         <td nowrap="">
             <form>
                 <input ng-model="model.game.currentTurn" placeholder="current turn" type="text" class="form-control">
@@ -105,7 +101,7 @@
         <td>{{game.userId}}</td>
         <td>{{game.players}}</td>
         <td>{{game.duration}}</td>
-        <td>{{game.universe}}</td>
+        <td></td>
         <td>{{game.currentTurn}}</td>
         <td>
             <form>

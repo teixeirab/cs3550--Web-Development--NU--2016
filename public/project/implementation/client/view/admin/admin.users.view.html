@@ -67,11 +67,7 @@
                 <input ng-model="model.user.username" placeholder="username" type="text" class="form-control">
             </form>
         </td>
-        <td nowrap="">
-            <form>
-                <input ng-model="model.user.password" placeholder="password" type="text" class="form-control">
-            </form>
-        </td>
+        <td nowrap=""></td>
         <td nowrap="">
             <form>
                 <input ng-model="model.user.role" placeholder="roles" type="text" class="form-control">
@@ -93,7 +89,7 @@
         <td>{{user.firstName}}</td>
         <td>{{user.lastName}}</td>
         <td><a ng-href="#/profile/{{user.username}}">{{user.username}}</a></td>
-        <td>{{user.password}}</td>
+        <td></td>
         <td>{{user.role}}</td>
         <td>
             <form>
