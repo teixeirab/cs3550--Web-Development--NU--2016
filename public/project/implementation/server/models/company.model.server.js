@@ -8,7 +8,6 @@ module.exports = function(db, mongoose) {
     // create user model from schema
     var CompanyModel = mongoose.model('Company', CompanySchema);
 
-
     checkStaticData();
 
     var api = {
@@ -103,15 +102,7 @@ module.exports = function(db, mongoose) {
             statements_id:  company.turn + "_" + company.generated_name,
             generated_name: company.generated_name,
             turn: company.turn,
-            real_name: company.real_name,
-            /*
-            summary: company.summary,
-            smt: company.smt,
-            valuation: company.valuation,
-            momentum: company.momentum,
-            reports: company.reports
-            */
-
+            real_name: company.real_name
         };
 
         // insert new user with mongoose user model's create()

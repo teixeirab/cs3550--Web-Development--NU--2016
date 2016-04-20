@@ -22,7 +22,7 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="company in model.companies">
-                            <td><a ng-href="#/companies/{{company.identifier}}/{{model.currentTurn}}/{{company.generated_name}}">{{company.generated_name}}</a></td>
+                            <td><a ng-href="#/companies/{{company.identifier}}/{{model.currentTurn}}/{{company.generated_name}}/{{model.currentPortfolio._id}}">{{company.generated_name}}</a></td>
                             <td>${{company.summary.market_cap[model.currentTurn]| number:2}}</td>
                             <td>${{company.summary.current_price[model.currentTurn]| number:2}}</td>
                             <td>{{company.summary.p_e[model.currentTurn]| number:2}}x</td>

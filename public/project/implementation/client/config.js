@@ -108,7 +108,7 @@
                         loggedin: checkLoggedin
                     }
                 })
-                .when("/companies/:identifier/:turn/:generatedName", {
+                .when("/companies/:identifier/:turn/:generatedName/:portfolioId", {
                     templateUrl: "view/analysis/company.view.html",
                     controller: "CompanyController",
                     controllerAs: "model",
@@ -116,7 +116,7 @@
                         loggedin: checkLoggedin
                     }
                 })
-                .when("/companies/:identifier/:turn/:generatedName/momentum", {
+                .when("/companies/:identifier/:turn/:generatedName/:portfolioId/momentum", {
                     templateUrl: "view/analysis/momentum.view.html",
                     controller: "MomentumController",
                     controllerAs: "model",
@@ -124,7 +124,7 @@
                         loggedin: checkLoggedin
                     }
                 })
-                .when("/companies/:identifier/:turn/:generatedName/smt", {
+                .when("/companies/:identifier/:turn/:generatedName/:portfolioId/smt", {
                     templateUrl: "view/analysis/smt.view.html",
                     controller: "SmtController",
                     controllerAs: "model",
@@ -132,7 +132,7 @@
                         loggedin: checkLoggedin
                     }
                 })
-                .when("/companies/:identifier/:turn/:generatedName/reports", {
+                .when("/companies/:identifier/:turn/:generatedName/:portfolioId/reports", {
                     templateUrl: "view/analysis/reports.view.html",
                     controller: "ReportsController",
                     controllerAs: "model",
@@ -140,7 +140,7 @@
                         loggedin: checkLoggedin
                     }
                 })
-                .when("/companies/:identifier/:turn/:generatedName/valuation", {
+                .when("/companies/:identifier/:turn/:generatedName/:portfolioId/valuation", {
                     templateUrl: "view/analysis/valuation.view.html",
                     controller: "ValuationController",
                     controllerAs: "model",
@@ -149,7 +149,7 @@
                     }
                 })
                 .otherwise({
-                    redirectTo: "/home"
+                    redirectTo: "/login"
                 });
         });
     var checkAdmin = function($q, $timeout, $http, $location, $rootScope)

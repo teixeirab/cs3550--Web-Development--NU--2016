@@ -1,58 +1,45 @@
-<ul class="nav nav-tabs">
-    <li role="presentation" class="active"><a ng-href="#/companies/{{model.identifier}}/{{model.turn}}/{{model.generated_name}}">Summary</a></li>
-    <li role="presentation" ><a ng-href="#/companies/{{model.identifier}}/{{model.turn}}/{{model.generated_name}}/smt">Sales, Margins & Turns</a></li>
-    <li role="presentation" ><a ng-href="#/companies/{{model.identifier}}/{{model.turn}}/{{model.generated_name}}/valuation">Valuation</a></li>
-    <li role="presentation" ><a ng-href="#/companies/{{model.identifier}}/{{model.turn}}/{{model.generated_name}}/momentum">Momentum</a></li>
-    <li role="presentation" ><a ng-href="#/companies/{{model.identifier}}/{{model.turn}}/{{model.generated_name}}/reports">Reports</a></li>
-</ul>
-<br>
 <div class="container-fluid" ng-controller="CompanyController">
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="header">
-                    <h3 class="title">
+                    <h4 class="title">
                         {{model.generated_name}}'s Summary:
                         <button type="submit" ng-click="model.trade(model.generated_name)" class="btn btn-success">Trade this company</button>
-                    </h3>
+                    </h4>
                 </div>
                 <div class="content">
                     <div class="row">
-                        <div class="col-lg-5">
+                        <div class="col-lg-7">
                             <div class="card">
                                 <div class="header">
-                                    <h5 class="title">Return on Invested Capital:</h5>
+                                    <h6 class="title">Return on Invested Capital:</h6>
                                 </div>
                                 <div class="content">
-                                    <div id="roicChart" style="width: 100%; height: 230px;" ></div>
+                                    <div id="roicChart" style="width: 100%; height: 180px;" ></div>
                                 </div>
                                 <div class="header">
-                                    <h5 class="title">Real Asset Growth Rate:</h5>
+                                    <h6 class="title">Real Asset Growth Rate:</h6>
                                 </div>
                                 <div class="content">
-                                    <div id="growthChart" style="width: 100%; height: 230px;" ></div>
+                                    <div id="growthChart" style="width: 100%; height: 180px;" ></div>
                                 </div>
                                 <div class="header">
-                                    <h5 class="title">Historical Prices:</h5>
+                                    <h6 class="title">Historical Prices:</h6>
                                 </div>
                                 <div class="content">
-                                    <div id="pricesChart" style="width: 100%; height: 230px;" ></div>
+                                    <div id="pricesChart" style="width: 100%; height: 150px;" ></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-5">
                             <div class="card">
                                 <div class="header">
-                                    <h5 class="title">Summary:</h5>
+                                    <h6 class="title">Summary:</h6>
                                 </div>
                                 <div class="content">
                                     <table class="table table-striped table-responsive">
-                                        <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th></th>
-                                        </tr>
-                                        </thead>
+                                        <thead><tr></tr></thead>
                                         <tbody>
                                         <tr>
                                             <td>Market Cap</td>
@@ -70,20 +57,15 @@
                                     </table>
                                 </div>
                                 <div class="header">
-                                    <h5 class="title">Risk:</h5>
+                                    <h6 class="title">Risk:</h6>
                                 </div>
                                 <div class="content">
                                     <table class="table table-striped table-responsive">
-                                        <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th></th>
-                                        </tr>
-                                        </thead>
+                                        <thead><tr></tr></thead>
                                         <tbody>
                                         <tr>
                                             <td>Probability of Default</td>
-                                            <td>{{model.pod_turn}}</td>
+                                            <td>{{model.pod_turn}}%</td>
                                         </tr>
                                         <tr>
                                             <td>Economic Leverage</td>
@@ -96,68 +78,39 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="card">
                                 <div class="header">
-                                    <h5 class="title">
+                                    <h6 class="title">
                                         Valuation Highlights:
-                                    </h5>
+                                    </h6>
                                 </div>
                                 <div class="content">
                                     <table id="valuation" class="table table-striped table-responsive">
                                         <thead>
                                         <tr>
                                             <th></th>
-                                            <th></th>
+                                            <th>Current Turn</th>
+                                            <th>Turn - 1</th>
+                                            <th>Turn - 2</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr>
                                             <td>P/E</td>
                                             <td>{{model.p_e_turn | number:2}}x</td>
+                                            <td>{{model.company_data.p_e[model.turn - 1] | number:2}}x</td>
+                                            <td>{{model.company_data.p_e[model.turn - 2] | number:2}}x</td>
                                         </tr>
                                         <tr>
                                             <td>P/B</td>
                                             <td>{{model.p_b_turn | number:2}}x</td>
+                                            <td>{{model.company_data.p_b[model.turn - 1] | number:2}}x</td>
+                                            <td>{{model.company_data.p_b[model.turn - 2] | number:2}}x</td>
                                         </tr>
                                         <tr>
                                             <td>P/S</td>
                                             <td>{{model.p_s_turn}}x</td>
-                                        </tr>
-                                        <tr>
-                                            <td>EV/EBITDA</td>
-                                            <td>{{model.ev_ebitda_turn}}x</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="header">
-                                    <h5 class="title">Momentum:</h5>
-                                </div>
-                                <div class="content">
-                                    <table id="summary2" class="table table-striped table-responsive">
-                                        <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th>6m</th>
-                                            <th>3m</th>
-                                            <th>1m</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>CFROI Revisions</td>
-                                            <td>{{model.company_data.cfroi_revisions[0]}}</td>
-                                            <td>{{model.company_data.cfroi_revisions[1]}}</td>
-                                            <td>{{model.company_data.cfroi_revisions[2]}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Price Change</td>
-                                            <td>{{model.company_data.price_change[0]}}</td>
-                                            <td>{{model.company_data.price_change[1]}}</td>
-                                            <td>{{model.company_data.price_change[2]}}</td>
+                                            <td>{{model.company_data.p_s[model.turn - 1] | number:2}}x</td>
+                                            <td>{{model.company_data.p_s[model.turn - 2] | number:2}}x</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -165,10 +118,8 @@
                             </div>
                         </div>
                     </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <br>
 </div>

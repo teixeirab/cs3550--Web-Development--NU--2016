@@ -12,7 +12,7 @@
         vm.currentUser = $rootScope.currentUser;
 
         function init() {
-            $rootScope.$broadcast('game-over');
+            $rootScope.$broadcast('game-out');
             GameService
                 .findAllOpenGames()
                 .then(function (response){
@@ -29,7 +29,7 @@
                 gameName : vm.games[index].title,
                 holdings : [],
                 cash_remaining : 1000,
-                currentTurn : 1
+                currentTurn : 5
             };
 
             GameService

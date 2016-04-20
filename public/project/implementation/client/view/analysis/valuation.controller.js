@@ -4,13 +4,14 @@
         .module("SimulyApp")
         .controller("ValuationController", ValuationController);
 
-    function ValuationController(CompanyService , $routeParams) {
+    function ValuationController(CompanyService, PortfolioService, $routeParams, $rootScope) {
         var vm = this;
         vm.company_data = [];
         vm.generated_name = $routeParams.identifier;
         vm.turn = $routeParams.turn;
         vm.identifier = $routeParams.identifier;
         vm.generated_name = $routeParams.generatedName;
+        vm.portfolioId = $routeParams.portfolioId;
 
         function init() {
             CompanyService
@@ -21,6 +22,21 @@
                         renderBar();
                     }
                 });
+            PortfolioService
+                .findPortfolioById(vm.portfolioId)
+                .then(function(response) {
+                    if (response.data) {
+                        vm.currentPortfolio = response.data;
+                        $rootScope.currentGame = vm.currentPortfolio.gameName
+                    }
+                });
+            var data = {
+                turn: vm.turn,
+                generated_name: vm.generated_name,
+                identifier: vm.identifier,
+                portfolioId: vm.portfolioId
+            };
+            $rootScope.$broadcast('company', data);
         }
         init();
 

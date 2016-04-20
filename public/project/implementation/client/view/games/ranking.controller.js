@@ -47,6 +47,7 @@
                             .deleteUserFromGame(vm.gameName, vm.currentUser.username)
                             .then(function (){
                                 $location.url("/game/registration");
+                                $rootScope.$broadcast('game-out');
                             })
                     }
             })

@@ -9,6 +9,7 @@ module.exports = function(mongoose) {
         asset_growth_fy1: [Number],
         sales: [Number],
         margins: [Number],
+        WACC: [Number],
         turns: [Number],
         periods: [String]
     }, {collection: 'project.company.smt'});

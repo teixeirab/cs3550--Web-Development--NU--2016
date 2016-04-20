@@ -13,6 +13,7 @@
             findPortfoliosInGame: findPortfoliosInGame,
             findPortfolioForUser: findPortfolioForUser,
             findAllPortfoliosByText : findAllPortfoliosByText,
+            findPortfolioById : findPortfolioById,
             tradeCompanyForUser : tradeCompanyForUser,
             advanceTurnForPortfolio : advanceTurnForPortfolio,
             updateReturn : updateReturn,
@@ -22,6 +23,10 @@
             setStatusForPortfolio: setStatusForPortfolio
         };
         return api;
+
+        function findPortfolioById(portfolioId){
+            return $http.get("/api/project/portfolio/find/one/"+portfolioId)
+        }
 
         function setStatusForPortfolio(portfolioId, status){
             return $http.post("/api/project/portfolio/update/" + portfolioId + "/" + status);

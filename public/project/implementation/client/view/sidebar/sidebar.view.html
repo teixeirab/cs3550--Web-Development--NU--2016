@@ -31,7 +31,7 @@
                     ng-class="{'active' : $location.url().indexOf('admin') != -1}">
                     <a href="#/admin/users">Admin</a>
                 </li>
-                <li ng-show="currentUser.role === 'player'"
+                <li ng-show="currentUser.role === 'player' && ranking === true"
                     ng-class="{'active' : $location.url().indexOf('ranking') != -1}">
                     <a href="#/ranking/{{currentUser.username}}/{{currentGame}}">Ranking</a>
                 </li>

@@ -20,7 +20,8 @@
                             $rootScope.$broadcast('new-game', vm.currentGame.title)
                         }
                         else {
-                            $rootScope.$broadcast('game-over')
+                            $rootScope.$broadcast('game-over');
+                            $rootScope.$broadcast('game-out');
                         }
                     });
             }

@@ -92,7 +92,7 @@
                         gameName : user.gameName,
                         holdings : [],
                         cash_remaining : 1000,
-                        currentTurn : 1
+                        currentTurn : 5
                     };
 
                     GameService

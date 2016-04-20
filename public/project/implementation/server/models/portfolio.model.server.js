@@ -21,9 +21,23 @@ module.exports = function(db, mongoose) {
         updateReturn : updateReturn,
         endGameForUser : endGameForUser,
         resetStatusForGame : resetStatusForGame,
-        setStatusForPortfolio : setStatusForPortfolio
+        setStatusForPortfolio : setStatusForPortfolio,
+        findPortfolioById : findPortfolioById
     };
     return api;
+
+    function findPortfolioById(portfolioId){
+        var deferred = q.defer();
+        PortfolioModel.findOne({_id : portfolioId}, function (err, doc){
+                if (err) {
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(doc);
+                }
+            }
+        );
+        return deferred.promise;
+    }
 
     function findPortfoliosInGame(gameName){
         var deferred = q.defer();

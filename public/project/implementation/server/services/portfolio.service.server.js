@@ -16,7 +16,20 @@ module.exports = function(app, userModel, gameModel, companyModel, portfolioMode
     app.post("/api/project/portfolio/find", findPortfoliosInGames);
     app.get("/api/project/portfolio/update/status", resetStatusForGame);
     app.post("/api/project/portfolio/update/:portfolioId/:status", setStatusForPortfolio);
+    app.get("/api/project/portfolio/find/one/:portfolioId", findPortfolioById);
 
+    function findPortfolioById(req, res){
+        var portfolioId = req.params.portfolioId;
+        portfolioModel.findPortfolioById(portfolioId)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+    }
 
     function setStatusForPortfolio(req, res){
         var portfolioId = req.params.portfolioId;

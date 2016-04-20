@@ -9,14 +9,21 @@
             </button>
         </div>
         <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-left" ng-show="$location.url().indexOf('companies') != -1">
+                    <li role="presentation"><a ng-href="#/companies/{{identifier}}/{{turn}}/{{generated_name}}/{{portfolioId}}">Summary</a></li>
+                    <li role="presentation"><a ng-href="#/companies/{{identifier}}/{{turn}}/{{generated_name}}/{{portfolioId}}/smt">Sales, Margins & Turns</a></li>
+                    <li role="presentation"><a ng-href="#/companies/{{identifier}}/{{turn}}/{{generated_name}}/{{portfolioId}}/valuation">Valuation</a></li>
+                    <li role="presentation"><a ng-href="#/companies/{{identifier}}/{{turn}}/{{generated_name}}/{{portfolioId}}/momentum">Momentum</a></li>
+                    <li role="presentation"><a ng-href="#/companies/{{identifier}}/{{turn}}/{{generated_name}}/{{portfolioId}}/reports">Reports</a></li>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li ng-show="currentUser.role === 'admin'" ng-hide="$location.url() === '/home'">
-                    <a ng-show="currentUser.role === 'admin'">
+                <li ng-show="currentUser.role === 'creator'" ng-hide="$location.url() === '/home'">
+                    <a ng-show="currentUser.role === 'creator'">
                         <input ng-model="searchText" type="text" class="form-header" placeholder="Search...">
                     </a>
                 </li>
                 <li ng-hide="$location.url() === '/home'">
-                    <a ng-show="currentUser.role === 'admin'" ng-click="search(searchText)" data-toggle="dropdown">
+                    <a ng-show="currentUser.role === 'creator'" ng-click="search(searchText)" data-toggle="dropdown">
                         <scan class="fa fa-search"></scan>
                     </a>
                 </li>

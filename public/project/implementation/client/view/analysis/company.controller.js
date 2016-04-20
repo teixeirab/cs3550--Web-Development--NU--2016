@@ -4,13 +4,14 @@
         .module("SimulyApp")
         .controller("CompanyController", CompanyController);
 
-    function CompanyController(CompanyService, $routeParams, $rootScope, $uibModal) {
+    function CompanyController(CompanyService, PortfolioService, $routeParams, $rootScope, $uibModal) {
         var vm = this;
         vm.company_data = [];
         vm.identifier = $routeParams.identifier;
         vm.turn = $routeParams.turn;
         vm.generated_name = $routeParams.generatedName;
         vm.identifier = $routeParams.identifier;
+        vm.portfolioId = $routeParams.portfolioId;
         vm.trade= trade;
 
 
@@ -24,6 +25,23 @@
                         variablesForTurn();
                     }
                 });
+
+            PortfolioService
+                .findPortfolioById(vm.portfolioId)
+                .then(function(response) {
+                    if (response.data) {
+                        vm.currentPortfolio = response.data;
+                        $rootScope.$broadcast('new-game', vm.currentPortfolio.gameName)
+                    }
+                });
+
+            var data = {
+                turn: vm.turn,
+                generated_name: vm.generated_name,
+                identifier: vm.identifier,
+                portfolioId: vm.portfolioId
+            };
+            $rootScope.$broadcast('company', data);
         }
         init();
 
@@ -59,7 +77,6 @@
             vm.p_b_turn = vm.company_data.p_b[vm.turn];
             vm.p_s_turn = vm.company_data.p_s[vm.turn];
             vm.pod_turn = vm.company_data.pod[vm.turn];
-            //vm.ev_ebitda_turn = vm.company_data.ev_ebitda[vm.turn];
             vm.economic_leverage_turn = vm.company_data.economic_leverage[vm.turn];
             vm._90_day_volatility_turn = vm.company_data._90_day_volatility[vm.turn]
         }
@@ -79,35 +96,37 @@
         }
 
         function renderBar(){
-            var roic = vm.company_data.roic.slice(0, vm.turn);
+            getPeriods();
+            var wacc = vm.company_data.WACC.slice(0, vm.turn -1);
+            var roic = vm.company_data.roic.slice(0, vm.turn -1);
             roic.push(vm.company_data.roic_fy1[vm.turn - 1]);
             roic.push(vm.company_data.roic_fy1[vm.turn]);
-
-            var asset_growth = vm.company_data.asset_growth.slice(0, vm.turn);
-            asset_growth.push(vm.company_data.asset_growth_fy1[vm.turn]);
-
-            var prices = vm.company_data.current_price.slice(0, vm.turn);
-
-            getPeriods();
 
             var roicChartData = [];
             for( var i = 0; i < vm.periods.length; i++ ) {
                 if (vm.periods[i].substring(0,1)== "t"){
                     roicChartData.push( {
-                        "periods": vm.periods[ i ],
-                        "roic": roic[ i ],
-                        "color": "#2980B9"
+                        "periods": vm.periods[i],
+                        "roic": roic[i],
+                        "wacc": wacc[i],
+                        "color1": "#2980B9",
+                        "color2": "#82E0AA"
                     } )
                 }
                 else {
                     roicChartData.push( {
-                        "periods": vm.periods[ i ],
-                        "roic": roic[ i ],
-                        "color": "#633974"
+                        "periods": vm.periods[i],
+                        "roic": roic[i],
+                        "wacc": wacc[i - 1],
+                        "color1": "#633974",
+                        "color2": "#82E0AA"
                     } )
                 }
             }
-            CompanyService.createBarGraph(roicChartData, "roicChart", "roic");
+            CompanyService.createBarWithLineGraph(roicChartData, "roicChart", "roic", "wacc");
+
+            var asset_growth = vm.company_data.asset_growth.slice(0, vm.turn -1);
+            asset_growth.push(vm.company_data.asset_growth_fy1[vm.turn]);
 
             var growthChartData = [];
             for( var i = 0; i < vm.periods.length; i++ ) {
@@ -128,12 +147,20 @@
             }
             CompanyService.createBarGraph(growthChartData, "growthChart", "growth");
 
+            var prices = vm.company_data.current_price.slice(0, vm.turn);
+
             var priceChartData = [];
             for( var i = 0; i < vm.periods.length; i++ ) {
                 if (vm.periods[i].substring(0,1)== "t"){
                     priceChartData.push( {
-                        "periods": vm.periods[ i ],
-                        "prices": prices[ i ]
+                        "periods": vm.periods[i],
+                        "prices": prices[i]
+                    } )
+                }
+                else {
+                    priceChartData.push( {
+                        "periods": vm.periods[i],
+                        "color": "#2980B9"
                     } )
                 }
             }

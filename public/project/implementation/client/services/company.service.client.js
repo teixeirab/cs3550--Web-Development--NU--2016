@@ -13,7 +13,8 @@
             getCompanyData : getCompanyData,
             findAllCompaniesByText : findAllCompaniesByText,
             createBarGraph: createBarGraph,
-            createLineGraph: createLineGraph
+            createLineGraph: createLineGraph,
+            createBarWithLineGraph : createBarWithLineGraph
         };
         return api;
 
@@ -39,6 +40,67 @@
 
         function deleteCompany(companyId){
             return $http.delete("/api/project/company/"+ companyId);
+        }
+
+        function createBarWithLineGraph(chartData, chartId, valueField1, valuefield2){
+            return AmCharts.makeChart(chartId,
+                {
+                    "type": "serial",
+                    "categoryField": "periods",
+                    "dataProvider": chartData,
+                    "backgroundAlpha": 1,
+                    "borderAlpha": 1,
+                    "borderColor": "#FFFFFF",
+                    "startAlpha": 1,
+                    "fontSize": 10,
+                    "theme": "none",
+                    "chartCursor": {"enabled": true},
+                    "graphs": [
+                        {
+                            "fillAlphas": 1,
+                            "id": "AmGraph-1",
+                            "title": "graph 1",
+                            "type": "column",
+                            "valueField": valueField1,
+                            "colorField": "color1",
+                            "lineAlpha": 0,
+                            "cornerRadiusTop": 8
+                        },
+                        {
+                            "id": "graph2",
+                            "bullet": "round",
+                            "lineThickness": 3,
+                            "bulletSize": 7,
+                            "bulletBorderAlpha": 1,
+                            "lineColor": "#82E0AA",
+                            "bulletColor": "#82E0AA",
+                            "useLineColorForBulletBorder": true,
+                            "bulletBorderThickness": 3,
+                            "fillAlphas": 0,
+                            "lineAlpha": 1,
+                            "title": "WACC",
+                            "valueField": valuefield2,
+                            "dashLengthField": "dashLengthLine"
+                        }
+                    ],
+                    "categoryAxis": {
+                        "axisAlpha": 0,
+                        "gridAlpha": 0,
+                        "inside": true,
+                        "tickLength": 0
+                    },
+                    "valueAxes": [
+                        {
+                            "id": "ValueAxis-1",
+                            "title": "",
+                            "minimum": -10,
+                            "axisAlpha": 0,
+                            "dashLength": 4,
+                            "position": "left"
+                        }
+                    ]
+                }
+            );
         }
 
         function createBarGraph(chartData, chartId, valueField ){
@@ -75,7 +137,7 @@
                     "valueAxes": [
                         {
                             "id": "ValueAxis-1",
-                            "title": "",
+                            "minimum": -10,
                             "axisAlpha": 0,
                             "dashLength": 4,
                             "position": "left"
@@ -89,18 +151,31 @@
             return AmCharts.makeChart(chartId,
                 {
                     "type": "serial",
-                    "theme": "light",
-                    "marginTop":0,
-                    "marginRight": 0,
-                    "dataProvider": chartData,
                     "categoryField": "periods",
-                    "valueAxes": [
+                    "dataProvider": chartData,
+                    "backgroundAlpha": 1,
+                    "borderAlpha": 1,
+                    "borderColor": "#FFFFFF",
+                    "startAlpha": 1,
+                    "fontSize": 10,
+                    "theme": "none",
+                    "chartCursor": {"enabled": true},
+                    "graphs": [
                         {
-                            "id": "ValueAxis-1",
-                            "title": "",
-                            "axisAlpha": 0,
-                            "dashLength": 4,
-                            "position": "left"
+                            "id": "graph2",
+                            "bullet": "round",
+                            "lineThickness": 3,
+                            "bulletSize": 7,
+                            "bulletBorderAlpha": 1,
+                            "lineColor": "#82E0AA",
+                            "bulletColor": "#82E0AA",
+                            "useLineColorForBulletBorder": true,
+                            "bulletBorderThickness": 3,
+                            "fillAlphas": 0,
+                            "lineAlpha": 1,
+                            "title": chartData,
+                            "valueField": valueField,
+                            "dashLengthField": "dashLengthLine"
                         }
                     ],
                     "categoryAxis": {
@@ -109,23 +184,15 @@
                         "inside": true,
                         "tickLength": 0
                     },
-                    "graphs": [{
-                        "id":"g1",
-                        "bullet": "round",
-                        "bulletSize": 8,
-                        "lineColor": "#d1655d",
-                        "lineThickness": 2,
-                        "negativeLineColor": "#637bb6",
-                        "type": "smoothedLine",
-                        "valueField": valueField
-                    }],
-                    "chartCursor": {
-                        "cursorAlpha": 0,
-                        "valueLineEnabled":true,
-                        "valueLineBalloonEnabled":true,
-                        "valueLineAlpha":0.5,
-                        "fullWidth":true
-                    }
+                    "valueAxes": [
+                        {
+                            "id": "ValueAxis-1",
+                            "title": "",
+                            "axisAlpha": 0,
+                            "dashLength": 4,
+                            "position": "left"
+                        }
+                    ]
                 }
             );
         }

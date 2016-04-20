@@ -12,6 +12,7 @@ module.exports = function(mongoose) {
         roic_fy1: [Number],
         asset_growth: [Number],
         asset_growth_fy1: [Number],
+        WACC: [Number],
         periods: [String],
         pod: [Number],
         economic_leverage: [Number],
