@@ -1,4 +1,4 @@
-This repository consists of two parts:
+<b>This repository consists of two parts:<b/>
     1. The class semester long assignment
     2. Simuly (my project)
 
